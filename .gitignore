@@ -1,2 +1,34 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+# Environment variables
 .env
-project/
+.env.local
+.env.*.local
+
+# Virtual Environment
+bin/
+include/
+lib/
+pyvenv.cfg
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db

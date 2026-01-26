@@ -1,8 +1,8 @@
-neo4j==5.14
-langchain
-langchain_community
-langchain-google-genai
-python-dotenv
-ipykernel
-langchain_neo4j
-langchain_ollama
+neo4j>=5.25.0
+langchain==0.3.7
+langchain_community==0.3.7
+langchain-google-genai==2.0.4
+python-dotenv==1.0.1
+ipykernel==6.29.5
+langchain_neo4j==0.1.1
+langchain_ollama==0.2.0
