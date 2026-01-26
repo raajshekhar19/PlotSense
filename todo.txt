@@ -1,0 +1,4 @@
+# done for the semantic search tested varients one left
+# evaluation using the ragas(https://chatgpt.com/share/697673d6-d8f0-8013-ba94-7e96ae51f818)
+# making the final workflow 
+# for final worflow the understanding of the hybrid search 
