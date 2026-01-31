@@ -2,7 +2,60 @@
 # evaluation using the ragas(https://chatgpt.com/share/697673d6-d8f0-8013-ba94-7e96ae51f818)
 # making the final workflow 
 # for final worflow the understanding of the hybrid search 
-# doing the hybrid search
+# doing the hybrid search -> done
 # making fast api backend 
 # making frontend
 
+1. The "Classification" Trap (Greedy LLM)
+In your classify_query node, you are asking a small model (gemma2:2b) to classify intent. Small models often struggle with "None of the above" scenarios.
+
+The Error: If a user types "asdfghjkl", the prompt doesn't give the LLM an option to say "Invalid." The code then uses a default fallback to query_search.
+
+The Fix: Add a 4th category: unknown or invalid.
+
+Python
+prompt = """Classify the query into:
+1. plot ...
+2. movie_name ...
+3. query_search ...
+4. invalid: Random text, gibberish, or off-topic queries.
+"""
+2. Weak Extraction Logic
+In the extract_movie_name node, you check for NONE in the LLM's response.
+
+The Error: Small models are "chatty." If the model says, "I couldn't find a movie, so NONE," your current check if "NONE" in name might work, but it's fragile.
+
+The Fix: Use Pydantic Output Parsers or Structured Output (model.with_structured_output). This forces the model to return a clean schema rather than a string you have to parse manually.
+
+3. The "Similarity Search" False Positive
+Your check_movie_exists node uses movie_db.similarity_search(title, k=1).
+
+The Error: Vector databases always return a result, even for gibberish. If you search for "xyzabc", it will return the movie whose embedding is "least different" from "xyzabc".
+
+The Fix: You need a similarity score threshold.
+
+Python
+# Use search_with_score instead
+docs_and_scores = movie_db.similarity_search_with_score(title, k=1)
+# Only return True if the score is below a certain distance (e.g., 0.4)
+if docs_and_scores and docs_and_scores[0][1] < 0.4:
+    exists = True
+4. Logic & Implementation Errors in the Graph
+Beyond the classification, here are three technical errors in the code structure:
+
+A. Graph Dead-Ends for Random Text
+Currently, if the intent is query_search, it goes to kg_agent → similarity_search → generate_answer.
+
+Problem: If the text is random, kg_agent finds nothing, and similarity_search just picks 5 random movies from your DB. The LLM then "hallucinates" a reason why they are relevant.
+
+The Fix: Add an Interrupt or a Conditional Edge after kg_agent. If kg_movies is empty AND the query is short/gibberish, route to a ask_clarification node instead of generate_answer.
+
+B. Over-reliance on "Plot" Search
+In your route_after_extraction, if no movie name is found, you default to similarity_search.
+
+Problem: This is why "asdfghjkl" results in movie recommendations. The graph is designed to always find a movie.
+
+C. State Variable Inconsistency
+In kg_agent, you try to parse JSON manually using .replace("```json", "").
+
+Error: This is prone to failure if the LLM doesn't use those exact tags. If json.loads fails, you set entities = {}, but you don't stop the flow. The graph continues with actor=None, genre=None.
