@@ -7,7 +7,7 @@ ipykernel==6.29.5
 langchain_neo4j==0.1.1
 langchain_ollama==0.2.0
 langgraph
-langchain-google-genai
 faiss-cpu
-neo4j
 langchain-tavily
+fastapi
+uvicorn
