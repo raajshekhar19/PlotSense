@@ -1,0 +1,92 @@
+2026-02-06 15:30:48 - main - INFO - ==================================================
+2026-02-06 15:30:48 - main - INFO - PlotSense Backend Starting...
+2026-02-06 15:30:48 - main - INFO - ==================================================
+2026-02-06 15:31:47 - services.llm_service - INFO - Initializing LLM models...
+2026-02-06 15:31:48 - services.llm_service - INFO - Gemini model initialized: gemini-3-flash-preview
+2026-02-06 15:31:48 - services.llm_service - INFO - Structured output models configured
+2026-02-06 15:31:49 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-02-06 15:31:54 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-02-06 15:31:56 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-02-06 15:31:56 - services.faiss_service - INFO - Initializing FAISS service...
+2026-02-06 15:32:29 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-02-06 15:32:32 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-02-06 15:32:35 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-02-06 15:32:36 - services.tavily_service - INFO - Initializing Tavily service...
+2026-02-06 15:32:36 - services.tavily_service - INFO - Tavily search client initialized
+2026-02-06 15:32:36 - services.reranker_service - INFO - Initializing Reranker service...
+2026-02-06 15:32:57 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-02-06 15:32:57 - main - INFO - All services initialized successfully
+2026-02-06 15:32:57 - graph - INFO - Building LangGraph workflow...
+2026-02-06 15:32:57 - graph - INFO - LangGraph workflow compiled successfully
+2026-02-06 15:32:57 - main - INFO - Workflow initialized successfully
+2026-02-06 15:32:57 - main - INFO - ==================================================
+2026-02-06 15:32:57 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-02-06 15:32:57 - main - INFO - ==================================================
+2026-02-09 10:54:26 - main - INFO - ==================================================
+2026-02-09 10:54:26 - main - INFO - PlotSense Backend Starting...
+2026-02-09 10:54:26 - main - INFO - ==================================================
+2026-02-09 10:55:30 - services.llm_service - INFO - Initializing LLM models...
+2026-02-09 10:55:32 - services.llm_service - INFO - Gemini model initialized: gemini-3-flash-preview
+2026-02-09 10:55:32 - services.llm_service - INFO - Structured output models configured
+2026-02-09 10:55:33 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-02-09 10:55:38 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-02-09 10:55:38 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-02-09 10:55:38 - main - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-02-09 11:46:36 - main - INFO - ==================================================
+2026-02-09 11:46:36 - main - INFO - PlotSense Backend Starting...
+2026-02-09 11:46:36 - main - INFO - ==================================================
+2026-02-09 11:46:49 - services.llm_service - INFO - Initializing LLM models...
+2026-02-09 11:46:50 - services.llm_service - INFO - Gemini model initialized: gemini-3-flash-preview
+2026-02-09 11:46:50 - services.llm_service - INFO - Structured output models configured
+2026-02-09 11:46:51 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-02-09 11:46:52 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-02-09 11:46:53 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-02-09 11:46:53 - main - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-02-09 11:48:24 - main - INFO - ==================================================
+2026-02-09 11:48:24 - main - INFO - PlotSense Backend Starting...
+2026-02-09 11:48:24 - main - INFO - ==================================================
+2026-02-09 11:48:36 - services.llm_service - INFO - Initializing LLM models...
+2026-02-09 11:48:37 - services.llm_service - INFO - Gemini model initialized: gemini-3-flash-preview
+2026-02-09 11:48:38 - services.llm_service - INFO - Structured output models configured
+2026-02-09 11:48:38 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-02-09 11:48:40 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-02-09 11:48:42 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-02-09 11:48:42 - services.faiss_service - INFO - Initializing FAISS service...
+2026-02-09 11:48:51 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-02-09 11:48:53 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-02-09 11:48:57 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-02-09 11:48:57 - services.tavily_service - INFO - Initializing Tavily service...
+2026-02-09 11:48:57 - services.tavily_service - INFO - Tavily search client initialized
+2026-02-09 11:48:57 - services.reranker_service - INFO - Initializing Reranker service...
+2026-02-09 11:49:00 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-02-09 11:49:00 - main - INFO - All services initialized successfully
+2026-02-09 11:49:01 - graph - INFO - Building LangGraph workflow...
+2026-02-09 11:49:01 - graph - INFO - LangGraph workflow compiled successfully
+2026-02-09 11:49:01 - main - INFO - Workflow initialized successfully
+2026-02-09 11:49:01 - main - INFO - ==================================================
+2026-02-09 11:49:01 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-02-09 11:49:01 - main - INFO - ==================================================
+2026-03-21 10:12:14 - __main__ - INFO - ==================================================
+2026-03-21 10:12:14 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-21 10:12:14 - __main__ - INFO - ==================================================
+2026-03-21 10:12:37 - services.llm_service - INFO - Initializing LLM models...
+2026-03-21 10:12:38 - services.llm_service - INFO - Gemini model initialized: gemini-3-flash-preview
+2026-03-21 10:12:38 - services.llm_service - INFO - Structured output models configured
+2026-03-21 10:12:39 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-21 10:12:44 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-21 10:12:46 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-21 10:12:46 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-21 10:13:06 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-21 10:13:09 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-21 10:13:13 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-21 10:13:13 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-21 10:13:13 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-21 10:13:13 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-21 10:13:16 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-21 10:13:16 - __main__ - INFO - All services initialized successfully
+2026-03-21 10:13:17 - graph - INFO - Building LangGraph workflow...
+2026-03-21 10:13:17 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-21 10:13:17 - __main__ - INFO - Workflow initialized successfully
+2026-03-21 10:13:17 - __main__ - INFO - ==================================================
+2026-03-21 10:13:17 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-21 10:13:17 - __main__ - INFO - ==================================================
