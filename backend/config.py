@@ -20,15 +20,15 @@ NEO4J_USERNAME = os.getenv("NEO4J_USERNAME", "neo4j")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "")
 
 # API Keys
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY", "")
 
 # Set environment variables for LangChain
-os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 os.environ["TAVILY_API_KEY"] = TAVILY_API_KEY
 
 # Model Configuration
-GEMINI_MODEL = "gemini-3-flash-preview"
+GEMINI_MODEL = "moonshotai/kimi-k2-instruct-0905"
 OLLAMA_MODEL = "gemma2:2b"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"

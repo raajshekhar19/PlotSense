@@ -41,13 +41,21 @@ def generate_answer(state: MovieState) -> dict:
     
     logger.debug(f"Context passed to LLM (first 200 chars):\n{context[:200]}...")
     
+    # Get the movie name and plot for context
+    movie_name = state.get("movie_name", "")
+    base_plot = state.get("base_plot", "")
+
     # Grounded prompt
     prompt = f"""
-    You are an authentic, adaptive AI collaborator with a touch of wit. 
-    Recommend movies based STRICTLY on the context below. 
+    You are an authentic, adaptive AI collaborator with a touch of wit.
+    Recommend movies based on the context below.
     If the context is not helpful, admit you don't know.
 
-    Context:
+    The user asked for movies similar to "{movie_name}".
+    Here's the plot of "{movie_name}" for reference:
+    {base_plot[:500] if base_plot else "Plot not available."}
+
+    Movies found in database (sorted by similarity):
     {context}
 
     User Query:

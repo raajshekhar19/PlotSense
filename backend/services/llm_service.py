@@ -2,7 +2,7 @@
 LLM Service for PlotSense backend.
 Handles Gemini and Ollama model initialization and invocation.
 """
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_ollama import ChatOllama
 
 from config import GEMINI_MODEL, OLLAMA_MODEL
@@ -34,7 +34,7 @@ class LLMService:
         
         try:
             # Gemini model for classification and extraction
-            self.gemini_model = ChatGoogleGenerativeAI(
+            self.gemini_model = ChatGroq(
                 model=GEMINI_MODEL,
                 temperature=1.0,
                 max_tokens=None,

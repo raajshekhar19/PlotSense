@@ -90,3 +90,83 @@
 2026-03-21 10:13:17 - __main__ - INFO - ==================================================
 2026-03-21 10:13:17 - __main__ - INFO - Server ready at http://0.0.0.0:8000
 2026-03-21 10:13:17 - __main__ - INFO - ==================================================
+2026-03-23 17:15:59 - main - INFO - ==================================================
+2026-03-23 17:15:59 - main - INFO - PlotSense Backend Starting...
+2026-03-23 17:15:59 - main - INFO - ==================================================
+2026-03-23 17:16:14 - services.llm_service - INFO - Initializing LLM models...
+2026-03-23 17:16:16 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-23 17:16:16 - services.llm_service - INFO - Structured output models configured
+2026-03-23 17:16:16 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-23 17:16:18 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-23 17:16:20 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-23 17:16:20 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-23 17:16:45 - services.faiss_service - ERROR - Failed to initialize FAISS service: Your currently installed version of Keras is Keras 3, but this is not yet supported in Transformers. Please install the backwards-compatible tf-keras package with `pip install tf-keras`.
+2026-03-23 17:16:45 - main - ERROR - Failed to initialize services: Your currently installed version of Keras is Keras 3, but this is not yet supported in Transformers. Please install the backwards-compatible tf-keras package with `pip install tf-keras`.
+2026-03-23 17:17:26 - main - INFO - ==================================================
+2026-03-23 17:17:26 - main - INFO - PlotSense Backend Starting...
+2026-03-23 17:17:26 - main - INFO - ==================================================
+2026-03-23 17:17:38 - services.llm_service - INFO - Initializing LLM models...
+2026-03-23 17:17:39 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-23 17:17:39 - services.llm_service - INFO - Structured output models configured
+2026-03-23 17:17:40 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-23 17:17:41 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-23 17:17:42 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-23 17:17:42 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-23 17:17:56 - services.faiss_service - ERROR - Failed to initialize FAISS service: Your currently installed version of Keras is Keras 3, but this is not yet supported in Transformers. Please install the backwards-compatible tf-keras package with `pip install tf-keras`.
+2026-03-23 17:17:56 - main - ERROR - Failed to initialize services: Your currently installed version of Keras is Keras 3, but this is not yet supported in Transformers. Please install the backwards-compatible tf-keras package with `pip install tf-keras`.
+2026-03-23 17:24:45 - main - INFO - ==================================================
+2026-03-23 17:24:45 - main - INFO - PlotSense Backend Starting...
+2026-03-23 17:24:45 - main - INFO - ==================================================
+2026-03-23 17:24:58 - services.llm_service - INFO - Initializing LLM models...
+2026-03-23 17:25:00 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-23 17:25:00 - services.llm_service - INFO - Structured output models configured
+2026-03-23 17:25:01 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-23 17:25:02 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-23 17:25:04 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-23 17:25:04 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-23 17:25:33 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-23 17:25:35 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-23 17:25:39 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-23 17:25:40 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-23 17:25:40 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-23 17:25:40 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-23 17:25:43 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-23 17:25:43 - main - INFO - All services initialized successfully
+2026-03-23 17:25:43 - graph - INFO - Building LangGraph workflow...
+2026-03-23 17:25:43 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-23 17:25:43 - main - INFO - Workflow initialized successfully
+2026-03-23 17:25:43 - main - INFO - ==================================================
+2026-03-23 17:25:43 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-23 17:25:43 - main - INFO - ==================================================
+2026-03-23 17:26:24 - main - INFO - ==================================================
+2026-03-23 17:26:24 - main - INFO - Search request received: movies like dhurandhar
+2026-03-23 17:26:24 - main - INFO - ==================================================
+2026-03-23 17:26:24 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-23 17:26:24 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.95)
+2026-03-23 17:26:24 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.95)
+2026-03-23 17:26:24 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-23 17:26:24 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-23 17:26:25 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-23 17:26:25 - graph - INFO - Movie name extracted: Dhurandhar
+2026-03-23 17:26:25 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-23 17:26:25 - services.faiss_service - INFO - Movie 'Dhurandhar' exists in DB: False
+2026-03-23 17:26:25 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-23 17:26:25 - graph - INFO - Movie not in dataset, using web search
+2026-03-23 17:26:25 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-23 17:26:25 - services.tavily_service - INFO - Searching Tavily with query: movie Dhurandhar plot summary wikipedia
+2026-03-23 17:26:27 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar
+2026-03-23 17:26:27 - services.tavily_service - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-23 17:26:27 - nodes.plot - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-23 17:26:27 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-23 17:26:28 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-23 17:26:28 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-23 17:26:28 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-23 17:26:28 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-23 17:26:28 - services.reranker_service - INFO - Reranking complete. Top score: -3.4530
+2026-03-23 17:26:28 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-23 17:26:28 - nodes.generate - INFO - Generating answer...
+2026-03-23 17:26:29 - nodes.generate - INFO - Final answer generated (len: 350)
+2026-03-23 17:26:29 - main - INFO - Search completed successfully
+2026-03-23 17:26:29 - main - INFO - Intent: movie_name
+2026-03-23 17:26:29 - main - INFO - Movie Name: Dhurandhar
+2026-03-23 17:26:29 - main - INFO - Answer length: 350
