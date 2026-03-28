@@ -28,8 +28,10 @@ class Neo4jService:
             Neo4jService._initialized = True
     
     def _initialize(self):
-        """Initialize Neo4j connection."""
+        """Initialize Neo4j connection (non-fatal on failure)."""
         logger.info("Initializing Neo4j connection...")
+        self.graph = None
+        self._connected = False
         
         try:
             self.graph = Neo4jGraph(
@@ -38,10 +40,14 @@ class Neo4jService:
                 password=NEO4J_PASSWORD,
                 refresh_schema=False
             )
-            logger.info(f"Neo4j connected: {NEO4J_URI}")
+            self._connected = True
+            logger.info(f"Neo4j connected successfully: {NEO4J_URI}")
         except Exception as e:
-            logger.error(f"Failed to connect to Neo4j: {e}")
-            raise
+            logger.error(
+                f"Neo4j connection failed — service marked unhealthy. "
+                f"Wake up your Aura instance at console.neo4j.io\nError: {e}"
+            )
+            # Do NOT re-raise: let the app start without Neo4j
     
     def run_cypher(self, query: str, params: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
         """
@@ -58,6 +64,10 @@ class Neo4jService:
         logger.debug(f"Query:\n{query}")
         logger.debug(f"Params: {params}")
         
+        if not self._connected or self.graph is None:
+            logger.warning("Neo4j is not connected — skipping Cypher query, returning empty results")
+            return []
+        
         try:
             results = self.graph.query(query, params or {})
             logger.info(f"Cypher Result Count: {len(results)}")
@@ -68,8 +78,9 @@ class Neo4jService:
     
     def is_healthy(self) -> bool:
         """Check if Neo4j connection is healthy."""
+        if not self._connected or self.graph is None:
+            return False
         try:
-            # Simple health check query
             self.graph.query("RETURN 1 as healthy")
             return True
         except Exception as e:

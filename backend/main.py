@@ -9,7 +9,7 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from config import API_HOST, API_PORT
+from config import API_HOST, API_PORT, LANGSMITH_TRACING, LANGSMITH_PROJECT, LANGSMITH_ENDPOINT
 from logger import get_logger
 from models import SearchRequest, SearchResponse, HealthResponse, ServiceHealthResponse
 
@@ -27,29 +27,42 @@ async def lifespan(app: FastAPI):
     logger.info("PlotSense Backend Starting...")
     logger.info("=" * 50)
     
-    # Initialize services on startup
+    # Initialize services on startup — each service fails independently
+    _services = [
+        ("llm_service",      "services.llm_service"),
+        ("neo4j_service",    "services.neo4j_service"),
+        ("faiss_service",    "services.faiss_service"),
+        ("tavily_service",   "services.tavily_service"),
+        ("reranker_service", "services.reranker_service"),
+    ]
+    for svc_attr, svc_module in _services:
+        try:
+            import importlib
+            importlib.import_module(svc_module)
+            logger.info(f"  ✔ {svc_attr} ready")
+        except Exception as e:
+            logger.warning(f"  ✘ {svc_attr} failed to init (non-fatal): {e}")
+    
+    # Initialize workflow
     try:
-        # Import services to trigger initialization
-        from services.llm_service import llm_service
-        from services.neo4j_service import neo4j_service
-        from services.faiss_service import faiss_service
-        from services.tavily_service import tavily_service
-        from services.reranker_service import reranker_service
-        
-        logger.info("All services initialized successfully")
-        
-        # Initialize workflow
         from graph import get_workflow
         get_workflow()
-        
         logger.info("Workflow initialized successfully")
-        logger.info("=" * 50)
-        logger.info(f"Server ready at http://{API_HOST}:{API_PORT}")
-        logger.info("=" * 50)
-        
     except Exception as e:
-        logger.error(f"Failed to initialize services: {e}")
-        raise
+        logger.warning(f"Workflow init failed (non-fatal): {e}")
+    
+    logger.info("=" * 50)
+    
+    # LangSmith tracing status
+    if LANGSMITH_TRACING.lower() == "true":
+        logger.info("✅ LangSmith tracing ENABLED")
+        logger.info(f"   Project : {LANGSMITH_PROJECT}")
+        logger.info(f"   Endpoint: {LANGSMITH_ENDPOINT}")
+    else:
+        logger.warning("⚠️  LangSmith tracing DISABLED")
+    
+    logger.info(f"Server ready at http://{API_HOST}:{API_PORT}")
+    logger.info("=" * 50)
     
     yield
     

@@ -4,7 +4,6 @@ Handles Gemini and Ollama model initialization and invocation.
 """
 from langchain_groq import ChatGroq
 from langchain_ollama import ChatOllama
-
 from config import GEMINI_MODEL, OLLAMA_MODEL
 from logger import get_logger
 from models import IntentClassification, MovieFilters

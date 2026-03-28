@@ -11,3 +11,5 @@ faiss-cpu
 langchain-tavily
 fastapi
 uvicorn
+langsmith>=0.1.0
+langchain-groq

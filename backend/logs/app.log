@@ -170,3 +170,885 @@
 2026-03-23 17:26:29 - main - INFO - Intent: movie_name
 2026-03-23 17:26:29 - main - INFO - Movie Name: Dhurandhar
 2026-03-23 17:26:29 - main - INFO - Answer length: 350
+2026-03-23 17:30:36 - main - INFO - ==================================================
+2026-03-23 17:30:36 - main - INFO - PlotSense Backend Starting...
+2026-03-23 17:30:36 - main - INFO - ==================================================
+2026-03-23 17:30:49 - services.llm_service - INFO - Initializing LLM models...
+2026-03-23 17:30:50 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-23 17:30:50 - services.llm_service - INFO - Structured output models configured
+2026-03-23 17:30:51 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-23 17:30:53 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-23 17:30:55 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-23 17:30:55 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-23 17:31:26 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-23 17:31:28 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-23 17:31:31 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-23 17:31:33 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-23 17:31:33 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-23 17:31:33 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-23 17:31:36 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-23 17:31:36 - main - INFO - All services initialized successfully
+2026-03-23 17:31:36 - graph - INFO - Building LangGraph workflow...
+2026-03-23 17:31:36 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-23 17:31:36 - main - INFO - Workflow initialized successfully
+2026-03-23 17:31:36 - main - INFO - ==================================================
+2026-03-23 17:31:36 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-23 17:31:36 - main - INFO - ==================================================
+2026-03-23 17:32:01 - main - INFO - ==================================================
+2026-03-23 17:32:01 - main - INFO - Search request received: movies like dhurandhar
+2026-03-23 17:32:01 - main - INFO - ==================================================
+2026-03-23 17:32:01 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-23 17:32:02 - services.llm_service - INFO - Intent classified: movie_name (confidence: 1.0)
+2026-03-23 17:32:02 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 1.0)
+2026-03-23 17:32:02 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-23 17:32:02 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-23 17:32:02 - nodes.extract - INFO - Extracted Name: dhurandhar
+2026-03-23 17:32:02 - graph - INFO - Movie name extracted: dhurandhar
+2026-03-23 17:32:02 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-23 17:32:02 - services.faiss_service - INFO - Movie 'dhurandhar' exists in DB: False
+2026-03-23 17:32:02 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-23 17:32:02 - graph - INFO - Movie not in dataset, using web search
+2026-03-23 17:32:02 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-23 17:32:02 - services.tavily_service - INFO - Searching Tavily with query: movie dhurandhar plot summary wikipedia
+2026-03-23 17:32:05 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar
+2026-03-23 17:32:05 - services.tavily_service - INFO - Successfully retrieved plot for dhurandhar
+2026-03-23 17:32:05 - nodes.plot - INFO - Successfully retrieved plot for dhurandhar
+2026-03-23 17:32:05 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-23 17:32:05 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-23 17:32:05 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-23 17:32:05 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-23 17:32:05 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-23 17:32:05 - services.reranker_service - INFO - Reranking complete. Top score: -3.4530
+2026-03-23 17:32:05 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-23 17:32:05 - nodes.generate - INFO - Generating answer...
+2026-03-23 17:32:07 - nodes.generate - INFO - Final answer generated (len: 1166)
+2026-03-23 17:32:07 - main - INFO - Search completed successfully
+2026-03-23 17:32:07 - main - INFO - Intent: movie_name
+2026-03-23 17:32:07 - main - INFO - Movie Name: dhurandhar
+2026-03-23 17:32:07 - main - INFO - Answer length: 1166
+2026-03-23 17:46:42 - main - INFO - ==================================================
+2026-03-23 17:46:42 - main - INFO - Search request received: movies like stree
+2026-03-23 17:46:42 - main - INFO - ==================================================
+2026-03-23 17:46:42 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-23 17:46:43 - services.llm_service - INFO - Intent classified: movie_name (confidence: 1.0)
+2026-03-23 17:46:43 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 1.0)
+2026-03-23 17:46:43 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-23 17:46:43 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-23 17:46:43 - nodes.extract - INFO - Extracted Name: Stree
+2026-03-23 17:46:43 - graph - INFO - Movie name extracted: Stree
+2026-03-23 17:46:43 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-23 17:46:43 - services.faiss_service - INFO - Movie 'Stree' exists in DB: True
+2026-03-23 17:46:43 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-23 17:46:43 - graph - INFO - Movie exists in dataset, using dataset plot
+2026-03-23 17:46:43 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-23 17:46:43 - services.faiss_service - INFO - Retrieved plot from dataset for: Stree
+2026-03-23 17:46:43 - nodes.plot - INFO - Retrieved plot from Dataset.
+2026-03-23 17:46:43 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-23 17:46:43 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-23 17:46:43 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-23 17:46:43 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-23 17:46:43 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-23 17:46:43 - services.reranker_service - INFO - Reranking complete. Top score: -9.3707
+2026-03-23 17:46:43 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-23 17:46:43 - nodes.generate - INFO - Generating answer...
+2026-03-23 17:46:45 - nodes.generate - INFO - Final answer generated (len: 515)
+2026-03-23 17:46:45 - main - INFO - Search completed successfully
+2026-03-23 17:46:45 - main - INFO - Intent: movie_name
+2026-03-23 17:46:45 - main - INFO - Movie Name: Stree
+2026-03-23 17:46:45 - main - INFO - Answer length: 515
+2026-03-24 08:19:38 - main - INFO - ==================================================
+2026-03-24 08:19:38 - main - INFO - PlotSense Backend Starting...
+2026-03-24 08:19:38 - main - INFO - ==================================================
+2026-03-24 08:20:45 - main - INFO - ==================================================
+2026-03-24 08:20:45 - main - INFO - PlotSense Backend Starting...
+2026-03-24 08:20:45 - main - INFO - ==================================================
+2026-03-24 08:20:54 - services.llm_service - INFO - Initializing LLM models...
+2026-03-24 08:20:55 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-24 08:20:55 - services.llm_service - INFO - Structured output models configured
+2026-03-24 08:20:56 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-24 08:20:59 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-24 08:21:01 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-24 08:21:01 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-24 08:21:18 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-24 08:21:21 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-24 08:21:24 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-24 08:21:25 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-24 08:21:25 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-24 08:21:25 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-24 08:21:29 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-24 08:21:29 - main - INFO - All services initialized successfully
+2026-03-24 08:21:29 - graph - INFO - Building LangGraph workflow...
+2026-03-24 08:21:29 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-24 08:21:29 - main - INFO - Workflow initialized successfully
+2026-03-24 08:21:29 - main - INFO - ==================================================
+2026-03-24 08:21:29 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-24 08:21:29 - main - INFO - ==================================================
+2026-03-24 08:22:25 - main - INFO - ==================================================
+2026-03-24 08:22:25 - main - INFO - Search request received: movies like badshah
+2026-03-24 08:22:25 - main - INFO - ==================================================
+2026-03-24 08:22:25 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 08:22:26 - services.llm_service - INFO - Intent classified: movie_name (confidence: 1.0)
+2026-03-24 08:22:26 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 1.0)
+2026-03-24 08:22:26 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-24 08:22:26 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-24 08:22:26 - nodes.extract - INFO - Extracted Name: Badshah
+2026-03-24 08:22:26 - graph - INFO - Movie name extracted: Badshah
+2026-03-24 08:22:26 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-24 08:22:26 - services.faiss_service - INFO - Movie 'Badshah' exists in DB: True
+2026-03-24 08:22:26 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-24 08:22:26 - graph - INFO - Movie exists in dataset, using dataset plot
+2026-03-24 08:22:26 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-24 08:22:26 - services.faiss_service - INFO - Retrieved plot from dataset for: Badshah
+2026-03-24 08:22:26 - nodes.plot - INFO - Retrieved plot from Dataset.
+2026-03-24 08:22:26 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-24 08:22:26 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-24 08:22:26 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-24 08:22:26 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-24 08:22:26 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-24 08:22:27 - services.reranker_service - INFO - Reranking complete. Top score: 7.7941
+2026-03-24 08:22:27 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-24 08:22:27 - nodes.generate - INFO - Generating answer...
+2026-03-24 08:22:29 - nodes.generate - INFO - Final answer generated (len: 1115)
+2026-03-24 08:22:29 - main - INFO - Search completed successfully
+2026-03-24 08:22:29 - main - INFO - Intent: movie_name
+2026-03-24 08:22:29 - main - INFO - Movie Name: Badshah
+2026-03-24 08:22:29 - main - INFO - Answer length: 1115
+2026-03-24 08:24:15 - main - INFO - ==================================================
+2026-03-24 08:24:15 - main - INFO - Search request received: movies of amitabh bacchan with heroic charater
+2026-03-24 08:24:15 - main - INFO - ==================================================
+2026-03-24 08:24:15 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 08:24:15 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.95)
+2026-03-24 08:24:15 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.95)
+2026-03-24 08:24:15 - graph - INFO - Routing after classification: intent=query_search
+2026-03-24 08:24:15 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-24 08:24:15 - nodes.kg - INFO - Extracting entities from query: movies of amitabh bacchan with heroic charater
+2026-03-24 08:24:16 - services.llm_service - INFO - Extracted filters - Actor: Amitabh Bachchan, Director: None, Genre: None
+2026-03-24 08:24:16 - nodes.kg - INFO - Extracted Entities:
+2026-03-24 08:24:16 - nodes.kg - INFO -   Actor: Amitabh Bachchan
+2026-03-24 08:24:16 - nodes.kg - INFO -   Director: None
+2026-03-24 08:24:16 - nodes.kg - INFO -   Genre: None
+2026-03-24 08:24:16 - nodes.kg - INFO -   Keywords: ['heroic', 'hero']
+2026-03-24 08:24:16 - nodes.kg - INFO - Generated Cypher Params: {'actor': 'Amitabh Bachchan', 'director': None, 'genre': None, 'keywords': ['heroic', 'hero']}
+2026-03-24 08:24:16 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-24 08:24:17 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-24 08:24:17 - nodes.kg - INFO - KG Found Titles: ['All American Chump', 'And So They Were Married', 'Anthony Adverse', 'Banjo on My Knee', 'Beloved Enemy', 'The Big Game', 'The Big Show', 'The Bohemian Girl', 'The Bride Walks Out', 'Bullets or Ballots', 'Cain and Mabel', 'Camille', 'Captain Calamity', 'Captain January', 'The Case of the Black Cat']
+2026-03-24 08:24:17 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:24:17 - nodes.kg - INFO - Converted 15 KG titles to documents.
+2026-03-24 08:24:17 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-24 08:24:17 - services.reranker_service - INFO - --- Reranking 15 documents ---
+2026-03-24 08:24:18 - services.reranker_service - INFO - Reranking complete. Top score: -9.6037
+2026-03-24 08:24:18 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-24 08:24:18 - nodes.generate - INFO - Generating answer...
+2026-03-24 08:24:20 - nodes.generate - INFO - Final answer generated (len: 1515)
+2026-03-24 08:24:20 - main - INFO - Search completed successfully
+2026-03-24 08:24:20 - main - INFO - Intent: query_search
+2026-03-24 08:24:20 - main - INFO - Movie Name: None
+2026-03-24 08:24:20 - main - INFO - Answer length: 1515
+2026-03-24 08:48:11 - main - INFO - ==================================================
+2026-03-24 08:48:11 - main - INFO - Search request received: movies of christopher nolan with sci-fi
+2026-03-24 08:48:11 - main - INFO - ==================================================
+2026-03-24 08:48:11 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 08:48:12 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.98)
+2026-03-24 08:48:12 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.98)
+2026-03-24 08:48:12 - graph - INFO - Routing after classification: intent=query_search
+2026-03-24 08:48:12 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-24 08:48:12 - nodes.kg - INFO - Extracting entities from query: movies of christopher nolan with sci-fi
+2026-03-24 08:48:12 - services.llm_service - INFO - Extracted filters - Actor: None, Director: Christopher Nolan, Genre: sci-fi
+2026-03-24 08:48:12 - nodes.kg - INFO - Extracted Entities:
+2026-03-24 08:48:12 - nodes.kg - INFO -   Actor: None
+2026-03-24 08:48:12 - nodes.kg - INFO -   Director: Christopher Nolan
+2026-03-24 08:48:12 - nodes.kg - INFO -   Genre: sci-fi
+2026-03-24 08:48:12 - nodes.kg - INFO -   Keywords: []
+2026-03-24 08:48:12 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': 'Christopher Nolan', 'genre': 'sci-fi', 'keywords': None}
+2026-03-24 08:48:12 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-24 08:48:13 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-24 08:48:13 - nodes.kg - INFO - KG Found Titles: ['All American Chump', 'And So They Were Married', 'Anthony Adverse', 'Banjo on My Knee', 'Beloved Enemy', 'The Big Game', 'The Big Show', 'The Bohemian Girl', 'The Bride Walks Out', 'Bullets or Ballots', 'Cain and Mabel', 'Camille', 'Captain Calamity', 'Captain January', 'The Case of the Black Cat']
+2026-03-24 08:48:13 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - services.faiss_service - INFO - Similarity search returned 1 results
+2026-03-24 08:48:13 - nodes.kg - INFO - Converted 15 KG titles to documents.
+2026-03-24 08:48:13 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-24 08:48:13 - services.reranker_service - INFO - --- Reranking 15 documents ---
+2026-03-24 08:48:14 - services.reranker_service - INFO - Reranking complete. Top score: -9.6050
+2026-03-24 08:48:14 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-24 08:48:14 - nodes.generate - INFO - Generating answer...
+2026-03-24 08:48:16 - nodes.generate - INFO - Final answer generated (len: 1456)
+2026-03-24 08:48:16 - main - INFO - Search completed successfully
+2026-03-24 08:48:16 - main - INFO - Intent: query_search
+2026-03-24 08:48:16 - main - INFO - Movie Name: None
+2026-03-24 08:48:16 - main - INFO - Answer length: 1456
+2026-03-24 09:18:19 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-24 09:19:20 - main - INFO - ==================================================
+2026-03-24 09:19:20 - main - INFO - PlotSense Backend Starting...
+2026-03-24 09:19:20 - main - INFO - ==================================================
+2026-03-24 09:20:19 - services.llm_service - INFO - Initializing LLM models...
+2026-03-24 09:20:20 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-24 09:20:20 - services.llm_service - INFO - Structured output models configured
+2026-03-24 09:20:21 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-24 09:20:27 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-24 09:20:27 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-24 09:20:27 - main - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-24 09:22:49 - __main__ - INFO - ==================================================
+2026-03-24 09:22:49 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-24 09:22:49 - __main__ - INFO - ==================================================
+2026-03-24 09:23:02 - services.llm_service - INFO - Initializing LLM models...
+2026-03-24 09:23:03 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-24 09:23:03 - services.llm_service - INFO - Structured output models configured
+2026-03-24 09:23:04 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-24 09:23:06 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-24 09:23:06 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-24 09:23:06 - __main__ - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-24 09:24:43 - __main__ - INFO - ==================================================
+2026-03-24 09:24:43 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-24 09:24:43 - __main__ - INFO - ==================================================
+2026-03-24 09:24:55 - services.llm_service - INFO - Initializing LLM models...
+2026-03-24 09:24:56 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-24 09:24:56 - services.llm_service - INFO - Structured output models configured
+2026-03-24 09:24:57 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-24 09:24:59 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-24 09:25:00 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-24 09:25:00 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-24 09:25:22 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-24 09:25:25 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-24 09:25:29 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-24 09:25:31 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-24 09:25:31 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-24 09:25:31 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-24 09:25:34 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-24 09:25:34 - __main__ - INFO - All services initialized successfully
+2026-03-24 09:25:35 - graph - INFO - Building LangGraph workflow...
+2026-03-24 09:25:35 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-24 09:25:35 - __main__ - INFO - Workflow initialized successfully
+2026-03-24 09:25:35 - __main__ - INFO - ==================================================
+2026-03-24 09:25:35 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-24 09:25:35 - __main__ - INFO - ==================================================
+2026-03-24 09:26:35 - main - INFO - ==================================================
+2026-03-24 09:26:35 - main - INFO - PlotSense Backend Starting...
+2026-03-24 09:26:35 - main - INFO - ==================================================
+2026-03-24 09:26:47 - services.llm_service - INFO - Initializing LLM models...
+2026-03-24 09:26:48 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-24 09:26:48 - services.llm_service - INFO - Structured output models configured
+2026-03-24 09:26:49 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-24 09:26:51 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-24 09:26:53 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-24 09:26:53 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-24 09:27:03 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-24 09:27:04 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-24 09:27:08 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-24 09:27:09 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-24 09:27:09 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-24 09:27:09 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-24 09:27:13 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-24 09:27:13 - main - INFO - All services initialized successfully
+2026-03-24 09:27:13 - graph - INFO - Building LangGraph workflow...
+2026-03-24 09:27:13 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-24 09:27:13 - main - INFO - Workflow initialized successfully
+2026-03-24 09:27:13 - main - INFO - ==================================================
+2026-03-24 09:27:13 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-24 09:27:13 - main - INFO - ==================================================
+2026-03-24 09:28:27 - main - INFO - ==================================================
+2026-03-24 09:28:27 - main - INFO - Search request received: movies like yeh jawani hai deewani
+2026-03-24 09:28:27 - main - INFO - ==================================================
+2026-03-24 09:28:27 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 09:28:30 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<|tool_calls_section_begin|><|tool_call_begin|>functions.IntentClassification:0<|tool_call_argument_begin|>{"intent": "movie_name", "confidence_score": 1.0}'}}
+2026-03-24 09:28:55 - main - INFO - ==================================================
+2026-03-24 09:28:55 - main - INFO - Search request received: movies like yeh jawani hai deewani
+2026-03-24 09:28:55 - main - INFO - ==================================================
+2026-03-24 09:28:55 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 09:28:55 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<|tool_calls_section_begin|><|tool_call_begin|>functions.IntentClassification:0<|tool_call_argument_begin|>{"intent": "movie_name", "confidence_score": 0.95}'}}
+2026-03-24 09:29:43 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-24 09:33:01 - main - INFO - ==================================================
+2026-03-24 09:33:01 - main - INFO - PlotSense Backend Starting...
+2026-03-24 09:33:01 - main - INFO - ==================================================
+2026-03-24 09:33:12 - services.llm_service - INFO - Initializing LLM models...
+2026-03-24 09:33:13 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-24 09:33:13 - services.llm_service - INFO - Structured output models configured
+2026-03-24 09:33:14 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-24 09:33:16 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-24 09:33:16 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-24 09:33:16 - main - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-24 09:33:54 - main - INFO - ==================================================
+2026-03-24 09:33:54 - main - INFO - PlotSense Backend Starting...
+2026-03-24 09:33:54 - main - INFO - ==================================================
+2026-03-24 09:34:05 - services.llm_service - INFO - Initializing LLM models...
+2026-03-24 09:34:06 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-24 09:34:06 - services.llm_service - INFO - Structured output models configured
+2026-03-24 09:34:07 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-24 09:34:09 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-24 09:34:14 - services.neo4j_service - INFO - Neo4j connected: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-24 09:34:14 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-24 09:34:31 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-24 09:34:33 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-24 09:34:37 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-24 09:34:39 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-24 09:34:39 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-24 09:34:39 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-24 09:34:44 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-24 09:34:44 - main - INFO - All services initialized successfully
+2026-03-24 09:34:44 - graph - INFO - Building LangGraph workflow...
+2026-03-24 09:34:44 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-24 09:34:44 - main - INFO - Workflow initialized successfully
+2026-03-24 09:34:44 - main - INFO - ==================================================
+2026-03-24 09:34:44 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-24 09:34:44 - main - INFO - ==================================================
+2026-03-24 09:36:19 - main - INFO - ==================================================
+2026-03-24 09:36:19 - main - INFO - Search request received: movies like yeh jawani yeh diwani
+2026-03-24 09:36:19 - main - INFO - ==================================================
+2026-03-24 09:36:19 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 09:36:20 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.95)
+2026-03-24 09:36:20 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.95)
+2026-03-24 09:36:20 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-24 09:36:20 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-24 09:36:20 - nodes.extract - INFO - Extracted Name: Yeh Jawaani Hai Deewani
+2026-03-24 09:36:20 - graph - INFO - Movie name extracted: Yeh Jawaani Hai Deewani
+2026-03-24 09:36:20 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-24 09:36:20 - services.faiss_service - INFO - Movie 'Yeh Jawaani Hai Deewani' exists in DB: True
+2026-03-24 09:36:20 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-24 09:36:20 - graph - INFO - Movie exists in dataset, using dataset plot
+2026-03-24 09:36:20 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-24 09:36:20 - services.faiss_service - INFO - Retrieved plot from dataset for: Yeh Jawaani Hai Deewani
+2026-03-24 09:36:20 - nodes.plot - INFO - Retrieved plot from Dataset.
+2026-03-24 09:36:20 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-24 09:36:21 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-24 09:36:21 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-24 09:36:21 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-24 09:36:21 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-24 09:36:21 - services.reranker_service - INFO - Reranking complete. Top score: -9.5043
+2026-03-24 09:36:21 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-24 09:36:21 - nodes.generate - INFO - Generating answer...
+2026-03-24 09:36:24 - nodes.generate - INFO - Final answer generated (len: 1567)
+2026-03-24 09:36:24 - main - INFO - Search completed successfully
+2026-03-24 09:36:24 - main - INFO - Intent: movie_name
+2026-03-24 09:36:24 - main - INFO - Movie Name: Yeh Jawaani Hai Deewani
+2026-03-24 09:36:24 - main - INFO - Answer length: 1567
+2026-03-24 09:37:40 - main - INFO - ==================================================
+2026-03-24 09:37:40 - main - INFO - Search request received: suggest me some hollywood movies like coherence
+2026-03-24 09:37:40 - main - INFO - ==================================================
+2026-03-24 09:37:40 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 09:37:41 - services.llm_service - INFO - Intent classified: movie_name (confidence: 1.0)
+2026-03-24 09:37:41 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 1.0)
+2026-03-24 09:37:41 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-24 09:37:41 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-24 09:37:42 - nodes.extract - INFO - Extracted Name: {"keystrokes": "c6d0ed5df5f9d70mm, height=50mm, diameter=70mm, material: steel, thickness 5mm inner 20mm outer. The inner diameter of the outer diameter=250mm, 250 mm, 0.08, vane_count=6, with fixtures 5, thickness=25, vanes 5
+}
+2026-03-24 09:37:42 - graph - INFO - Movie name extracted: {"keystrokes": "c6d0ed5df5f9d70mm, height=50mm, diameter=70mm, material: steel, thickness 5mm inner 20mm outer. The inner diameter of the outer diameter=250mm, 250 mm, 0.08, vane_count=6, with fixtures 5, thickness=25, vanes 5
+}
+2026-03-24 09:37:42 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-24 09:37:42 - services.faiss_service - INFO - Movie '{"keystrokes": "c6d0ed5df5f9d70mm, height=50mm, diameter=70mm, material: steel, thickness 5mm inner 20mm outer. The inner diameter of the outer diameter=250mm, 250 mm, 0.08, vane_count=6, with fixtures 5, thickness=25, vanes 5
+}' exists in DB: False
+2026-03-24 09:37:42 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-24 09:37:42 - graph - INFO - Movie not in dataset, using web search
+2026-03-24 09:37:42 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-24 09:37:42 - services.tavily_service - INFO - Searching Tavily with query: movie {"keystrokes": "c6d0ed5df5f9d70mm, height=50mm, diameter=70mm, material: steel, thickness 5mm inner 20mm outer. The inner diameter of the outer diameter=250mm, 250 mm, 0.08, vane_count=6, with fixtures 5, thickness=25, vanes 5
+} plot summary wikipedia
+2026-03-24 09:37:50 - services.tavily_service - INFO - Plot source: https://www.skf.com/binaries/pub12/Images/0901d1968099986c-Industrial-Shaft-Seals-catalogue_tcm_12-524179.pdf
+2026-03-24 09:37:50 - services.tavily_service - INFO - Successfully retrieved plot for {"keystrokes": "c6d0ed5df5f9d70mm, height=50mm, diameter=70mm, material: steel, thickness 5mm inner 20mm outer. The inner diameter of the outer diameter=250mm, 250 mm, 0.08, vane_count=6, with fixtures 5, thickness=25, vanes 5
+}
+2026-03-24 09:37:50 - nodes.plot - INFO - Successfully retrieved plot for {"keystrokes": "c6d0ed5df5f9d70mm, height=50mm, diameter=70mm, material: steel, thickness 5mm inner 20mm outer. The inner diameter of the outer diameter=250mm, 250 mm, 0.08, vane_count=6, with fixtures 5, thickness=25, vanes 5
+}
+2026-03-24 09:37:50 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-24 09:37:50 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-24 09:37:50 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-24 09:37:50 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-24 09:37:50 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-24 09:37:50 - services.reranker_service - INFO - Reranking complete. Top score: -11.0648
+2026-03-24 09:37:50 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-24 09:37:50 - nodes.generate - INFO - Generating answer...
+2026-03-24 09:37:52 - nodes.generate - INFO - Final answer generated (len: 1154)
+2026-03-24 09:37:52 - main - INFO - Search completed successfully
+2026-03-24 09:37:52 - main - INFO - Intent: movie_name
+2026-03-24 09:37:52 - main - INFO - Movie Name: {"keystrokes": "c6d0ed5df5f9d70mm, height=50mm, diameter=70mm, material: steel, thickness 5mm inner 20mm outer. The inner diameter of the outer diameter=250mm, 250 mm, 0.08, vane_count=6, with fixtures 5, thickness=25, vanes 5
+}
+2026-03-24 09:37:52 - main - INFO - Answer length: 1154
+2026-03-24 09:40:14 - main - INFO - ==================================================
+2026-03-24 09:40:14 - main - INFO - Search request received: movies like interstellar
+2026-03-24 09:40:14 - main - INFO - ==================================================
+2026-03-24 09:40:14 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 09:40:15 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.98)
+2026-03-24 09:40:15 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.98)
+2026-03-24 09:40:15 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-24 09:40:15 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-24 09:40:15 - nodes.extract - INFO - Extracted Name: Interstellar
+2026-03-24 09:40:15 - graph - INFO - Movie name extracted: Interstellar
+2026-03-24 09:40:15 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-24 09:40:15 - services.faiss_service - INFO - Movie 'Interstellar' exists in DB: True
+2026-03-24 09:40:15 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-24 09:40:15 - graph - INFO - Movie exists in dataset, using dataset plot
+2026-03-24 09:40:15 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-24 09:40:15 - services.faiss_service - INFO - Retrieved plot from dataset for: Interstellar
+2026-03-24 09:40:15 - nodes.plot - INFO - Retrieved plot from Dataset.
+2026-03-24 09:40:15 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-24 09:40:15 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-24 09:40:15 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-24 09:40:15 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-24 09:40:15 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-24 09:40:15 - services.reranker_service - INFO - Reranking complete. Top score: -8.5407
+2026-03-24 09:40:15 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-24 09:40:15 - nodes.generate - INFO - Generating answer...
+2026-03-24 09:40:17 - nodes.generate - INFO - Final answer generated (len: 741)
+2026-03-24 09:40:17 - main - INFO - Search completed successfully
+2026-03-24 09:40:17 - main - INFO - Intent: movie_name
+2026-03-24 09:40:17 - main - INFO - Movie Name: Interstellar
+2026-03-24 09:40:17 - main - INFO - Answer length: 741
+2026-03-24 09:43:17 - main - INFO - ==================================================
+2026-03-24 09:43:17 - main - INFO - Search request received: movies like the wolf of the wall street
+2026-03-24 09:43:17 - main - INFO - ==================================================
+2026-03-24 09:43:17 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 09:43:18 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '```json\n{\n  "intent": "movie_name",\n  "confidence_score": 0.98\n}\n```'}}
+2026-03-24 09:44:06 - main - INFO - ==================================================
+2026-03-24 09:44:06 - main - INFO - Search request received: the wolf of the wall street
+2026-03-24 09:44:06 - main - INFO - ==================================================
+2026-03-24 09:44:06 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-24 09:44:06 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.98)
+2026-03-24 09:44:06 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.98)
+2026-03-24 09:44:06 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-24 09:44:06 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-24 09:44:07 - nodes.extract - INFO - Extracted Name: {"type":"object properties","properties":{"domain":"music","event":"fraudulent activity","severity":"high","asset type":"payment card","asset_id":"card_id"}}
+2026-03-24 09:44:07 - graph - INFO - Movie name extracted: {"type":"object properties","properties":{"domain":"music","event":"fraudulent activity","severity":"high","asset type":"payment card","asset_id":"card_id"}}
+2026-03-24 09:44:07 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-24 09:44:07 - services.faiss_service - INFO - Movie '{"type":"object properties","properties":{"domain":"music","event":"fraudulent activity","severity":"high","asset type":"payment card","asset_id":"card_id"}}' exists in DB: False
+2026-03-24 09:44:07 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-24 09:44:07 - graph - INFO - Movie not in dataset, using web search
+2026-03-24 09:44:07 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-24 09:44:07 - services.tavily_service - INFO - Searching Tavily with query: movie {"type":"object properties","properties":{"domain":"music","event":"fraudulent activity","severity":"high","asset type":"payment card","asset_id":"card_id"}} plot summary wikipedia
+2026-03-24 09:44:11 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Emily_the_Criminal
+2026-03-24 09:44:11 - services.tavily_service - INFO - Successfully retrieved plot for {"type":"object properties","properties":{"domain":"music","event":"fraudulent activity","severity":"high","asset type":"payment card","asset_id":"card_id"}}
+2026-03-24 09:44:11 - nodes.plot - INFO - Successfully retrieved plot for {"type":"object properties","properties":{"domain":"music","event":"fraudulent activity","severity":"high","asset type":"payment card","asset_id":"card_id"}}
+2026-03-24 09:44:11 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-24 09:44:11 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-24 09:44:11 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-24 09:44:11 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-24 09:44:11 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-24 09:44:11 - services.reranker_service - INFO - Reranking complete. Top score: -10.9570
+2026-03-24 09:44:11 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-24 09:44:11 - nodes.generate - INFO - Generating answer...
+2026-03-24 09:44:13 - nodes.generate - INFO - Final answer generated (len: 674)
+2026-03-24 09:44:13 - main - INFO - Search completed successfully
+2026-03-24 09:44:13 - main - INFO - Intent: movie_name
+2026-03-24 09:44:13 - main - INFO - Movie Name: {"type":"object properties","properties":{"domain":"music","event":"fraudulent activity","severity":"high","asset type":"payment card","asset_id":"card_id"}}
+2026-03-24 09:44:13 - main - INFO - Answer length: 674
+2026-03-24 10:11:16 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-28 16:01:07 - main - INFO - ==================================================
+2026-03-28 16:01:07 - main - INFO - PlotSense Backend Starting...
+2026-03-28 16:01:07 - main - INFO - ==================================================
+2026-03-28 16:02:03 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 16:02:04 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-28 16:02:04 - services.llm_service - INFO - Structured output models configured
+2026-03-28 16:02:05 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 16:02:10 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 16:02:10 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:02:10 - main - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:08:04 - main - INFO - ==================================================
+2026-03-28 16:08:04 - main - INFO - PlotSense Backend Starting...
+2026-03-28 16:08:04 - main - INFO - ==================================================
+2026-03-28 16:08:16 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 16:08:18 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-28 16:08:18 - services.llm_service - INFO - Structured output models configured
+2026-03-28 16:08:19 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 16:08:20 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 16:08:20 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:08:20 - main - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:09:04 - main - INFO - ==================================================
+2026-03-28 16:09:04 - main - INFO - PlotSense Backend Starting...
+2026-03-28 16:09:04 - main - INFO - ==================================================
+2026-03-28 16:09:15 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 16:09:16 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-28 16:09:16 - services.llm_service - INFO - Structured output models configured
+2026-03-28 16:09:17 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 16:09:19 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 16:09:19 - services.neo4j_service - ERROR - Failed to connect to Neo4j: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:09:19 - main - ERROR - Failed to initialize services: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:11:28 - main - INFO - ==================================================
+2026-03-28 16:11:28 - main - INFO - PlotSense Backend Starting...
+2026-03-28 16:11:28 - main - INFO - ==================================================
+2026-03-28 16:11:39 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 16:11:40 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-28 16:11:40 - services.llm_service - INFO - Structured output models configured
+2026-03-28 16:11:41 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 16:11:43 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 16:11:43 - services.neo4j_service - ERROR - Neo4j connection failed — service marked unhealthy. Wake up your Aura instance at console.neo4j.io
+Error: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:11:43 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 16:12:06 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 16:12:09 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 16:12:13 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 16:12:15 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 16:12:15 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 16:12:15 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 16:12:19 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 16:12:19 - main - INFO - All services initialized successfully
+2026-03-28 16:12:19 - graph - INFO - Building LangGraph workflow...
+2026-03-28 16:12:19 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-28 16:12:19 - main - INFO - Workflow initialized successfully
+2026-03-28 16:12:19 - main - INFO - ==================================================
+2026-03-28 16:12:19 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 16:12:19 - main - INFO -    Project : plotsense
+2026-03-28 16:12:19 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 16:12:19 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 16:12:19 - main - INFO - ==================================================
+2026-03-28 16:12:23 - main - INFO - ==================================================
+2026-03-28 16:12:23 - main - INFO - PlotSense Backend Starting...
+2026-03-28 16:12:23 - main - INFO - ==================================================
+2026-03-28 16:12:33 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 16:12:34 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-28 16:12:34 - services.llm_service - INFO - Structured output models configured
+2026-03-28 16:12:35 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 16:12:35 - main - INFO -   ✔ llm_service ready
+2026-03-28 16:12:36 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 16:12:36 - services.neo4j_service - ERROR - Neo4j connection failed — service marked unhealthy. Wake up your Aura instance at console.neo4j.io
+Error: Could not connect to Neo4j database. Please ensure that the url is correct
+2026-03-28 16:12:36 - main - INFO -   ✔ neo4j_service ready
+2026-03-28 16:12:36 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 16:12:46 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 16:12:48 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 16:12:52 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 16:12:52 - main - INFO -   ✔ faiss_service ready
+2026-03-28 16:12:53 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 16:12:53 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 16:12:53 - main - INFO -   ✔ tavily_service ready
+2026-03-28 16:12:53 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 16:12:57 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 16:12:57 - main - INFO -   ✔ reranker_service ready
+2026-03-28 16:12:57 - graph - INFO - Building LangGraph workflow...
+2026-03-28 16:12:57 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-28 16:12:57 - main - INFO - Workflow initialized successfully
+2026-03-28 16:12:57 - main - INFO - ==================================================
+2026-03-28 16:12:57 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 16:12:57 - main - INFO -    Project : plotsense
+2026-03-28 16:12:57 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 16:12:57 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 16:12:57 - main - INFO - ==================================================
+2026-03-28 16:13:25 - main - INFO - ==================================================
+2026-03-28 16:13:25 - main - INFO - Search request received: movies like sholey
+2026-03-28 16:13:25 - main - INFO - ==================================================
+2026-03-28 16:13:25 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-28 16:13:26 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '[intent]="movie_name" [confidence_score]=0.95'}}
+2026-03-28 16:29:38 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-28 16:29:46 - main - INFO - ==================================================
+2026-03-28 16:29:46 - main - INFO - PlotSense Backend Starting...
+2026-03-28 16:29:46 - main - INFO - ==================================================
+2026-03-28 16:29:58 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 16:29:59 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-28 16:29:59 - services.llm_service - INFO - Structured output models configured
+2026-03-28 16:30:00 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 16:30:00 - main - INFO -   ✔ llm_service ready
+2026-03-28 16:30:02 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 16:30:03 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-28 16:30:03 - main - INFO -   ✔ neo4j_service ready
+2026-03-28 16:30:03 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 16:30:14 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 16:30:16 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 16:30:21 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 16:30:21 - main - INFO -   ✔ faiss_service ready
+2026-03-28 16:30:22 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 16:30:22 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 16:30:22 - main - INFO -   ✔ tavily_service ready
+2026-03-28 16:30:22 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 16:30:26 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 16:30:26 - main - INFO -   ✔ reranker_service ready
+2026-03-28 16:30:26 - graph - INFO - Building LangGraph workflow...
+2026-03-28 16:30:26 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-28 16:30:26 - main - INFO - Workflow initialized successfully
+2026-03-28 16:30:26 - main - INFO - ==================================================
+2026-03-28 16:30:26 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 16:30:26 - main - INFO -    Project : plotsense
+2026-03-28 16:30:26 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 16:30:26 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 16:30:26 - main - INFO - ==================================================
+2026-03-28 16:30:45 - main - INFO - ==================================================
+2026-03-28 16:30:45 - main - INFO - Search request received: Movies like oppenhiemer
+2026-03-28 16:30:45 - main - INFO - ==================================================
+2026-03-28 16:30:46 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-28 16:30:46 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.95)
+2026-03-28 16:30:46 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.95)
+2026-03-28 16:30:46 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-28 16:30:46 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-28 16:30:47 - nodes.extract - INFO - Extracted Name: Oppenheimer
+2026-03-28 16:30:47 - graph - INFO - Movie name extracted: Oppenheimer
+2026-03-28 16:30:47 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-28 16:30:47 - services.faiss_service - INFO - Movie 'Oppenheimer' exists in DB: False
+2026-03-28 16:30:47 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-28 16:30:47 - graph - INFO - Movie not in dataset, using web search
+2026-03-28 16:30:47 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-28 16:30:47 - services.tavily_service - INFO - Searching Tavily with query: movie Oppenheimer plot summary wikipedia
+2026-03-28 16:30:51 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Oppenheimer_(film)
+2026-03-28 16:30:51 - services.tavily_service - INFO - Successfully retrieved plot for Oppenheimer
+2026-03-28 16:30:51 - nodes.plot - INFO - Successfully retrieved plot for Oppenheimer
+2026-03-28 16:30:51 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-28 16:30:52 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-28 16:30:52 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-28 16:30:52 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-28 16:30:52 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-28 16:30:52 - services.reranker_service - INFO - Reranking complete. Top score: -7.0993
+2026-03-28 16:30:52 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-28 16:30:52 - nodes.generate - INFO - Generating answer...
+2026-03-28 16:30:54 - nodes.generate - INFO - Final answer generated (len: 1391)
+2026-03-28 16:30:54 - main - INFO - Search completed successfully
+2026-03-28 16:30:54 - main - INFO - Intent: movie_name
+2026-03-28 16:30:54 - main - INFO - Movie Name: Oppenheimer
+2026-03-28 16:30:54 - main - INFO - Answer length: 1391
+2026-03-28 16:34:38 - main - INFO - ==================================================
+2026-03-28 16:34:38 - main - INFO - Search request received:  movies in which amitabh bacchan has acted with action 
+2026-03-28 16:34:38 - main - INFO - ==================================================
+2026-03-28 16:34:38 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-28 16:34:38 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': "IntentClassification(intent='query_search', confidence_score=0.95)"}}
+2026-03-28 16:34:50 - main - INFO - ==================================================
+2026-03-28 16:34:50 - main - INFO - Search request received:  movies in which amitabh bacchan has acted with action 
+2026-03-28 16:34:50 - main - INFO - ==================================================
+2026-03-28 16:34:50 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-28 16:34:50 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<|tool_calls_section_begin|><|tool_call_begin|>functions.IntentClassification:0<|tool_call_argument_begin|>{"intent": "query_search", "confidence_score": 1.0}'}}
+2026-03-28 16:35:21 - main - INFO - ==================================================
+2026-03-28 16:35:21 - main - INFO - Search request received:  movies like psycopathic and thriller 
+2026-03-28 16:35:21 - main - INFO - ==================================================
+2026-03-28 16:35:21 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-28 16:35:22 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': "IntentClassification(intent='query_search', confidence_score=0.8)"}}
+2026-03-28 18:52:11 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-28 18:52:18 - main - INFO - ==================================================
+2026-03-28 18:52:18 - main - INFO - PlotSense Backend Starting...
+2026-03-28 18:52:18 - main - INFO - ==================================================
+2026-03-28 18:59:11 - main - INFO - ==================================================
+2026-03-28 18:59:11 - main - INFO - PlotSense Backend Starting...
+2026-03-28 18:59:11 - main - INFO - ==================================================
+2026-03-28 18:59:52 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 18:59:52 - services.llm_service - ERROR - Failed to initialize LLM models: Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 18:59:52 - main - WARNING -   ✘ llm_service failed to init (non-fatal): Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 18:59:56 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 18:59:58 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-28 18:59:58 - main - INFO -   ✔ neo4j_service ready
+2026-03-28 18:59:58 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 19:00:16 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 19:00:18 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 19:00:21 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 19:00:21 - main - INFO -   ✔ faiss_service ready
+2026-03-28 19:00:23 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 19:00:23 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 19:00:23 - main - INFO -   ✔ tavily_service ready
+2026-03-28 19:00:23 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 19:00:26 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 19:00:26 - main - INFO -   ✔ reranker_service ready
+2026-03-28 19:00:27 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:00:27 - services.llm_service - ERROR - Failed to initialize LLM models: Unable to infer model provider for model='minimax/minimax-m2.5:free'. Please specify 'model_provider' directly.
+
+Supported providers: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+
+For help with specific providers, see: https://docs.langchain.com/oss/python/integrations/providers
+2026-03-28 19:00:27 - main - WARNING - Workflow init failed (non-fatal): Unable to infer model provider for model='minimax/minimax-m2.5:free'. Please specify 'model_provider' directly.
+
+Supported providers: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+
+For help with specific providers, see: https://docs.langchain.com/oss/python/integrations/providers
+2026-03-28 19:00:27 - main - INFO - ==================================================
+2026-03-28 19:00:27 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 19:00:27 - main - INFO -    Project : plotsense
+2026-03-28 19:00:27 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 19:00:27 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 19:00:27 - main - INFO - ==================================================
+2026-03-28 19:00:30 - main - INFO - ==================================================
+2026-03-28 19:00:30 - main - INFO - PlotSense Backend Starting...
+2026-03-28 19:00:30 - main - INFO - ==================================================
+2026-03-28 19:00:39 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:00:39 - services.llm_service - ERROR - Failed to initialize LLM models: Unable to infer model provider for model='minimax/minimax-m2.5:free'. Please specify 'model_provider' directly.
+
+Supported providers: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+
+For help with specific providers, see: https://docs.langchain.com/oss/python/integrations/providers
+2026-03-28 19:00:39 - main - WARNING -   ✘ llm_service failed to init (non-fatal): Unable to infer model provider for model='minimax/minimax-m2.5:free'. Please specify 'model_provider' directly.
+
+Supported providers: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+
+For help with specific providers, see: https://docs.langchain.com/oss/python/integrations/providers
+2026-03-28 19:00:41 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 19:00:42 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-28 19:00:42 - main - INFO -   ✔ neo4j_service ready
+2026-03-28 19:00:43 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 19:00:56 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 19:00:58 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 19:01:01 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 19:01:01 - main - INFO -   ✔ faiss_service ready
+2026-03-28 19:01:02 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 19:01:02 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 19:01:02 - main - INFO -   ✔ tavily_service ready
+2026-03-28 19:01:02 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 19:01:06 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 19:01:06 - main - INFO -   ✔ reranker_service ready
+2026-03-28 19:01:06 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:01:06 - services.llm_service - ERROR - Failed to initialize LLM models: Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:01:06 - main - WARNING - Workflow init failed (non-fatal): Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:01:06 - main - INFO - ==================================================
+2026-03-28 19:01:06 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 19:01:06 - main - INFO -    Project : plotsense
+2026-03-28 19:01:06 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 19:01:06 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 19:01:06 - main - INFO - ==================================================
+2026-03-28 19:01:09 - main - INFO - ==================================================
+2026-03-28 19:01:09 - main - INFO - PlotSense Backend Starting...
+2026-03-28 19:01:09 - main - INFO - ==================================================
+2026-03-28 19:02:12 - main - INFO - ==================================================
+2026-03-28 19:02:12 - main - INFO - PlotSense Backend Starting...
+2026-03-28 19:02:12 - main - INFO - ==================================================
+2026-03-28 19:02:20 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:02:20 - services.llm_service - ERROR - Failed to initialize LLM models: Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:02:20 - main - WARNING -   ✘ llm_service failed to init (non-fatal): Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:02:21 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 19:02:22 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-28 19:02:22 - main - INFO -   ✔ neo4j_service ready
+2026-03-28 19:02:22 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 19:02:35 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 19:02:37 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 19:02:41 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 19:02:41 - main - INFO -   ✔ faiss_service ready
+2026-03-28 19:02:42 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 19:02:42 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 19:02:42 - main - INFO -   ✔ tavily_service ready
+2026-03-28 19:02:42 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 19:02:46 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 19:02:46 - main - INFO -   ✔ reranker_service ready
+2026-03-28 19:02:46 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:02:46 - services.llm_service - ERROR - Failed to initialize LLM models: Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:02:46 - main - WARNING - Workflow init failed (non-fatal): Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:02:46 - main - INFO - ==================================================
+2026-03-28 19:02:46 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 19:02:46 - main - INFO -    Project : plotsense
+2026-03-28 19:02:46 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 19:02:46 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 19:02:46 - main - INFO - ==================================================
+2026-03-28 19:05:15 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:05:15 - services.llm_service - ERROR - Failed to initialize LLM models: Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:05:29 - __main__ - INFO - ==================================================
+2026-03-28 19:05:29 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-28 19:05:29 - __main__ - INFO - ==================================================
+2026-03-28 19:05:40 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:05:40 - services.llm_service - ERROR - Failed to initialize LLM models: Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:05:40 - __main__ - WARNING -   ✘ llm_service failed to init (non-fatal): Unsupported provider='openrouter'.
+
+Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedrock_converse, cohere, deepseek, fireworks, google_anthropic_vertex, google_genai, google_vertexai, groq, huggingface, ibm, mistralai, nvidia, ollama, openai, perplexity, together, upstage, xai
+2026-03-28 19:05:42 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 19:05:44 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-28 19:05:44 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-28 19:05:44 - __main__ - WARNING -   ✘ faiss_service failed to init (non-fatal): cannot import name 'ModelProfile' from 'langchain_core.language_models' (C:\Users\hp5cd\anaconda3\Lib\site-packages\langchain_core\language_models\__init__.py)
+2026-03-28 19:05:45 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 19:05:45 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 19:05:45 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-28 19:08:33 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:08:35 - services.llm_service - INFO -  model initialized: minimax/minimax-m2.5:free
+2026-03-28 19:08:35 - services.llm_service - INFO - Structured output models configured
+2026-03-28 19:08:35 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 19:08:57 - main - INFO - ==================================================
+2026-03-28 19:08:57 - main - INFO - PlotSense Backend Starting...
+2026-03-28 19:08:57 - main - INFO - ==================================================
+2026-03-28 19:09:08 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:09:09 - services.llm_service - INFO -  model initialized: minimax/minimax-m2.5:free
+2026-03-28 19:09:09 - services.llm_service - INFO - Structured output models configured
+2026-03-28 19:09:10 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 19:09:10 - main - INFO -   ✔ llm_service ready
+2026-03-28 19:09:11 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 19:09:12 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-28 19:09:12 - main - INFO -   ✔ neo4j_service ready
+2026-03-28 19:09:12 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 19:09:22 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 19:09:24 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 19:09:28 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 19:09:28 - main - INFO -   ✔ faiss_service ready
+2026-03-28 19:09:30 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 19:09:30 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 19:09:30 - main - INFO -   ✔ tavily_service ready
+2026-03-28 19:09:30 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 19:09:34 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 19:09:34 - main - INFO -   ✔ reranker_service ready
+2026-03-28 19:09:34 - graph - INFO - Building LangGraph workflow...
+2026-03-28 19:09:34 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-28 19:09:34 - main - INFO - Workflow initialized successfully
+2026-03-28 19:09:34 - main - INFO - ==================================================
+2026-03-28 19:09:34 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 19:09:34 - main - INFO -    Project : plotsense
+2026-03-28 19:09:34 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 19:09:34 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 19:09:34 - main - INFO - ==================================================
+2026-03-28 19:09:52 - main - INFO - ==================================================
+2026-03-28 19:09:52 - main - INFO - Search request received: movies with psycopathic and thriller
+2026-03-28 19:09:52 - main - INFO - ==================================================
+2026-03-28 19:09:52 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-28 19:10:02 - main - ERROR - Search error: 1 validation error for IntentClassification
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='**query_search**', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+2026-03-28 19:11:30 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-28 19:13:00 - main - INFO - ==================================================
+2026-03-28 19:13:00 - main - INFO - PlotSense Backend Starting...
+2026-03-28 19:13:00 - main - INFO - ==================================================
+2026-03-28 19:13:08 - services.llm_service - INFO - Initializing LLM models...
+2026-03-28 19:13:09 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-28 19:13:09 - services.llm_service - INFO - Structured output models configured
+2026-03-28 19:13:10 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-28 19:13:10 - main - INFO -   ✔ llm_service ready
+2026-03-28 19:13:11 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-28 19:13:13 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-28 19:13:13 - main - INFO -   ✔ neo4j_service ready
+2026-03-28 19:13:13 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-28 19:13:22 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-28 19:13:25 - services.faiss_service - INFO - FAISS index loaded from: D:\emerging\artifacts\movie_faiss_v3
+2026-03-28 19:13:29 - services.faiss_service - INFO - Dataset loaded: D:\emerging\df1_cleaned.csv (34884 records)
+2026-03-28 19:13:29 - main - INFO -   ✔ faiss_service ready
+2026-03-28 19:13:31 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-28 19:13:31 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-28 19:13:31 - main - INFO -   ✔ tavily_service ready
+2026-03-28 19:13:31 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-28 19:13:36 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-28 19:13:36 - main - INFO -   ✔ reranker_service ready
+2026-03-28 19:13:37 - graph - INFO - Building LangGraph workflow...
+2026-03-28 19:13:37 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-28 19:13:37 - main - INFO - Workflow initialized successfully
+2026-03-28 19:13:37 - main - INFO - ==================================================
+2026-03-28 19:13:37 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-28 19:13:37 - main - INFO -    Project : plotsense
+2026-03-28 19:13:37 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-28 19:13:37 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-28 19:13:37 - main - INFO - ==================================================
+2026-03-28 19:14:30 - main - INFO - PlotSense Backend Shutting Down...
