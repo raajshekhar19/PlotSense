@@ -35,6 +35,33 @@
     100% { background-position: 50% 80%; }
   }
 
+  @keyframes plotsense-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes line-flow {
+    from { stroke-dashoffset: 8; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  .animate-line-flow {
+    animation: line-flow 0.6s linear infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, rgba(75, 78, 109, 0.2) 0%, rgba(132, 220, 198, 0.15) 50%, rgba(75, 78, 109, 0.2) 100%);
+    background-size: 200% 100%;
+    animation: plotsense-shimmer 1.6s ease-in-out infinite;
+  }
+  
+  @media (prefers-reduced-motion) {
+    .animate-shimmer {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      background: rgba(75, 78, 109, 0.2);
+    }
+  }
+
   .bg-noise {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     opacity: 0.15;
