@@ -1052,3 +1052,1370 @@ Supported model providers are: anthropic, azure_ai, azure_openai, bedrock, bedro
 2026-03-28 19:13:37 - main - INFO - Server ready at http://0.0.0.0:8000
 2026-03-28 19:13:37 - main - INFO - ==================================================
 2026-03-28 19:14:30 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:34:50 - main - INFO - ==================================================
+2026-03-29 23:34:50 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:34:50 - main - INFO - ==================================================
+2026-03-29 23:34:53 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:34:53 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-29 23:34:53 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:34:53 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:34:53 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:34:54 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:34:55 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:34:55 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:34:55 - main - WARNING -   ✘ faiss_service failed to init (non-fatal): No module named 'pandas'
+2026-03-29 23:34:56 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:34:56 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:34:56 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:34:56 - main - WARNING -   ✘ reranker_service failed to init (non-fatal): No module named 'sentence_transformers'
+2026-03-29 23:34:57 - main - WARNING - Workflow init failed (non-fatal): No module named 'pandas'
+2026-03-29 23:34:57 - main - INFO - ==================================================
+2026-03-29 23:34:57 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:34:57 - main - INFO -    Project : plotsense
+2026-03-29 23:34:57 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:34:57 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:34:57 - main - INFO - ==================================================
+2026-03-29 23:35:41 - main - INFO - Services health check requested
+2026-03-29 23:35:49 - main - ERROR - FAISS service health check error: No module named 'langchain_huggingface'
+2026-03-29 23:36:21 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:36:28 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:36:28 - main - INFO - Services health: {'llm': 'healthy', 'neo4j': 'healthy', 'faiss': 'error', 'tavily': 'healthy', 'reranker': 'healthy'}
+2026-03-29 23:36:45 - main - INFO - Services health check requested
+2026-03-29 23:36:46 - main - ERROR - FAISS service health check error: No module named 'langchain_huggingface'
+2026-03-29 23:36:46 - main - INFO - Services health: {'llm': 'healthy', 'neo4j': 'healthy', 'faiss': 'error', 'tavily': 'healthy', 'reranker': 'healthy'}
+2026-03-29 23:38:14 - main - INFO - Services health check requested
+2026-03-29 23:38:15 - main - ERROR - FAISS service health check error: cannot import name 'ModelProfile' from 'langchain_core.language_models' (/Users/shresthpanigrahi/Desktop/Movie/.venv/lib/python3.11/site-packages/langchain_core/language_models/__init__.py)
+2026-03-29 23:38:15 - main - INFO - Services health: {'llm': 'healthy', 'neo4j': 'healthy', 'faiss': 'error', 'tavily': 'healthy', 'reranker': 'healthy'}
+2026-03-29 23:38:32 - main - INFO - Services health check requested
+2026-03-29 23:38:32 - main - ERROR - FAISS service health check error: cannot import name 'ModelProfile' from 'langchain_core.language_models' (/Users/shresthpanigrahi/Desktop/Movie/.venv/lib/python3.11/site-packages/langchain_core/language_models/__init__.py)
+2026-03-29 23:38:32 - main - INFO - Services health: {'llm': 'healthy', 'neo4j': 'healthy', 'faiss': 'error', 'tavily': 'healthy', 'reranker': 'healthy'}
+2026-03-29 23:38:42 - main - INFO - Services health check requested
+2026-03-29 23:38:42 - main - ERROR - FAISS service health check error: cannot import name 'ModelProfile' from 'langchain_core.language_models' (/Users/shresthpanigrahi/Desktop/Movie/.venv/lib/python3.11/site-packages/langchain_core/language_models/__init__.py)
+2026-03-29 23:38:42 - main - INFO - Services health: {'llm': 'healthy', 'neo4j': 'healthy', 'faiss': 'error', 'tavily': 'healthy', 'reranker': 'healthy'}
+2026-03-29 23:39:27 - main - INFO - Services health check requested
+2026-03-29 23:39:27 - main - ERROR - FAISS service health check error: cannot import name 'ModelProfile' from 'langchain_core.language_models' (/Users/shresthpanigrahi/Desktop/Movie/.venv/lib/python3.11/site-packages/langchain_core/language_models/__init__.py)
+2026-03-29 23:39:27 - main - INFO - Services health: {'llm': 'healthy', 'neo4j': 'healthy', 'faiss': 'error', 'tavily': 'healthy', 'reranker': 'healthy'}
+2026-03-29 23:42:36 - main - INFO - ==================================================
+2026-03-29 23:42:36 - main - INFO - Search request received: comedy films with tom hanks
+2026-03-29 23:42:36 - main - INFO - ==================================================
+2026-03-29 23:42:36 - main - ERROR - Search error: cannot import name 'ModelProfile' from 'langchain_core.language_models' (/Users/shresthpanigrahi/Desktop/Movie/.venv/lib/python3.11/site-packages/langchain_core/language_models/__init__.py)
+2026-03-29 23:42:53 - main - INFO - ==================================================
+2026-03-29 23:42:53 - main - INFO - Search request received: comedy films with tom hanks
+2026-03-29 23:42:53 - main - INFO - ==================================================
+2026-03-29 23:42:53 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:42:57 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:42:59 - services.faiss_service - ERROR - Failed to initialize FAISS service: Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:42:59 - main - ERROR - Search error: Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:46:33 - main - INFO - ==================================================
+2026-03-29 23:46:33 - main - INFO - Search request received: comedy films with tom hanks
+2026-03-29 23:46:33 - main - INFO - ==================================================
+2026-03-29 23:46:33 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:46:38 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:46:38 - services.faiss_service - ERROR - Failed to initialize FAISS service: Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:46:38 - main - ERROR - Search error: Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:47:17 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:47:18 - main - INFO - ==================================================
+2026-03-29 23:47:18 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:47:18 - main - INFO - ==================================================
+2026-03-29 23:47:23 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:47:23 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-29 23:47:23 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:47:23 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:47:23 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:47:23 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:47:24 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:47:24 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:47:24 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:47:30 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:47:30 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:47:30 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-29 23:47:30 - main - INFO -   ✔ faiss_service ready
+2026-03-29 23:47:30 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:47:30 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:47:30 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:47:30 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:47:34 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:47:34 - main - INFO -   ✔ reranker_service ready
+2026-03-29 23:47:34 - graph - INFO - Building LangGraph workflow...
+2026-03-29 23:47:34 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-29 23:47:34 - main - INFO - Workflow initialized successfully
+2026-03-29 23:47:34 - main - INFO - ==================================================
+2026-03-29 23:47:34 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:47:34 - main - INFO -    Project : plotsense
+2026-03-29 23:47:34 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:47:34 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:47:34 - main - INFO - ==================================================
+2026-03-29 23:47:35 - main - INFO - ==================================================
+2026-03-29 23:47:35 - main - INFO - Search request received: comedy films with tom hanks from the 90s
+2026-03-29 23:47:35 - main - INFO - ==================================================
+2026-03-29 23:47:35 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:47:36 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.95)
+2026-03-29 23:47:36 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.95)
+2026-03-29 23:47:36 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:47:36 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:47:36 - nodes.kg - INFO - Extracting entities from query: comedy films with tom hanks from the 90s
+2026-03-29 23:47:36 - services.llm_service - INFO - Extracted filters - Actor: Tom Hanks, Director: None, Genre: comedy
+2026-03-29 23:47:36 - nodes.kg - INFO - Extracted Entities:
+2026-03-29 23:47:36 - nodes.kg - INFO -   Actor: Tom Hanks
+2026-03-29 23:47:36 - nodes.kg - INFO -   Director: None
+2026-03-29 23:47:36 - nodes.kg - INFO -   Genre: comedy
+2026-03-29 23:47:36 - nodes.kg - INFO -   Keywords: []
+2026-03-29 23:47:36 - nodes.kg - INFO - Generated Cypher Params: {'actor': 'Tom Hanks', 'director': None, 'genre': 'comedy', 'keywords': None}
+2026-03-29 23:47:36 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:47:37 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-29 23:47:37 - nodes.kg - INFO - KG Found Titles: ['All American Chump', 'And So They Were Married', 'Anthony Adverse', 'Banjo on My Knee', 'Beloved Enemy', 'The Big Game', 'The Big Show', 'The Bohemian Girl', 'The Bride Walks Out', 'Bullets or Ballots', 'Cain and Mabel', 'Camille', 'Captain Calamity', 'Captain January', 'The Case of the Black Cat']
+2026-03-29 23:47:37 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:37 - nodes.kg - INFO - Converted 0 KG titles to documents.
+2026-03-29 23:47:37 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:47:37 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:47:37 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:47:37 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:47:37 - main - INFO - Search completed successfully
+2026-03-29 23:47:37 - main - INFO - Intent: query_search
+2026-03-29 23:47:37 - main - INFO - Movie Name: None
+2026-03-29 23:47:37 - main - INFO - Answer length: 143
+2026-03-29 23:47:46 - main - INFO - ==================================================
+2026-03-29 23:47:46 - main - INFO - Search request received: a movie about a man growing potatoes on mars
+2026-03-29 23:47:46 - main - INFO - ==================================================
+2026-03-29 23:47:46 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:47:46 - services.llm_service - INFO - Intent classified: plot (confidence: 0.95)
+2026-03-29 23:47:46 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.95)
+2026-03-29 23:47:46 - graph - INFO - Routing after classification: intent=plot
+2026-03-29 23:47:46 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-29 23:47:46 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:47:46 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-29 23:47:46 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:47:46 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:47:46 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:47:46 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:47:46 - main - INFO - Search completed successfully
+2026-03-29 23:47:46 - main - INFO - Intent: plot
+2026-03-29 23:47:46 - main - INFO - Movie Name: None
+2026-03-29 23:47:46 - main - INFO - Answer length: 143
+2026-03-29 23:47:54 - main - INFO - ==================================================
+2026-03-29 23:47:54 - main - INFO - Search request received: Inception
+2026-03-29 23:47:54 - main - INFO - ==================================================
+2026-03-29 23:47:54 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:47:54 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "tool call validation failed: parameters for tool IntentClassification did not match schema: errors: [missing properties: 'confidence_score']", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<|tool_calls_section_begin|><|tool_call_begin|>functions.IntentClassification:0<|tool_call_argument_begin|>{"intent": "movie_name"}<|tool_call_end|><|tool_calls_section_end|>'}}
+2026-03-29 23:48:04 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:48:04 - main - INFO - ==================================================
+2026-03-29 23:48:04 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:48:04 - main - INFO - ==================================================
+2026-03-29 23:48:07 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:48:07 - services.llm_service - INFO - Gemini model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-29 23:48:07 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:48:07 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:48:07 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:48:07 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:48:08 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:48:08 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:48:08 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:48:14 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:48:14 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:48:15 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-29 23:48:15 - main - INFO -   ✔ faiss_service ready
+2026-03-29 23:48:15 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:48:15 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:48:15 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:48:15 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:48:19 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:48:19 - main - INFO -   ✔ reranker_service ready
+2026-03-29 23:48:19 - graph - INFO - Building LangGraph workflow...
+2026-03-29 23:48:19 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-29 23:48:19 - main - INFO - Workflow initialized successfully
+2026-03-29 23:48:19 - main - INFO - ==================================================
+2026-03-29 23:48:19 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:48:19 - main - INFO -    Project : plotsense
+2026-03-29 23:48:19 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:48:19 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:48:19 - main - INFO - ==================================================
+2026-03-29 23:48:19 - main - INFO - ==================================================
+2026-03-29 23:48:19 - main - INFO - Search request received: Inception
+2026-03-29 23:48:19 - main - INFO - ==================================================
+2026-03-29 23:48:19 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:48:20 - main - ERROR - Search error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': ''}}
+2026-03-29 23:48:45 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:48:45 - main - INFO - ==================================================
+2026-03-29 23:48:45 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:48:45 - main - INFO - ==================================================
+2026-03-29 23:48:48 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:48:48 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-29 23:48:48 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:48:48 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:48:48 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:48:48 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:48:49 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:48:49 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:48:49 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:48:55 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:48:55 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:48:55 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-29 23:48:55 - main - INFO -   ✔ faiss_service ready
+2026-03-29 23:48:56 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:48:56 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:48:56 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:48:56 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:48:59 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:48:59 - main - INFO -   ✔ reranker_service ready
+2026-03-29 23:48:59 - graph - INFO - Building LangGraph workflow...
+2026-03-29 23:48:59 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-29 23:48:59 - main - INFO - Workflow initialized successfully
+2026-03-29 23:48:59 - main - INFO - ==================================================
+2026-03-29 23:48:59 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:48:59 - main - INFO -    Project : plotsense
+2026-03-29 23:48:59 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:48:59 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:48:59 - main - INFO - ==================================================
+2026-03-29 23:49:00 - main - INFO - ==================================================
+2026-03-29 23:49:00 - main - INFO - Search request received: Inception
+2026-03-29 23:49:00 - main - INFO - ==================================================
+2026-03-29 23:49:01 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:49:01 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.8)
+2026-03-29 23:49:01 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.8)
+2026-03-29 23:49:01 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-29 23:49:01 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-29 23:49:01 - nodes.extract - INFO - Extracted Name: Inception
+2026-03-29 23:49:01 - graph - INFO - Movie name extracted: Inception
+2026-03-29 23:49:01 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-29 23:49:01 - services.faiss_service - WARNING - Dataset not loaded, cannot check movie existence
+2026-03-29 23:49:01 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-29 23:49:01 - graph - INFO - Movie not in dataset, using web search
+2026-03-29 23:49:01 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-29 23:49:01 - services.tavily_service - INFO - Searching Tavily with query: movie Inception plot summary wikipedia
+2026-03-29 23:49:06 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Inception
+2026-03-29 23:49:06 - services.tavily_service - INFO - Successfully retrieved plot for Inception
+2026-03-29 23:49:06 - nodes.plot - INFO - Successfully retrieved plot for Inception
+2026-03-29 23:49:06 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-29 23:49:06 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:06 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-29 23:49:06 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:49:06 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:49:06 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:49:06 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:49:06 - main - INFO - Search completed successfully
+2026-03-29 23:49:06 - main - INFO - Intent: movie_name
+2026-03-29 23:49:06 - main - INFO - Movie Name: Inception
+2026-03-29 23:49:06 - main - INFO - Answer length: 143
+2026-03-29 23:49:19 - main - INFO - ==================================================
+2026-03-29 23:49:19 - main - INFO - Search request received: movies directed by Christopher Nolan
+2026-03-29 23:49:19 - main - INFO - ==================================================
+2026-03-29 23:49:19 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:49:19 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.9)
+2026-03-29 23:49:19 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.9)
+2026-03-29 23:49:19 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:49:19 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:49:19 - nodes.kg - INFO - Extracting entities from query: movies directed by Christopher Nolan
+2026-03-29 23:49:19 - services.llm_service - INFO - Extracted filters - Actor: None, Director: Christopher Nolan, Genre: None
+2026-03-29 23:49:19 - nodes.kg - INFO - Extracted Entities:
+2026-03-29 23:49:19 - nodes.kg - INFO -   Actor: None
+2026-03-29 23:49:19 - nodes.kg - INFO -   Director: Christopher Nolan
+2026-03-29 23:49:19 - nodes.kg - INFO -   Genre: None
+2026-03-29 23:49:19 - nodes.kg - INFO -   Keywords: []
+2026-03-29 23:49:19 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': 'Christopher Nolan', 'genre': None, 'keywords': None}
+2026-03-29 23:49:19 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:49:20 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-29 23:49:20 - nodes.kg - INFO - KG Found Titles: ['All American Chump', 'And So They Were Married', 'Anthony Adverse', 'Banjo on My Knee', 'Beloved Enemy', 'The Big Game', 'The Big Show', 'The Bohemian Girl', 'The Bride Walks Out', 'Bullets or Ballots', 'Cain and Mabel', 'Camille', 'Captain Calamity', 'Captain January', 'The Case of the Black Cat']
+2026-03-29 23:49:20 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:49:20 - nodes.kg - INFO - Converted 0 KG titles to documents.
+2026-03-29 23:49:20 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:49:20 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:49:20 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:49:20 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:49:20 - main - INFO - Search completed successfully
+2026-03-29 23:49:20 - main - INFO - Intent: query_search
+2026-03-29 23:49:20 - main - INFO - Movie Name: None
+2026-03-29 23:49:20 - main - INFO - Answer length: 143
+2026-03-29 23:50:43 - main - INFO - ==================================================
+2026-03-29 23:50:43 - main - INFO - Search request received: Comedy films with Tom Hanks from the 90s
+2026-03-29 23:50:43 - main - INFO - ==================================================
+2026-03-29 23:50:43 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:50:44 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.9)
+2026-03-29 23:50:44 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.9)
+2026-03-29 23:50:44 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:50:44 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:50:44 - nodes.kg - INFO - Extracting entities from query: Comedy films with Tom Hanks from the 90s
+2026-03-29 23:50:44 - services.llm_service - INFO - Extracted filters - Actor: Tom Hanks, Director: None, Genre: Comedy
+2026-03-29 23:50:44 - nodes.kg - INFO - Extracted Entities:
+2026-03-29 23:50:44 - nodes.kg - INFO -   Actor: Tom Hanks
+2026-03-29 23:50:44 - nodes.kg - INFO -   Director: None
+2026-03-29 23:50:44 - nodes.kg - INFO -   Genre: Comedy
+2026-03-29 23:50:44 - nodes.kg - INFO -   Keywords: None
+2026-03-29 23:50:44 - nodes.kg - INFO - Generated Cypher Params: {'actor': 'Tom Hanks', 'director': None, 'genre': 'Comedy', 'keywords': None}
+2026-03-29 23:50:44 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:50:45 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-29 23:50:45 - nodes.kg - INFO - KG Found Titles: ['All American Chump', 'And So They Were Married', 'Anthony Adverse', 'Banjo on My Knee', 'Beloved Enemy', 'The Big Game', 'The Big Show', 'The Bohemian Girl', 'The Bride Walks Out', 'Bullets or Ballots', 'Cain and Mabel', 'Camille', 'Captain Calamity', 'Captain January', 'The Case of the Black Cat']
+2026-03-29 23:50:45 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:50:45 - nodes.kg - INFO - Converted 0 KG titles to documents.
+2026-03-29 23:50:45 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:50:45 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:50:45 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:50:45 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:50:45 - main - INFO - Search completed successfully
+2026-03-29 23:50:45 - main - INFO - Intent: query_search
+2026-03-29 23:50:45 - main - INFO - Movie Name: None
+2026-03-29 23:50:45 - main - INFO - Answer length: 143
+2026-03-29 23:51:07 - main - INFO - ==================================================
+2026-03-29 23:51:07 - main - INFO - Search request received: Movies that feel like Blade Runner 2049
+2026-03-29 23:51:07 - main - INFO - ==================================================
+2026-03-29 23:51:07 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:51:07 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.9)
+2026-03-29 23:51:07 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.9)
+2026-03-29 23:51:07 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-29 23:51:07 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-29 23:51:08 - nodes.extract - INFO - Extracted Name: Blade Runner 2049
+2026-03-29 23:51:08 - graph - INFO - Movie name extracted: Blade Runner 2049
+2026-03-29 23:51:08 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-29 23:51:08 - services.faiss_service - WARNING - Dataset not loaded, cannot check movie existence
+2026-03-29 23:51:08 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-29 23:51:08 - graph - INFO - Movie not in dataset, using web search
+2026-03-29 23:51:08 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-29 23:51:08 - services.tavily_service - INFO - Searching Tavily with query: movie Blade Runner 2049 plot summary wikipedia
+2026-03-29 23:51:12 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Blade_Runner_2049
+2026-03-29 23:51:12 - services.tavily_service - INFO - Successfully retrieved plot for Blade Runner 2049
+2026-03-29 23:51:12 - nodes.plot - INFO - Successfully retrieved plot for Blade Runner 2049
+2026-03-29 23:51:12 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-29 23:51:12 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-29 23:51:12 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-29 23:51:12 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:51:12 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:51:12 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:51:12 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:51:12 - main - INFO - Search completed successfully
+2026-03-29 23:51:12 - main - INFO - Intent: movie_name
+2026-03-29 23:51:12 - main - INFO - Movie Name: Blade Runner 2049
+2026-03-29 23:51:12 - main - INFO - Answer length: 143
+2026-03-29 23:51:33 - main - INFO - ==================================================
+2026-03-29 23:51:33 - main - INFO - Search request received: psychological horror thriller made in 2000s
+2026-03-29 23:51:33 - main - INFO - ==================================================
+2026-03-29 23:51:33 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:51:34 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-29 23:51:34 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-29 23:51:34 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:51:34 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:51:34 - nodes.kg - INFO - Extracting entities from query: psychological horror thriller made in 2000s
+2026-03-29 23:51:34 - main - ERROR - Search error: Error code: 400 - {'error': {'message': 'tool call validation failed: parameters for tool MovieFilters did not match schema: errors: [`/keywords`: expected array, but got string, `/keywords`: expected null, but got string]', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=MovieFilters>{"genre": "psychological horror thriller", "keywords": "2000s"} </function>'}}
+2026-03-29 23:53:25 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:53:25 - main - INFO - ==================================================
+2026-03-29 23:53:25 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:53:25 - main - INFO - ==================================================
+2026-03-29 23:53:28 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:53:28 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-29 23:53:28 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:53:28 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:53:28 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:53:29 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:53:29 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:53:29 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:53:29 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:53:36 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:53:37 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:53:37 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-29 23:53:37 - main - INFO -   ✔ faiss_service ready
+2026-03-29 23:53:37 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:53:37 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:53:37 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:53:37 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:53:41 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:53:41 - main - INFO -   ✔ reranker_service ready
+2026-03-29 23:53:41 - graph - INFO - Building LangGraph workflow...
+2026-03-29 23:53:41 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-29 23:53:41 - main - INFO - Workflow initialized successfully
+2026-03-29 23:53:41 - main - INFO - ==================================================
+2026-03-29 23:53:41 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:53:41 - main - INFO -    Project : plotsense
+2026-03-29 23:53:41 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:53:41 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:53:41 - main - INFO - ==================================================
+2026-03-29 23:54:10 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:54:11 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:54:11 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:54:11 - services.neo4j_service - INFO - Cypher Result Count: 1
+2026-03-29 23:54:35 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:54:35 - main - INFO - ==================================================
+2026-03-29 23:54:35 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:54:35 - main - INFO - ==================================================
+2026-03-29 23:54:38 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:54:38 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-29 23:54:38 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:54:38 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:54:38 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:54:38 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:54:40 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:54:40 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:54:40 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:54:46 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:54:46 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:54:46 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-29 23:54:46 - main - INFO -   ✔ faiss_service ready
+2026-03-29 23:54:47 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:54:47 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:54:47 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:54:47 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:54:50 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:54:50 - main - INFO -   ✔ reranker_service ready
+2026-03-29 23:54:50 - graph - INFO - Building LangGraph workflow...
+2026-03-29 23:54:50 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-29 23:54:50 - main - INFO - Workflow initialized successfully
+2026-03-29 23:54:50 - main - INFO - ==================================================
+2026-03-29 23:54:50 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:54:50 - main - INFO -    Project : plotsense
+2026-03-29 23:54:50 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:54:50 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:54:50 - main - INFO - ==================================================
+2026-03-29 23:54:54 - main - INFO - ==================================================
+2026-03-29 23:54:54 - main - INFO - Search request received: psychological horror thriller from 2000s
+2026-03-29 23:54:54 - main - INFO - ==================================================
+2026-03-29 23:54:54 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:54:55 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-29 23:54:55 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-29 23:54:55 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:54:55 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:54:55 - nodes.kg - INFO - Extracting entities from query: psychological horror thriller from 2000s
+2026-03-29 23:54:55 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: psychological horror thriller
+2026-03-29 23:54:55 - nodes.kg - INFO - Extracted Entities:
+2026-03-29 23:54:55 - nodes.kg - INFO -   Actor: None
+2026-03-29 23:54:55 - nodes.kg - INFO -   Director: None
+2026-03-29 23:54:55 - nodes.kg - INFO -   Genre: psychological horror thriller
+2026-03-29 23:54:55 - nodes.kg - INFO -   Keywords: None
+2026-03-29 23:54:55 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'psychological horror thriller', 'keywords': None}
+2026-03-29 23:54:55 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:54:56 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-29 23:54:56 - nodes.kg - INFO - KG Found Titles: ['All American Chump', 'And So They Were Married', 'Anthony Adverse', 'Banjo on My Knee', 'Beloved Enemy', 'The Big Game', 'The Big Show', 'The Bohemian Girl', 'The Bride Walks Out', 'Bullets or Ballots', 'Cain and Mabel', 'Camille', 'Captain Calamity', 'Captain January', 'The Case of the Black Cat']
+2026-03-29 23:54:56 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-29 23:54:56 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:54:56 - services.neo4j_service - INFO - Cypher Result Count: 19
+2026-03-29 23:54:56 - nodes.kg - INFO - Converted 19 KG titles to documents using Neo4j.
+2026-03-29 23:54:56 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:54:56 - services.reranker_service - INFO - --- Reranking 19 documents ---
+2026-03-29 23:54:59 - services.reranker_service - INFO - Reranking complete. Top score: -9.9577
+2026-03-29 23:54:59 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:54:59 - nodes.generate - INFO - Generating answer...
+2026-03-29 23:55:00 - nodes.generate - INFO - Final answer generated (len: 465)
+2026-03-29 23:55:00 - main - INFO - Search completed successfully
+2026-03-29 23:55:00 - main - INFO - Intent: query_search
+2026-03-29 23:55:00 - main - INFO - Movie Name: None
+2026-03-29 23:55:00 - main - INFO - Answer length: 465
+2026-03-29 23:55:19 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:55:19 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-29 23:55:19 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:55:19 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:55:19 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: psychological horror thriller
+2026-03-29 23:55:49 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:55:50 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:55:50 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:55:50 - services.neo4j_service - INFO - Cypher Result Count: 3
+2026-03-29 23:56:05 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:56:05 - services.neo4j_service - ERROR - Neo4j connection failed — service marked unhealthy. Wake up your Aura instance at console.neo4j.io
+Error: Failed to obtain connection towards 'READ' server.
+2026-03-29 23:56:05 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:56:05 - services.neo4j_service - WARNING - Neo4j is not connected — skipping Cypher query, returning empty results
+2026-03-29 23:56:46 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:56:47 - main - INFO - ==================================================
+2026-03-29 23:56:47 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:56:47 - main - INFO - ==================================================
+2026-03-29 23:56:49 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:56:49 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-29 23:56:49 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:56:49 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:56:49 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:56:50 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:56:51 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:56:51 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:56:51 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:56:57 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:56:57 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:56:57 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-29 23:56:57 - main - INFO -   ✔ faiss_service ready
+2026-03-29 23:56:57 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:56:57 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:56:57 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:56:57 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:57:01 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:57:01 - main - INFO -   ✔ reranker_service ready
+2026-03-29 23:57:01 - graph - INFO - Building LangGraph workflow...
+2026-03-29 23:57:01 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-29 23:57:01 - main - INFO - Workflow initialized successfully
+2026-03-29 23:57:01 - main - INFO - ==================================================
+2026-03-29 23:57:01 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:57:01 - main - INFO -    Project : plotsense
+2026-03-29 23:57:01 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:57:01 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:57:01 - main - INFO - ==================================================
+2026-03-29 23:57:07 - main - INFO - ==================================================
+2026-03-29 23:57:07 - main - INFO - Search request received: psychological horror thriller from 2000s
+2026-03-29 23:57:07 - main - INFO - ==================================================
+2026-03-29 23:57:08 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:57:08 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-29 23:57:08 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-29 23:57:08 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:57:08 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:57:08 - nodes.kg - INFO - Extracting entities from query: psychological horror thriller from 2000s
+2026-03-29 23:57:08 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: psychological horror thriller
+2026-03-29 23:57:08 - nodes.kg - INFO - Extracted Entities:
+2026-03-29 23:57:08 - nodes.kg - INFO -   Actor: None
+2026-03-29 23:57:08 - nodes.kg - INFO -   Director: None
+2026-03-29 23:57:08 - nodes.kg - INFO -   Genre: psychological horror thriller
+2026-03-29 23:57:08 - nodes.kg - INFO -   Keywords: None
+2026-03-29 23:57:08 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'psychological horror thriller', 'keywords': None}
+2026-03-29 23:57:08 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:57:09 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-29 23:57:09 - nodes.kg - INFO - KG Found Titles: []
+2026-03-29 23:57:09 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-29 23:57:09 - nodes.kg - INFO - Converted 0 KG titles to documents using Neo4j.
+2026-03-29 23:57:09 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:57:09 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:57:09 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:57:09 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:57:09 - main - INFO - Search completed successfully
+2026-03-29 23:57:09 - main - INFO - Intent: query_search
+2026-03-29 23:57:09 - main - INFO - Movie Name: None
+2026-03-29 23:57:09 - main - INFO - Answer length: 143
+2026-03-29 23:57:20 - main - INFO - ==================================================
+2026-03-29 23:57:20 - main - INFO - Search request received: Comedy movies
+2026-03-29 23:57:20 - main - INFO - ==================================================
+2026-03-29 23:57:20 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:57:20 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-29 23:57:20 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-29 23:57:20 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:57:20 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:57:20 - nodes.kg - INFO - Extracting entities from query: Comedy movies
+2026-03-29 23:57:20 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: Comedy
+2026-03-29 23:57:20 - nodes.kg - INFO - Extracted Entities:
+2026-03-29 23:57:20 - nodes.kg - INFO -   Actor: None
+2026-03-29 23:57:20 - nodes.kg - INFO -   Director: None
+2026-03-29 23:57:20 - nodes.kg - INFO -   Genre: Comedy
+2026-03-29 23:57:20 - nodes.kg - INFO -   Keywords: []
+2026-03-29 23:57:20 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'Comedy', 'keywords': None}
+2026-03-29 23:57:20 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:57:21 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-29 23:57:21 - nodes.kg - INFO - KG Found Titles: []
+2026-03-29 23:57:21 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-29 23:57:21 - nodes.kg - INFO - Converted 0 KG titles to documents using Neo4j.
+2026-03-29 23:57:21 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:57:21 - nodes.rerank - WARNING - No documents to rerank
+2026-03-29 23:57:21 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:57:21 - nodes.generate - WARNING - No docs available for generation.
+2026-03-29 23:57:21 - main - INFO - Search completed successfully
+2026-03-29 23:57:21 - main - INFO - Intent: query_search
+2026-03-29 23:57:21 - main - INFO - Movie Name: None
+2026-03-29 23:57:21 - main - INFO - Answer length: 143
+2026-03-29 23:57:34 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:57:34 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-29 23:57:34 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:57:34 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:57:34 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: Comedy
+2026-03-29 23:57:51 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:57:52 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:57:52 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:57:52 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-29 23:58:09 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:58:10 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:58:10 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:58:10 - services.neo4j_service - INFO - Cypher Result Count: 5
+2026-03-29 23:58:30 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-29 23:58:31 - main - INFO - ==================================================
+2026-03-29 23:58:31 - main - INFO - PlotSense Backend Starting...
+2026-03-29 23:58:31 - main - INFO - ==================================================
+2026-03-29 23:58:33 - services.llm_service - INFO - Initializing LLM models...
+2026-03-29 23:58:33 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-29 23:58:33 - services.llm_service - INFO - Structured output models configured
+2026-03-29 23:58:33 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-29 23:58:33 - main - INFO -   ✔ llm_service ready
+2026-03-29 23:58:34 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-29 23:58:35 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-29 23:58:35 - main - INFO -   ✔ neo4j_service ready
+2026-03-29 23:58:35 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-29 23:58:41 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-29 23:58:42 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-29 23:58:42 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-29 23:58:42 - main - INFO -   ✔ faiss_service ready
+2026-03-29 23:58:42 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-29 23:58:42 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-29 23:58:42 - main - INFO -   ✔ tavily_service ready
+2026-03-29 23:58:42 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-29 23:58:46 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-29 23:58:46 - main - INFO -   ✔ reranker_service ready
+2026-03-29 23:58:46 - graph - INFO - Building LangGraph workflow...
+2026-03-29 23:58:46 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-29 23:58:46 - main - INFO - Workflow initialized successfully
+2026-03-29 23:58:46 - main - INFO - ==================================================
+2026-03-29 23:58:46 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-29 23:58:46 - main - INFO -    Project : plotsense
+2026-03-29 23:58:46 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-29 23:58:46 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-29 23:58:46 - main - INFO - ==================================================
+2026-03-29 23:58:46 - main - INFO - ==================================================
+2026-03-29 23:58:46 - main - INFO - Search request received: Comedy movies
+2026-03-29 23:58:46 - main - INFO - ==================================================
+2026-03-29 23:58:46 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-29 23:58:48 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-29 23:58:48 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-29 23:58:48 - graph - INFO - Routing after classification: intent=query_search
+2026-03-29 23:58:48 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-29 23:58:48 - nodes.kg - INFO - Extracting entities from query: Comedy movies
+2026-03-29 23:58:48 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: comedy
+2026-03-29 23:58:48 - nodes.kg - INFO - Extracted Entities:
+2026-03-29 23:58:48 - nodes.kg - INFO -   Actor: None
+2026-03-29 23:58:48 - nodes.kg - INFO -   Director: None
+2026-03-29 23:58:48 - nodes.kg - INFO -   Genre: comedy
+2026-03-29 23:58:48 - nodes.kg - INFO -   Keywords: []
+2026-03-29 23:58:48 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'comedy', 'keywords': None}
+2026-03-29 23:58:48 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:58:49 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-29 23:58:49 - nodes.kg - INFO - KG Found Titles: ['All American Chump', 'And So They Were Married', 'Banjo on My Knee', 'The Bohemian Girl', 'The Bride Walks Out', 'Cain and Mabel', 'Charlie Chan at the Circus', 'Charlie Chan at the Opera', 'Charlie Chan at the Race Track', "Charlie Chan's Secret", 'Chatterbox', 'Colleen', 'College Holiday', 'Desire', 'The Devil Is a Sissy']
+2026-03-29 23:58:49 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-29 23:58:49 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-29 23:58:49 - services.neo4j_service - INFO - Cypher Result Count: 16
+2026-03-29 23:58:49 - nodes.kg - INFO - Converted 16 KG titles to documents using Neo4j.
+2026-03-29 23:58:49 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-29 23:58:49 - services.reranker_service - INFO - --- Reranking 16 documents ---
+2026-03-29 23:58:50 - services.reranker_service - INFO - Reranking complete. Top score: -4.2700
+2026-03-29 23:58:50 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-29 23:58:50 - nodes.generate - INFO - Generating answer...
+2026-03-29 23:58:51 - nodes.generate - INFO - Final answer generated (len: 1156)
+2026-03-29 23:58:51 - main - INFO - Search completed successfully
+2026-03-29 23:58:51 - main - INFO - Intent: query_search
+2026-03-29 23:58:51 - main - INFO - Movie Name: None
+2026-03-29 23:58:51 - main - INFO - Answer length: 1156
+2026-03-30 00:11:26 - main - INFO - ==================================================
+2026-03-30 00:11:26 - main - INFO - Search request received: Comedy films with Tom Hanks from the 90s
+2026-03-30 00:11:26 - main - INFO - ==================================================
+2026-03-30 00:11:26 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:11:26 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:11:26 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:11:26 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:11:26 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:11:26 - nodes.kg - INFO - Extracting entities from query: Comedy films with Tom Hanks from the 90s
+2026-03-30 00:11:27 - services.llm_service - INFO - Extracted filters - Actor: Tom Hanks, Director: None, Genre: Comedy
+2026-03-30 00:11:27 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:11:27 - nodes.kg - INFO -   Actor: Tom Hanks
+2026-03-30 00:11:27 - nodes.kg - INFO -   Director: None
+2026-03-30 00:11:27 - nodes.kg - INFO -   Genre: Comedy
+2026-03-30 00:11:27 - nodes.kg - INFO -   Keywords: None
+2026-03-30 00:11:27 - nodes.kg - INFO - Generated Cypher Params: {'actor': 'Tom Hanks', 'director': None, 'genre': 'Comedy', 'keywords': None}
+2026-03-30 00:11:27 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:12:19 - services.neo4j_service - INFO - Cypher Result Count: 4
+2026-03-30 00:12:19 - nodes.kg - INFO - KG Found Titles: ['Splash', 'Dragnet', 'A League of Their Own', 'Catch Me If You Can']
+2026-03-30 00:12:19 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:12:19 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:12:20 - services.neo4j_service - INFO - Cypher Result Count: 5
+2026-03-30 00:12:20 - nodes.kg - INFO - Converted 5 KG titles to documents using Neo4j.
+2026-03-30 00:12:20 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:12:20 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-30 00:12:21 - services.reranker_service - INFO - Reranking complete. Top score: -4.8321
+2026-03-30 00:12:21 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:12:21 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:12:22 - nodes.generate - INFO - Final answer generated (len: 816)
+2026-03-30 00:12:22 - main - INFO - Search completed successfully
+2026-03-30 00:12:22 - main - INFO - Intent: query_search
+2026-03-30 00:12:22 - main - INFO - Movie Name: None
+2026-03-30 00:12:22 - main - INFO - Answer length: 816
+2026-03-30 00:12:22 - main - INFO - ==================================================
+2026-03-30 00:12:22 - main - INFO - Search request received: psychological horror thriller with comedy
+2026-03-30 00:12:22 - main - INFO - ==================================================
+2026-03-30 00:12:22 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:12:22 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:12:22 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:12:22 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:12:22 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:12:22 - nodes.kg - INFO - Extracting entities from query: psychological horror thriller with comedy
+2026-03-30 00:12:22 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: psychological horror thriller
+2026-03-30 00:12:22 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:12:22 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:12:22 - nodes.kg - INFO -   Director: None
+2026-03-30 00:12:22 - nodes.kg - INFO -   Genre: psychological horror thriller
+2026-03-30 00:12:22 - nodes.kg - INFO -   Keywords: ['comedy', 'thriller']
+2026-03-30 00:12:22 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'psychological horror thriller', 'keywords': ['comedy', 'thriller']}
+2026-03-30 00:12:22 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:12:23 - services.neo4j_service - ERROR - Cypher Execution Error: {code: Neo.ClientError.Statement.TypeError} {message: Expected a string value for `toLower`, but got: Double(NaN); consider converting it to a string with toString().}
+2026-03-30 00:12:23 - nodes.kg - INFO - KG Found Titles: []
+2026-03-30 00:12:23 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:12:23 - nodes.kg - INFO - Converted 0 KG titles to documents using Neo4j.
+2026-03-30 00:12:23 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:12:23 - nodes.rerank - WARNING - No documents to rerank
+2026-03-30 00:12:23 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:12:23 - nodes.generate - WARNING - No docs available for generation.
+2026-03-30 00:12:23 - main - INFO - Search completed successfully
+2026-03-30 00:12:23 - main - INFO - Intent: query_search
+2026-03-30 00:12:23 - main - INFO - Movie Name: None
+2026-03-30 00:12:23 - main - INFO - Answer length: 143
+2026-03-30 00:12:44 - main - INFO - ==================================================
+2026-03-30 00:12:44 - main - INFO - Search request received: movies similar to Dhurandhar
+2026-03-30 00:12:44 - main - INFO - ==================================================
+2026-03-30 00:12:44 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:12:44 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.8)
+2026-03-30 00:12:44 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.8)
+2026-03-30 00:12:44 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-30 00:12:44 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 00:12:44 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-30 00:12:44 - graph - INFO - Movie name extracted: Dhurandhar
+2026-03-30 00:12:44 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 00:12:44 - services.faiss_service - WARNING - Dataset not loaded, cannot check movie existence
+2026-03-30 00:12:44 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 00:12:44 - graph - INFO - Movie not in dataset, using web search
+2026-03-30 00:12:44 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-30 00:12:44 - services.tavily_service - INFO - Searching Tavily with query: movie Dhurandhar plot summary wikipedia
+2026-03-30 00:12:49 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar:_The_Revenge
+2026-03-30 00:12:49 - services.tavily_service - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 00:12:49 - nodes.plot - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 00:12:49 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:12:49 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:12:49 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 00:12:49 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:12:49 - nodes.rerank - WARNING - No documents to rerank
+2026-03-30 00:12:49 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:12:49 - nodes.generate - WARNING - No docs available for generation.
+2026-03-30 00:12:49 - main - INFO - Search completed successfully
+2026-03-30 00:12:49 - main - INFO - Intent: movie_name
+2026-03-30 00:12:49 - main - INFO - Movie Name: Dhurandhar
+2026-03-30 00:12:49 - main - INFO - Answer length: 143
+2026-03-30 00:13:01 - main - INFO - ==================================================
+2026-03-30 00:13:01 - main - INFO - Search request received: Movies that feel like Blade Runner 2049
+2026-03-30 00:13:01 - main - INFO - ==================================================
+2026-03-30 00:13:01 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:13:01 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.8)
+2026-03-30 00:13:01 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.8)
+2026-03-30 00:13:01 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-30 00:13:01 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 00:13:01 - nodes.extract - INFO - Extracted Name: Blade Runner 2049
+2026-03-30 00:13:01 - graph - INFO - Movie name extracted: Blade Runner 2049
+2026-03-30 00:13:01 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 00:13:01 - services.faiss_service - WARNING - Dataset not loaded, cannot check movie existence
+2026-03-30 00:13:01 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 00:13:01 - graph - INFO - Movie not in dataset, using web search
+2026-03-30 00:13:01 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-30 00:13:01 - services.tavily_service - INFO - Searching Tavily with query: movie Blade Runner 2049 plot summary wikipedia
+2026-03-30 00:13:03 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Blade_Runner_2049
+2026-03-30 00:13:03 - services.tavily_service - INFO - Successfully retrieved plot for Blade Runner 2049
+2026-03-30 00:13:03 - nodes.plot - INFO - Successfully retrieved plot for Blade Runner 2049
+2026-03-30 00:13:03 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:13:03 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:13:03 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 00:13:03 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:13:03 - nodes.rerank - WARNING - No documents to rerank
+2026-03-30 00:13:03 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:13:03 - nodes.generate - WARNING - No docs available for generation.
+2026-03-30 00:13:03 - main - INFO - Search completed successfully
+2026-03-30 00:13:03 - main - INFO - Intent: movie_name
+2026-03-30 00:13:03 - main - INFO - Movie Name: Blade Runner 2049
+2026-03-30 00:13:03 - main - INFO - Answer length: 143
+2026-03-30 00:13:13 - main - INFO - ==================================================
+2026-03-30 00:13:13 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 00:13:13 - main - INFO - ==================================================
+2026-03-30 00:13:13 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:13:13 - services.llm_service - INFO - Intent classified: plot (confidence: 0.8)
+2026-03-30 00:13:13 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.8)
+2026-03-30 00:13:13 - graph - INFO - Routing after classification: intent=plot
+2026-03-30 00:13:13 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:13:13 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:13:13 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 00:13:13 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:13:13 - nodes.rerank - WARNING - No documents to rerank
+2026-03-30 00:13:13 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:13:13 - nodes.generate - WARNING - No docs available for generation.
+2026-03-30 00:13:13 - main - INFO - Search completed successfully
+2026-03-30 00:13:13 - main - INFO - Intent: plot
+2026-03-30 00:13:13 - main - INFO - Movie Name: None
+2026-03-30 00:13:13 - main - INFO - Answer length: 143
+2026-03-30 00:13:14 - main - INFO - ==================================================
+2026-03-30 00:13:14 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 00:13:14 - main - INFO - ==================================================
+2026-03-30 00:13:14 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:13:15 - services.llm_service - INFO - Intent classified: plot (confidence: 0.8)
+2026-03-30 00:13:15 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.8)
+2026-03-30 00:13:15 - graph - INFO - Routing after classification: intent=plot
+2026-03-30 00:13:15 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:13:15 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:13:15 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 00:13:15 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:13:15 - nodes.rerank - WARNING - No documents to rerank
+2026-03-30 00:13:15 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:13:15 - nodes.generate - WARNING - No docs available for generation.
+2026-03-30 00:13:15 - main - INFO - Search completed successfully
+2026-03-30 00:13:15 - main - INFO - Intent: plot
+2026-03-30 00:13:15 - main - INFO - Movie Name: None
+2026-03-30 00:13:15 - main - INFO - Answer length: 143
+2026-03-30 00:15:13 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:15:14 - main - INFO - ==================================================
+2026-03-30 00:15:14 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:15:14 - main - INFO - ==================================================
+2026-03-30 00:15:16 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:15:16 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:15:16 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:15:16 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:15:16 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:15:17 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:15:18 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:15:18 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:15:18 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:15:24 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:15:24 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:15:24 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:15:24 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:15:24 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:15:24 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:15:24 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:15:24 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:15:29 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:15:29 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:15:29 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:15:29 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:15:29 - main - INFO - Workflow initialized successfully
+2026-03-30 00:15:29 - main - INFO - ==================================================
+2026-03-30 00:15:29 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:15:29 - main - INFO -    Project : plotsense
+2026-03-30 00:15:29 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:15:29 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:15:29 - main - INFO - ==================================================
+2026-03-30 00:15:29 - main - INFO - ==================================================
+2026-03-30 00:15:29 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 00:15:29 - main - INFO - ==================================================
+2026-03-30 00:15:29 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:15:29 - services.llm_service - INFO - Intent classified: plot (confidence: 0.8)
+2026-03-30 00:15:29 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.8)
+2026-03-30 00:15:29 - graph - INFO - Routing after classification: intent=plot
+2026-03-30 00:15:29 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:15:29 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:15:29 - nodes.search - WARNING - FAISS returned 0 results. Falling back to Tavily Web Search...
+2026-03-30 00:15:34 - nodes.search - INFO - Retrieved 1 fallback documents from Tavily.
+2026-03-30 00:15:34 - nodes.search - INFO - Aggregated to 1 final documents.
+2026-03-30 00:15:34 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:15:34 - services.reranker_service - INFO - --- Reranking 1 documents ---
+2026-03-30 00:15:36 - services.reranker_service - INFO - Reranking complete. Top score: -0.9455
+2026-03-30 00:15:36 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:15:36 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:15:37 - nodes.generate - INFO - Final answer generated (len: 1505)
+2026-03-30 00:15:37 - main - INFO - Search completed successfully
+2026-03-30 00:15:37 - main - INFO - Intent: plot
+2026-03-30 00:15:37 - main - INFO - Movie Name: None
+2026-03-30 00:15:37 - main - INFO - Answer length: 1505
+2026-03-30 00:17:18 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:17:19 - main - INFO - ==================================================
+2026-03-30 00:17:19 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:17:19 - main - INFO - ==================================================
+2026-03-30 00:17:21 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:17:21 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:17:21 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:17:21 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:17:21 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:17:22 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:17:23 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:17:23 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:17:23 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:17:28 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:17:29 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:17:29 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:17:29 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:17:29 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:17:29 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:17:29 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:17:29 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:17:33 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:17:33 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:17:33 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:17:33 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:17:33 - main - INFO - Workflow initialized successfully
+2026-03-30 00:17:33 - main - INFO - ==================================================
+2026-03-30 00:17:33 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:17:33 - main - INFO -    Project : plotsense
+2026-03-30 00:17:33 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:17:33 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:17:33 - main - INFO - ==================================================
+2026-03-30 00:17:33 - main - INFO - ==================================================
+2026-03-30 00:17:33 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 00:17:33 - main - INFO - ==================================================
+2026-03-30 00:17:33 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:17:34 - services.llm_service - INFO - Intent classified: plot (confidence: 0.8)
+2026-03-30 00:17:34 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.8)
+2026-03-30 00:17:34 - graph - INFO - Routing after classification: intent=plot
+2026-03-30 00:17:34 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:17:34 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:17:34 - nodes.search - WARNING - FAISS returned 0 results. Falling back to Tavily Web Search...
+2026-03-30 00:17:41 - nodes.search - INFO - Retrieved 1 fallback documents from Tavily.
+2026-03-30 00:17:41 - nodes.search - INFO - Aggregated to 1 final documents.
+2026-03-30 00:17:41 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:17:41 - services.reranker_service - INFO - --- Reranking 1 documents ---
+2026-03-30 00:17:41 - services.reranker_service - INFO - Reranking complete. Top score: -0.9455
+2026-03-30 00:17:41 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:17:41 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:17:42 - nodes.generate - INFO - Final answer generated (len: 740)
+2026-03-30 00:17:42 - main - INFO - Search completed successfully
+2026-03-30 00:17:42 - main - INFO - Intent: plot
+2026-03-30 00:17:42 - main - INFO - Movie Name: None
+2026-03-30 00:17:42 - main - INFO - Answer length: 740
+2026-03-30 00:19:47 - main - INFO - ==================================================
+2026-03-30 00:19:47 - main - INFO - Search request received: psychological horror thriller
+2026-03-30 00:19:47 - main - INFO - ==================================================
+2026-03-30 00:19:47 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:19:47 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:19:47 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:19:47 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:19:47 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:19:47 - nodes.kg - INFO - Extracting entities from query: psychological horror thriller
+2026-03-30 00:19:48 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: psychological horror thriller
+2026-03-30 00:19:48 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:19:48 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:19:48 - nodes.kg - INFO -   Director: None
+2026-03-30 00:19:48 - nodes.kg - INFO -   Genre: psychological horror thriller
+2026-03-30 00:19:48 - nodes.kg - INFO -   Keywords: []
+2026-03-30 00:19:48 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'psychological horror thriller', 'keywords': None}
+2026-03-30 00:19:48 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:19:49 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-30 00:19:49 - nodes.kg - INFO - KG Found Titles: []
+2026-03-30 00:19:49 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:19:49 - nodes.kg - INFO - Converted 0 KG titles to documents using Neo4j.
+2026-03-30 00:19:49 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:19:49 - nodes.rerank - WARNING - No documents to rerank
+2026-03-30 00:19:49 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:19:49 - nodes.generate - WARNING - No docs available for generation.
+2026-03-30 00:19:49 - main - INFO - Search completed successfully
+2026-03-30 00:19:49 - main - INFO - Intent: query_search
+2026-03-30 00:19:49 - main - INFO - Movie Name: None
+2026-03-30 00:19:49 - main - INFO - Answer length: 143
+2026-03-30 00:21:04 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:21:05 - main - INFO - ==================================================
+2026-03-30 00:21:05 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:21:05 - main - INFO - ==================================================
+2026-03-30 00:21:07 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:21:07 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:21:07 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:21:07 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:21:07 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:21:08 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:21:09 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:21:09 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:21:09 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:21:15 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:21:15 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:21:15 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:21:15 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:21:15 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:21:15 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:21:15 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:21:15 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:21:19 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:21:19 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:21:19 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:21:19 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:21:19 - main - INFO - Workflow initialized successfully
+2026-03-30 00:21:19 - main - INFO - ==================================================
+2026-03-30 00:21:19 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:21:19 - main - INFO -    Project : plotsense
+2026-03-30 00:21:19 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:21:19 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:21:19 - main - INFO - ==================================================
+2026-03-30 00:21:19 - main - INFO - ==================================================
+2026-03-30 00:21:19 - main - INFO - Search request received: psychological horror thriller
+2026-03-30 00:21:19 - main - INFO - ==================================================
+2026-03-30 00:21:19 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:21:20 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:21:20 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:21:20 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:21:20 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:21:20 - nodes.kg - INFO - Extracting entities from query: psychological horror thriller
+2026-03-30 00:21:20 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: psychological horror thriller
+2026-03-30 00:21:20 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:21:20 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:21:20 - nodes.kg - INFO -   Director: None
+2026-03-30 00:21:20 - nodes.kg - INFO -   Genre: psychological horror thriller
+2026-03-30 00:21:20 - nodes.kg - INFO -   Keywords: []
+2026-03-30 00:21:20 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'psychological horror thriller', 'keywords': None}
+2026-03-30 00:21:20 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:21:20 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-30 00:21:20 - nodes.kg - INFO - KG Found Titles: []
+2026-03-30 00:21:20 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:21:20 - nodes.kg - WARNING - Neo4j KG returned 0 results. Falling back to Tavily Web Search...
+2026-03-30 00:21:23 - nodes.kg - INFO - Retrieved 1 fallback documents from Tavily.
+2026-03-30 00:21:23 - nodes.kg - INFO - Converted 1 KG titles to documents using Neo4j (or Web Fallback).
+2026-03-30 00:21:23 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:21:23 - services.reranker_service - INFO - --- Reranking 1 documents ---
+2026-03-30 00:21:24 - services.reranker_service - INFO - Reranking complete. Top score: 4.5979
+2026-03-30 00:21:24 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:21:24 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:21:25 - nodes.generate - INFO - Final answer generated (len: 1127)
+2026-03-30 00:21:26 - main - INFO - Search completed successfully
+2026-03-30 00:21:26 - main - INFO - Intent: query_search
+2026-03-30 00:21:26 - main - INFO - Movie Name: None
+2026-03-30 00:21:26 - main - INFO - Answer length: 1127
+2026-03-30 00:22:17 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:22:18 - main - INFO - ==================================================
+2026-03-30 00:22:18 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:22:18 - main - INFO - ==================================================
+2026-03-30 00:22:20 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:22:20 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:22:20 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:22:20 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:22:20 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:22:21 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:22:22 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:22:22 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:22:22 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:22:27 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:22:28 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:22:28 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:22:28 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:22:28 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:22:28 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:22:28 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:22:28 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:22:32 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:22:32 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:22:32 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:22:32 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:22:32 - main - INFO - Workflow initialized successfully
+2026-03-30 00:22:32 - main - INFO - ==================================================
+2026-03-30 00:22:32 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:22:32 - main - INFO -    Project : plotsense
+2026-03-30 00:22:32 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:22:32 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:22:32 - main - INFO - ==================================================
+2026-03-30 00:22:32 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:22:33 - main - INFO - ==================================================
+2026-03-30 00:22:33 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:22:33 - main - INFO - ==================================================
+2026-03-30 00:22:35 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:22:35 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:22:35 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:22:35 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:22:35 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:22:36 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:22:37 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:22:37 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:22:37 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:22:42 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:22:43 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:22:43 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:22:43 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:22:43 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:22:43 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:22:43 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:22:43 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:22:47 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:22:47 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:22:47 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:22:47 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:22:47 - main - INFO - Workflow initialized successfully
+2026-03-30 00:22:47 - main - INFO - ==================================================
+2026-03-30 00:22:47 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:22:47 - main - INFO -    Project : plotsense
+2026-03-30 00:22:47 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:22:47 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:22:47 - main - INFO - ==================================================
+2026-03-30 00:24:24 - main - INFO - ==================================================
+2026-03-30 00:24:24 - main - INFO - Search request received: a film based on robery
+2026-03-30 00:24:24 - main - INFO - ==================================================
+2026-03-30 00:24:24 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:24:25 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:24:25 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:24:25 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:24:25 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:24:25 - nodes.kg - INFO - Extracting entities from query: a film based on robery
+2026-03-30 00:24:25 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: crime
+2026-03-30 00:24:25 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:24:25 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:24:25 - nodes.kg - INFO -   Director: None
+2026-03-30 00:24:25 - nodes.kg - INFO -   Genre: crime
+2026-03-30 00:24:25 - nodes.kg - INFO -   Keywords: ['robbery']
+2026-03-30 00:24:25 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'crime', 'keywords': ['robbery']}
+2026-03-30 00:24:25 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:24:25 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 00:24:25 - nodes.kg - INFO - KG Found Titles: ['Angels with Dirty Faces', 'Ambush', "Boys' Reformatory", 'Invisible Stripes', 'I Stole a Million', 'King of the Underworld', 'Let Us Live', 'The Saint Strikes Back', "You Can't Get Away with Murder", 'The Bad Boy', 'Seven Sinners', 'The Unholy Three', 'Alias Jimmy Valentine', 'While the City Sleeps', 'Alibi']
+2026-03-30 00:24:25 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:24:25 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:24:26 - services.neo4j_service - INFO - Cypher Result Count: 21
+2026-03-30 00:24:26 - nodes.kg - INFO - Converted 21 KG titles to documents using Neo4j (or Web Fallback).
+2026-03-30 00:24:26 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:24:26 - services.reranker_service - INFO - --- Reranking 21 documents ---
+2026-03-30 00:24:27 - services.reranker_service - INFO - Reranking complete. Top score: -5.6484
+2026-03-30 00:24:27 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:24:27 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:24:28 - nodes.generate - INFO - Final answer generated (len: 955)
+2026-03-30 00:24:28 - main - INFO - Search completed successfully
+2026-03-30 00:24:28 - main - INFO - Intent: query_search
+2026-03-30 00:24:28 - main - INFO - Movie Name: None
+2026-03-30 00:24:28 - main - INFO - Answer length: 955
+2026-03-30 00:24:54 - main - INFO - ==================================================
+2026-03-30 00:24:54 - main - INFO - Search request received: moves which have horror and comedic elements
+2026-03-30 00:24:54 - main - INFO - ==================================================
+2026-03-30 00:24:54 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:24:55 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:24:55 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:24:55 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:24:55 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:24:55 - nodes.kg - INFO - Extracting entities from query: moves which have horror and comedic elements
+2026-03-30 00:24:55 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: Horror-Comedy
+2026-03-30 00:24:55 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:24:55 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:24:55 - nodes.kg - INFO -   Director: None
+2026-03-30 00:24:55 - nodes.kg - INFO -   Genre: Horror-Comedy
+2026-03-30 00:24:55 - nodes.kg - INFO -   Keywords: []
+2026-03-30 00:24:55 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'Horror-Comedy', 'keywords': None}
+2026-03-30 00:24:55 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:24:56 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-30 00:24:56 - nodes.kg - INFO - KG Found Titles: []
+2026-03-30 00:24:56 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:24:56 - nodes.kg - WARNING - Neo4j KG returned 0 results. Falling back to Tavily Web Search...
+2026-03-30 00:25:00 - nodes.kg - INFO - Retrieved 1 fallback documents from Tavily.
+2026-03-30 00:25:00 - nodes.kg - INFO - Converted 1 KG titles to documents using Neo4j (or Web Fallback).
+2026-03-30 00:25:00 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:25:00 - services.reranker_service - INFO - --- Reranking 1 documents ---
+2026-03-30 00:25:00 - services.reranker_service - INFO - Reranking complete. Top score: -3.7231
+2026-03-30 00:25:00 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:25:00 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:25:02 - nodes.generate - INFO - Final answer generated (len: 1252)
+2026-03-30 00:25:02 - main - INFO - Search completed successfully
+2026-03-30 00:25:02 - main - INFO - Intent: query_search
+2026-03-30 00:25:02 - main - INFO - Movie Name: None
+2026-03-30 00:25:02 - main - INFO - Answer length: 1252
+2026-03-30 00:25:43 - main - INFO - ==================================================
+2026-03-30 00:25:43 - main - INFO - Search request received: a psychological horror movie
+2026-03-30 00:25:43 - main - INFO - ==================================================
+2026-03-30 00:25:43 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:25:44 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:25:44 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:25:44 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:25:44 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:25:44 - nodes.kg - INFO - Extracting entities from query: a psychological horror movie
+2026-03-30 00:25:44 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: psychological horror
+2026-03-30 00:25:44 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:25:44 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:25:44 - nodes.kg - INFO -   Director: None
+2026-03-30 00:25:44 - nodes.kg - INFO -   Genre: psychological horror
+2026-03-30 00:25:44 - nodes.kg - INFO -   Keywords: []
+2026-03-30 00:25:44 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'psychological horror', 'keywords': None}
+2026-03-30 00:25:44 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:25:44 - services.neo4j_service - INFO - Cypher Result Count: 6
+2026-03-30 00:25:44 - nodes.kg - INFO - KG Found Titles: ['The Night God Screamed', 'Saw', 'Saw II', 'The Rite', 'Lake Mungo', 'The Unseen']
+2026-03-30 00:25:44 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:25:44 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:25:45 - services.neo4j_service - INFO - Cypher Result Count: 8
+2026-03-30 00:25:45 - nodes.kg - INFO - Converted 8 KG titles to documents using Neo4j (or Web Fallback).
+2026-03-30 00:25:45 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:25:45 - services.reranker_service - INFO - --- Reranking 8 documents ---
+2026-03-30 00:25:45 - services.reranker_service - INFO - Reranking complete. Top score: -7.0977
+2026-03-30 00:25:45 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:25:45 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:25:46 - nodes.generate - INFO - Final answer generated (len: 1210)
+2026-03-30 00:25:46 - main - INFO - Search completed successfully
+2026-03-30 00:25:46 - main - INFO - Intent: query_search
+2026-03-30 00:25:46 - main - INFO - Movie Name: None
+2026-03-30 00:25:46 - main - INFO - Answer length: 1210
+2026-03-30 00:26:00 - main - INFO - ==================================================
+2026-03-30 00:26:00 - main - INFO - Search request received: horror movies with comedy
+2026-03-30 00:26:00 - main - INFO - ==================================================
+2026-03-30 00:26:00 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:26:00 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:26:00 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:26:00 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:26:00 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:26:00 - nodes.kg - INFO - Extracting entities from query: horror movies with comedy
+2026-03-30 00:26:00 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: horror comedy
+2026-03-30 00:26:00 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:26:00 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:26:00 - nodes.kg - INFO -   Director: None
+2026-03-30 00:26:00 - nodes.kg - INFO -   Genre: horror comedy
+2026-03-30 00:26:00 - nodes.kg - INFO -   Keywords: []
+2026-03-30 00:26:00 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'horror comedy', 'keywords': None}
+2026-03-30 00:26:00 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:26:00 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 00:26:00 - nodes.kg - INFO - KG Found Titles: ['The Ghost Breakers', 'King of the Zombies', 'The Boogie Man Will Get You', 'Ghosts on the Loose', 'One Body Too Many', 'Zombies on Broadway', 'Abbott and Costello Meet the Mummy', 'The Comedy of Terrors', 'The Fearless Vampire Killers', 'Hillbillys in a Haunted House', 'Saturday the 14th', 'Night of the Creeps', 'Creepshow 2', 'I Was a Teenage Zombie', 'The Monster Squad']
+2026-03-30 00:26:00 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:26:00 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:26:01 - services.neo4j_service - INFO - Cypher Result Count: 16
+2026-03-30 00:26:01 - nodes.kg - INFO - Converted 16 KG titles to documents using Neo4j (or Web Fallback).
+2026-03-30 00:26:01 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:26:01 - services.reranker_service - INFO - --- Reranking 16 documents ---
+2026-03-30 00:26:01 - services.reranker_service - INFO - Reranking complete. Top score: 3.7898
+2026-03-30 00:26:01 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:26:01 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:26:02 - nodes.generate - INFO - Final answer generated (len: 1266)
+2026-03-30 00:26:02 - main - INFO - Search completed successfully
+2026-03-30 00:26:02 - main - INFO - Intent: query_search
+2026-03-30 00:26:02 - main - INFO - Movie Name: None
+2026-03-30 00:26:02 - main - INFO - Answer length: 1266
+2026-03-30 00:27:38 - main - INFO - ==================================================
+2026-03-30 00:27:38 - main - INFO - Search request received: Comedy films with Tom Hanks from the 90s
+2026-03-30 00:27:38 - main - INFO - ==================================================
+2026-03-30 00:27:38 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:27:40 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.9)
+2026-03-30 00:27:40 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.9)
+2026-03-30 00:27:40 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:27:40 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:27:40 - nodes.kg - INFO - Extracting entities from query: Comedy films with Tom Hanks from the 90s
+2026-03-30 00:27:40 - services.llm_service - INFO - Extracted filters - Actor: Tom Hanks, Director: None, Genre: Comedy
+2026-03-30 00:27:40 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:27:40 - nodes.kg - INFO -   Actor: Tom Hanks
+2026-03-30 00:27:40 - nodes.kg - INFO -   Director: None
+2026-03-30 00:27:40 - nodes.kg - INFO -   Genre: Comedy
+2026-03-30 00:27:40 - nodes.kg - INFO -   Keywords: None
+2026-03-30 00:27:40 - nodes.kg - INFO - Generated Cypher Params: {'actor': 'Tom Hanks', 'director': None, 'genre': 'Comedy', 'keywords': None}
+2026-03-30 00:27:40 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:27:41 - services.neo4j_service - INFO - Cypher Result Count: 4
+2026-03-30 00:27:41 - nodes.kg - INFO - KG Found Titles: ['Splash', 'Dragnet', 'A League of Their Own', 'Catch Me If You Can']
+2026-03-30 00:27:41 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:27:41 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:27:41 - services.neo4j_service - INFO - Cypher Result Count: 5
+2026-03-30 00:27:41 - nodes.kg - INFO - Converted 5 KG titles to documents using Neo4j (or Web Fallback).
+2026-03-30 00:27:41 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:27:41 - services.reranker_service - INFO - --- Reranking 5 documents ---
+2026-03-30 00:27:41 - services.reranker_service - INFO - Reranking complete. Top score: -4.8321
+2026-03-30 00:27:41 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:27:41 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:27:43 - nodes.generate - INFO - Final answer generated (len: 1229)
+2026-03-30 00:27:43 - main - INFO - Search completed successfully
+2026-03-30 00:27:43 - main - INFO - Intent: query_search
+2026-03-30 00:27:43 - main - INFO - Movie Name: None
+2026-03-30 00:27:43 - main - INFO - Answer length: 1229
+2026-03-30 00:28:03 - main - INFO - ==================================================
+2026-03-30 00:28:03 - main - INFO - Search request received: movies like Dhurandhar
+2026-03-30 00:28:03 - main - INFO - ==================================================
+2026-03-30 00:28:03 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:28:04 - services.llm_service - INFO - Intent classified: movie_name (confidence: 0.8)
+2026-03-30 00:28:04 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.8)
+2026-03-30 00:28:04 - graph - INFO - Routing after classification: intent=movie_name
+2026-03-30 00:28:04 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 00:28:04 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-30 00:28:04 - graph - INFO - Movie name extracted: Dhurandhar
+2026-03-30 00:28:04 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 00:28:04 - services.faiss_service - WARNING - Dataset not loaded, cannot check movie existence
+2026-03-30 00:28:04 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 00:28:04 - graph - INFO - Movie not in dataset, using web search
+2026-03-30 00:28:04 - nodes.plot - INFO - --- Node: Get Web Plot ---
+2026-03-30 00:28:04 - services.tavily_service - INFO - Searching Tavily with query: movie Dhurandhar plot summary wikipedia
+2026-03-30 00:28:06 - services.tavily_service - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar:_The_Revenge
+2026-03-30 00:28:06 - services.tavily_service - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 00:28:06 - nodes.plot - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 00:28:06 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:28:06 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:28:06 - nodes.search - WARNING - FAISS returned 0 results. Falling back to Tavily Web Search...
+2026-03-30 00:28:07 - nodes.search - INFO - Aggregated to 0 final documents.
+2026-03-30 00:28:07 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:28:07 - nodes.rerank - WARNING - No documents to rerank
+2026-03-30 00:28:07 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:28:07 - nodes.generate - WARNING - No docs available for generation.
+2026-03-30 00:28:07 - main - INFO - Search completed successfully
+2026-03-30 00:28:07 - main - INFO - Intent: movie_name
+2026-03-30 00:28:07 - main - INFO - Movie Name: Dhurandhar
+2026-03-30 00:28:07 - main - INFO - Answer length: 143
+2026-03-30 00:28:49 - main - INFO - ==================================================
+2026-03-30 00:28:49 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 00:28:49 - main - INFO - ==================================================
+2026-03-30 00:28:49 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:28:49 - services.llm_service - INFO - Intent classified: plot (confidence: 0.8)
+2026-03-30 00:28:49 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.8)
+2026-03-30 00:28:49 - graph - INFO - Routing after classification: intent=plot
+2026-03-30 00:28:49 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:28:49 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:28:49 - nodes.search - WARNING - FAISS returned 0 results. Falling back to Tavily Web Search...
+2026-03-30 00:28:50 - nodes.search - INFO - Retrieved 1 fallback documents from Tavily.
+2026-03-30 00:28:50 - nodes.search - INFO - Aggregated to 1 final documents.
+2026-03-30 00:28:50 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:28:50 - services.reranker_service - INFO - --- Reranking 1 documents ---
+2026-03-30 00:28:51 - services.reranker_service - INFO - Reranking complete. Top score: -0.9455
+2026-03-30 00:28:51 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:28:51 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:28:52 - nodes.generate - INFO - Final answer generated (len: 1022)
+2026-03-30 00:28:52 - main - INFO - Search completed successfully
+2026-03-30 00:28:52 - main - INFO - Intent: plot
+2026-03-30 00:28:52 - main - INFO - Movie Name: None
+2026-03-30 00:28:52 - main - INFO - Answer length: 1022
+2026-03-30 00:29:18 - main - INFO - ==================================================
+2026-03-30 00:29:18 - main - INFO - Search request received: a romantic movie with thrill
+2026-03-30 00:29:18 - main - INFO - ==================================================
+2026-03-30 00:29:18 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:29:18 - services.llm_service - INFO - Intent classified: query_search (confidence: 0.8)
+2026-03-30 00:29:18 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:29:18 - graph - INFO - Routing after classification: intent=query_search
+2026-03-30 00:29:18 - nodes.kg - INFO - --- Node: Advanced KG Agent ---
+2026-03-30 00:29:18 - nodes.kg - INFO - Extracting entities from query: a romantic movie with thrill
+2026-03-30 00:29:18 - services.llm_service - INFO - Extracted filters - Actor: None, Director: None, Genre: romantic thriller
+2026-03-30 00:29:18 - nodes.kg - INFO - Extracted Entities:
+2026-03-30 00:29:18 - nodes.kg - INFO -   Actor: None
+2026-03-30 00:29:18 - nodes.kg - INFO -   Director: None
+2026-03-30 00:29:18 - nodes.kg - INFO -   Genre: romantic thriller
+2026-03-30 00:29:18 - nodes.kg - INFO -   Keywords: []
+2026-03-30 00:29:18 - nodes.kg - INFO - Generated Cypher Params: {'actor': None, 'director': None, 'genre': 'romantic thriller', 'keywords': None}
+2026-03-30 00:29:18 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:29:18 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 00:29:18 - nodes.kg - INFO - KG Found Titles: ['Safe Haven', 'Bees Saal Baad', 'China Town', 'Yeh Rastey Hain Pyar Ke', 'Duniya', 'Whistle', 'Nidra (നിദ്ര)', 'Ayalum Njanum Thammil (അയാളും ഞാനും തമ്മിൽ)', 'Anarkali', 'Azhagiya Tamil Magan', 'Naan Avanillai 2', 'Muppozhudhum Un Karpanaigal', 'Pizza', 'Udhayam NH4', 'Vizhi Moodi Yosithaal']
+2026-03-30 00:29:18 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:29:18 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 00:29:19 - services.neo4j_service - INFO - Cypher Result Count: 24
+2026-03-30 00:29:19 - nodes.kg - INFO - Converted 24 KG titles to documents using Neo4j (or Web Fallback).
+2026-03-30 00:29:19 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:29:19 - services.reranker_service - INFO - --- Reranking 24 documents ---
+2026-03-30 00:29:20 - services.reranker_service - INFO - Reranking complete. Top score: -5.9368
+2026-03-30 00:29:20 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:29:20 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:29:21 - nodes.generate - INFO - Final answer generated (len: 895)
+2026-03-30 00:29:21 - main - INFO - Search completed successfully
+2026-03-30 00:29:21 - main - INFO - Intent: query_search
+2026-03-30 00:29:21 - main - INFO - Movie Name: None
+2026-03-30 00:29:21 - main - INFO - Answer length: 895
+2026-03-30 00:29:49 - main - INFO - ==================================================
+2026-03-30 00:29:49 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 00:29:49 - main - INFO - ==================================================
+2026-03-30 00:29:49 - nodes.classify - INFO - --- Node: Classify Query (Gemini Structured) ---
+2026-03-30 00:29:49 - services.llm_service - INFO - Intent classified: plot (confidence: 0.8)
+2026-03-30 00:29:49 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.8)
+2026-03-30 00:29:49 - graph - INFO - Routing after classification: intent=plot
+2026-03-30 00:29:49 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:29:49 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:29:49 - nodes.search - WARNING - FAISS returned 0 results. Falling back to Tavily Web Search...
+2026-03-30 00:29:50 - nodes.search - INFO - Retrieved 1 fallback documents from Tavily.
+2026-03-30 00:29:50 - nodes.search - INFO - Aggregated to 1 final documents.
+2026-03-30 00:29:50 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:29:50 - services.reranker_service - INFO - --- Reranking 1 documents ---
+2026-03-30 00:29:51 - services.reranker_service - INFO - Reranking complete. Top score: -0.9455
+2026-03-30 00:29:51 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:29:51 - nodes.generate - INFO - Generating answer...
+2026-03-30 00:29:51 - nodes.generate - INFO - Final answer generated (len: 941)
+2026-03-30 00:29:51 - main - INFO - Search completed successfully
+2026-03-30 00:29:51 - main - INFO - Intent: plot
+2026-03-30 00:29:51 - main - INFO - Movie Name: None
+2026-03-30 00:29:51 - main - INFO - Answer length: 941

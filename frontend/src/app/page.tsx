@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import HeroContent from "@/components/HeroContent";
 import SearchPreview from "@/components/SearchPreview";
 import StatsBar from "@/components/StatsBar";
+import HowItWorks from "@/components/HowItWorks";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       </div>
 
       <StatsBar />
+      <HowItWorks />
       
       {/* Optional padding at the bottom for smooth scroll ending */}
       <div className="h-24 w-full bg-carbon" />

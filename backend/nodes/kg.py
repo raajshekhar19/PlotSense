@@ -40,14 +40,11 @@ def kg_agent(state: MovieState) -> dict:
     # Dynamic Cypher to handle any combination of actor, director, genre, or plot
     cypher = """
     MATCH (m:Movie)
-    OPTIONAL MATCH (m)<-[:ACTED_IN]-(a:Person)
-    OPTIONAL MATCH (m)<-[:DIRECTED]-(d:Person)
-    OPTIONAL MATCH (m)-[:IN_GENRE]->(g:Genre)
     WHERE
-        ($actor IS NULL OR toLower(a.name) CONTAINS toLower($actor)) AND
-        ($director IS NULL OR toLower(d.name) CONTAINS toLower($director)) AND
-        ($genre IS NULL OR toLower(g.name) CONTAINS toLower($genre)) AND
-        ($keywords IS NULL OR ANY(k IN $keywords WHERE toLower(m.plot) CONTAINS toLower(k)))
+        ($actor IS NULL OR EXISTS { MATCH (m)-[:FEATURES]->(a:Actor) WHERE toLower(a.name) CONTAINS toLower($actor) }) AND
+        ($director IS NULL OR EXISTS { MATCH (m)-[:DIRECTED_BY]->(d:Director) WHERE toLower(d.name) CONTAINS toLower($director) }) AND
+        ($genre IS NULL OR EXISTS { MATCH (m)-[:BELONGS_TO]->(g:Genre) WHERE toLower(g.name) CONTAINS toLower($genre) }) AND
+        ($keywords IS NULL OR size($keywords)=0 OR ANY(k IN $keywords WHERE toLower(m.plot) CONTAINS toLower(k)))
     RETURN DISTINCT m.title AS title
     LIMIT 15
     """
@@ -71,7 +68,7 @@ def kg_agent(state: MovieState) -> dict:
 
 def kg_results_to_docs(state: MovieState) -> dict:
     """
-    Convert KG movie titles to document objects.
+    Convert KG movie titles to document objects directly via Neo4j.
     
     Args:
         state: Current workflow state
@@ -84,11 +81,48 @@ def kg_results_to_docs(state: MovieState) -> dict:
     titles = state.get("kg_movies", [])
     docs = []
     
-    for title in titles:
-        matches = faiss_service.similarity_search(title, k=1)
-        if matches:
-            docs.append(matches[0])
+    if titles:
+        # Fetch the plots directly from Neo4j for the matched titles
+        cypher = """
+        MATCH (m:Movie)
+        WHERE m.title IN $titles
+        RETURN m.title AS title, m.plot AS plot
+        """
+        data = neo4j_service.run_cypher(cypher, {"titles": titles})
+        
+        from langchain_core.documents import Document
+        
+        for record in data:
+            if record.get("plot"):
+                docs.append(Document(
+                    page_content=record["plot"],
+                    metadata={"title": record["title"], "source": "Neo4j"}
+                ))
+                
+    # Fallback to Tavily if Neo4j returns absolutely nothing
+    if not docs:
+        logger.warning("Neo4j KG returned 0 results. Falling back to Tavily Web Search...")
+        try:
+            from services.tavily_service import tavily_service
+            query_text = state.get("query", "")
+            search_query = f"{query_text} movie title"
+            raw_response = tavily_service.search_tool.invoke({"query": search_query})
+            
+            results = raw_response.get("results", []) if isinstance(raw_response, dict) else []
+            
+            from langchain_core.documents import Document
+            for r in results[:5]:
+                if isinstance(r, dict) and r.get("content"):
+                    docs.append(Document(
+                        page_content=r["content"],
+                        metadata={"title": r.get("title", "Web Result"), "source": "Tavily Web Search", "url": r.get("url", "")}
+                    ))
+            
+            if docs:
+                logger.info(f"Retrieved {len(docs)} fallback documents from Tavily.")
+        except Exception as e:
+            logger.error(f"Tavily fallback failed: {e}")
     
-    logger.info(f"Converted {len(docs)} KG titles to documents.")
+    logger.info(f"Converted {len(docs)} KG titles to documents using Neo4j (or Web Fallback).")
     
     return {"final_docs": docs}

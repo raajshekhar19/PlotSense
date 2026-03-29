@@ -21,10 +21,11 @@ interface Props {
   intentHover: string | null;
   results: MatchResult[] | null;
   isLoading: boolean;
+  aiAnswer?: string | null;
   onResultClick: (result: MatchResult) => void;
 }
 
-export default function ResultsStream({ query, intentHover, results, isLoading, onResultClick }: Props) {
+export default function ResultsStream({ query, intentHover, results, isLoading, aiAnswer, onResultClick }: Props) {
   
   // Highlight snippet Helper
   const renderSnippet = (text: string) => {
@@ -79,9 +80,9 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
         )}
 
         {/* Answer Synthesis (Phase 2 integration - if results exist) */}
-        {results && results.length > 0 && !isLoading && (
+        {results && results.length > 0 && !isLoading && aiAnswer && (
           <div className="mb-8">
-            <AnswerSynthesis />
+            <AnswerSynthesis answerText={aiAnswer} />
           </div>
         )}
 

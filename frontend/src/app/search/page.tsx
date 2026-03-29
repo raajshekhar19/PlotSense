@@ -7,58 +7,152 @@ import ResultsStream from "@/components/search/ResultsStream";
 import { ProgressBar } from "@/components/LoadingStates";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Mock Results generator
-const MOCK_RESULTS = [
-  {
-    id: "1",
-    title: "Inception",
-    year: "2010",
-    genre: "Sci-Fi / Thriller",
-    snippet: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the <mark>psychological heist</mark>.",
-    score: 98,
-    sources: ["FAISS", "Neo4j", "Reranker"],
-    director: "Christopher Nolan",
-    posterUrl: "https://image.tmdb.org/t/p/w200/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg"
-  },
-  {
-    id: "2",
-    title: "Shutter Island",
-    year: "2010",
-    genre: "Thriller / Mystery",
-    snippet: "In 1954, a U.S. Marshal investigates the disappearance of a murderer who escaped from a hospital for the criminally insane. It shares similar deeply <mark>psychological unreliable narrator</mark> elements.",
-    score: 87,
-    sources: ["FAISS"],
-    director: "Martin Scorsese",
-    posterUrl: "https://image.tmdb.org/t/p/w200/qayga0775aEaZ2yXyCjN3uNWe8o.jpg"
-  },
-  {
-    id: "3",
-    title: "The Prestige",
-    year: "2006",
-    genre: "Drama / Mystery / Sci-Fi",
-    snippet: "After a tragic accident, two stage magicians in 1890s London engage in a battle to create the ultimate illusion while sacrificing everything they have to outwit each other. Fits the <mark>twisty narrative</mark>.",
-    score: 65,
-    sources: ["Neo4j"],
-    director: "Christopher Nolan",
-    posterUrl: "https://image.tmdb.org/t/p/w200/jZKcOAlXQ10O2Vq81Hl5N4DlsxL.jpg"
-  }
-];
+const BACKEND_URL = "http://localhost:8000";
+
+interface BackendResponse {
+  query: string;
+  intent: string | null;
+  movie_name: string | null;
+  answer: string;
+  kg_movies: string[] | null;
+}
+
+interface MatchResult {
+  id: string;
+  title: string;
+  year: string;
+  genre: string;
+  snippet: string;
+  score: number;
+  sources: string[];
+  director: string;
+  posterUrl?: string;
+}
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [results, setResults] = useState<typeof MOCK_RESULTS | null>(null);
+  const [results, setResults] = useState<MatchResult[] | null>(null);
+  const [intent, setIntent] = useState<string | null>(null);
+  const [aiAnswer, setAiAnswer] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = (newQuery: string) => {
+  const handleSearch = async (newQuery: string) => {
     setQuery(newQuery);
     setIsSearching(true);
-    setResults(null); // Clear old results
-    
-    // Simulate pipeline loading time
-    setTimeout(() => {
-      setResults(MOCK_RESULTS);
+    setResults(null);
+    setAiAnswer(null);
+    setError(null);
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/search`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: newQuery }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({}));
+        throw new Error(errBody.detail || `Backend returned ${res.status}`);
+      }
+
+      const data: BackendResponse = await res.json();
+
+      setIntent(data.intent);
+      setAiAnswer(data.answer);
+
+      // Build result cards from the backend response
+      const cards: MatchResult[] = [];
+
+      // If kg_movies were returned, create cards for each
+      if (data.kg_movies && data.kg_movies.length > 0) {
+        data.kg_movies.forEach((movie: any, idx: number) => {
+          if (typeof movie === "string") {
+            cards.push({
+              id: `kg-${idx}`,
+              title: movie,
+              year: "",
+              genre: data.intent || "search",
+              snippet: data.answer ? data.answer.substring(0, 200) : "",
+              score: Math.max(60, 98 - idx * 8),
+              sources: data.intent === "plot" ? ["FAISS"] : ["Neo4j"],
+              director: "",
+            });
+          } else if (typeof movie === "object" && movie !== null) {
+            cards.push({
+              id: `kg-${idx}`,
+              title: movie.title || "Unknown",
+              year: movie.year || "",
+              genre: data.intent || "search",
+              snippet: movie.snippet || (data.answer ? data.answer.substring(0, 200) : ""),
+              score: Math.max(60, 98 - idx * 8),
+              sources: movie.source ? [movie.source] : (data.intent === "plot" ? ["FAISS"] : ["Neo4j"]),
+              director: movie.director || "",
+            });
+          }
+        });
+      }
+
+      // If the intent found a specific movie name, add it as primary result  
+      if (data.movie_name && !cards.some(c => c.title.toLowerCase() === data.movie_name!.toLowerCase())) {
+        cards.unshift({
+          id: "primary-0",
+          title: data.movie_name,
+          year: "",
+          genre: data.intent === "plot" ? "Plot Match" : data.intent || "",
+          snippet: data.answer ? data.answer.substring(0, 250) : "",
+          score: 98,
+          sources: ["FAISS", "Neo4j"],
+          director: "",
+        });
+      }
+
+      // If we got an answer but no structured results, create a single result card from the answer
+      if (cards.length === 0 && data.answer && data.answer.length > 10) {
+        // Try to extract movie titles from the AI answer
+        const titleMatches = data.answer.match(/[""]([^""]+)[""]|"([^"]+)"/g);
+        if (titleMatches && titleMatches.length > 0) {
+          titleMatches.slice(0, 5).forEach((match, idx) => {
+            const title = match.replace(/["""]/g, "").trim();
+            if (title.length > 2 && title.length < 80) {
+              cards.push({
+                id: `extracted-${idx}`,
+                title: title,
+                year: "",
+                genre: data.intent || "",
+                snippet: data.answer ? data.answer.substring(0, 200) : "",
+                score: Math.max(55, 95 - idx * 10),
+                sources: data.intent === "plot" ? ["FAISS"] : ["Neo4j"],
+                director: "",
+              });
+            }
+          });
+        }
+      }
+      
+      // Fallback: show the raw AI answer as a single card if nothing else
+      if (cards.length === 0 && data.answer) {
+        cards.push({
+          id: "answer-0",
+          title: data.movie_name || "AI Response",
+          year: "",
+          genre: data.intent || "search",
+          snippet: data.answer.substring(0, 300),
+          score: 90,
+          sources: ["LLM"],
+          director: "",
+        });
+      }
+
+      setResults(cards);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      console.error("Search failed:", message);
+      setError(message);
+      setResults([]);
+    } finally {
       setIsSearching(false);
-    }, 2500);
+    }
   };
 
   return (
@@ -79,41 +173,49 @@ export default function SearchPage() {
             onSearch={handleSearch} 
             isSearching={isSearching} 
           />
+          {/* Show errors */}
+          {error && (
+            <div className="absolute bottom-20 left-8 right-8 bg-red-900/30 border border-red-500/50 text-red-300 text-sm p-3 rounded-xl font-sans">
+              ⚠️ {error}
+            </div>
+          )}
         </div>
 
         {/* RIGHT PANEL */}
         <div className="w-full md:w-[60%] h-[calc(100vh-60px)] relative">
-          <AnimatePresence mode="popLayout">
-            {/* Desktop always shows ResultsStream. Mobile relies on logic below */}
-            <div className="hidden md:block w-full h-full">
-              <ResultsStream 
-                query={query}
-                intentHover={null}
-                results={results}
-                isLoading={isSearching}
-                onResultClick={(r) => console.log(r)} 
-              />
-            </div>
-            
-            {/* Mobile slide up drawer for results */}
+          {/* Desktop */}
+          <div className="hidden md:block w-full h-full" key="desktop-results">
+            <ResultsStream 
+              query={query}
+              intentHover={intent}
+              results={results}
+              isLoading={isSearching}
+              aiAnswer={aiAnswer}
+              onResultClick={(r) => console.log("Clicked:", r)} 
+            />
+          </div>
+          
+          {/* Mobile slide up drawer for results */}
+          <AnimatePresence>
             {(isSearching || results) && (
               <motion.div
+                key="mobile-results-drawer"
                 initial={{ y: "100%" }}
                 animate={{ y: "0%" }}
                 exit={{ y: "100%" }}
                 transition={{ type: "spring", stiffness: 350, damping: 40 }}
-                className="md:hidden absolute inset-0 z-50 bg-[#1A1A1A] rounded-t-3xl shadow-2xl overflow-hidden shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
+                className="md:hidden absolute inset-0 z-50 bg-[#1A1A1A] rounded-t-3xl shadow-2xl overflow-hidden"
               >
-                {/* Mobile Handle */}
                 <div className="w-full flex justify-center pt-3 pb-1">
                   <div className="w-12 h-1.5 bg-grape/50 rounded-full" />
                 </div>
                 <ResultsStream 
                   query={query}
-                  intentHover={null}
+                  intentHover={intent}
                   results={results}
                   isLoading={isSearching}
-                  onResultClick={(r) => console.log(r)} 
+                  aiAnswer={aiAnswer}
+                  onResultClick={(r) => console.log("Clicked:", r)} 
                 />
               </motion.div>
             )}

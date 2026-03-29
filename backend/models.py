@@ -2,7 +2,7 @@
 Pydantic models and TypedDict definitions for PlotSense backend.
 """
 from typing import TypedDict, Optional, List, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from datetime import datetime
 
 
@@ -31,7 +31,7 @@ class IntentClassification(BaseModel):
     intent: str = Field(
         description="Must be one of: 'plot' (describing a story), 'movie_name' (specific movie title), 'query_search' (complex query), or 'invalid' (gibberish, off-topic, or random text)."
     )
-    confidence_score: float = Field(description="Confidence from 0.0 to 1.0")
+    confidence_score: float = Field(default=0.5, description="Confidence from 0.0 to 1.0")
 
 
 class MovieFilters(BaseModel):
@@ -43,6 +43,14 @@ class MovieFilters(BaseModel):
         default_factory=list,
         description="Key plot points or themes (e.g., 'time travel', 'sinking ship')."
     )
+
+    @field_validator('keywords', mode='before')
+    @classmethod
+    def parse_keywords(cls, v):
+        if isinstance(v, str):
+            # Convert string to list if LLM hallucinated a string output
+            return [k.strip() for k in v.split(',')] if ',' in v else [v]
+        return v
 
 
 # =====================
@@ -60,7 +68,7 @@ class SearchResponse(BaseModel):
     intent: Optional[str] = None
     movie_name: Optional[str] = None
     answer: str
-    kg_movies: Optional[List[str]] = None
+    kg_movies: Optional[List[Any]] = None
 
 
 class HealthResponse(BaseModel):

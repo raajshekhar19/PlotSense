@@ -46,10 +46,10 @@ export default function Nav() {
         initial={{ y: -100 }}
         animate={{ 
           y: 0,
-          backgroundColor: scrolled ? "rgba(34, 34, 34, 0.9)" : "transparent",
-          borderBottom: scrolled ? "1px solid rgba(75, 78, 109, 0.4)" : "1px solid transparent",
+          backgroundColor: scrolled ? "rgba(34, 34, 34, 0.9)" : "rgba(0, 0, 0, 0)",
+          borderBottom: scrolled ? "1px solid rgba(75, 78, 109, 0.4)" : "1px solid rgba(0, 0, 0, 0)",
           height: scrolled ? 60 : 72,
-          boxShadow: scrolled ? "0 4px 32px rgba(0,0,0,0.3)" : "none"
+          boxShadow: scrolled ? "0 4px 32px rgba(0,0,0,0.3)" : "0 0 0 rgba(0,0,0,0)"
         }}
         transition={{ duration: 0.25, ease: "easeInOut" }}
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 backdrop-blur-xl"

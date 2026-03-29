@@ -189,12 +189,30 @@ async def search_movies(request: SearchRequest):
         logger.info(f"Movie Name: {result.get('movie_name')}")
         logger.info(f"Answer length: {len(result.get('final_answer', ''))}")
         
+        # Populate rich metadata objects for the frontend UI cards
+        movies_list = []
+        if result.get("final_docs"):
+            for d in result["final_docs"]:
+                plot_preview = d.page_content.strip()
+                if len(plot_preview) > 250:
+                    plot_preview = plot_preview[:247] + "..."
+                    
+                movies_list.append({
+                    "title": d.metadata.get("title", "Unknown Title"),
+                    "snippet": plot_preview,
+                    "source": d.metadata.get("source", "PlotSense DB"),
+                    "year": d.metadata.get("year", ""),
+                    "director": d.metadata.get("director", "")
+                })
+        elif result.get("kg_movies"):
+            movies_list = result["kg_movies"]
+            
         return SearchResponse(
             query=request.query,
             intent=result.get("intent"),
             movie_name=result.get("movie_name"),
             answer=result.get("final_answer", "No answer generated"),
-            kg_movies=result.get("kg_movies")
+            kg_movies=movies_list
         )
         
     except Exception as e:

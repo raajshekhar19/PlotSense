@@ -48,7 +48,7 @@ os.environ["LANGSMITH_API_KEY"]       = LANGSMITH_API_KEY
 os.environ["LANGSMITH_PROJECT"]       = LANGSMITH_PROJECT
 
 # Model Configuration
-GEMINI_MODEL = "moonshotai/kimi-k2-instruct-0905"
+GEMINI_MODEL = "llama-3.3-70b-versatile"
 OLLAMA_MODEL = "gemma2:2b"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"

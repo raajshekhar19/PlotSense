@@ -50,6 +50,29 @@ def similarity_search(state: MovieState) -> dict:
     for title, data in list(unique_movies.items())[:5]:
         final_docs.append(data["doc"])
     
-    logger.info(f"Aggregated to {len(final_docs)} unique movies.")
+    # Fallback to Tavily if FAISS vector index is missing or returns absolutely nothing
+    if not final_docs:
+        logger.warning("FAISS returned 0 results. Falling back to Tavily Web Search...")
+        try:
+            from services.tavily_service import tavily_service
+            search_query = f"{query_text} movie title"
+            raw_response = tavily_service.search_tool.invoke({"query": search_query})
+            
+            results = raw_response.get("results", []) if isinstance(raw_response, dict) else []
+            
+            from langchain_core.documents import Document
+            for r in results[:3]:
+                if isinstance(r, dict) and r.get("content"):
+                    final_docs.append(Document(
+                        page_content=r["content"],
+                        metadata={"title": r.get("title", "Web Result"), "source": "Tavily Web Search", "url": r.get("url", "")}
+                    ))
+            
+            if final_docs:
+                logger.info(f"Retrieved {len(final_docs)} fallback documents from Tavily.")
+        except Exception as e:
+            logger.error(f"Tavily fallback failed: {e}")
+    
+    logger.info(f"Aggregated to {len(final_docs)} final documents.")
     
     return {"final_docs": final_docs}

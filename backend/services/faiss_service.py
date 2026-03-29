@@ -34,6 +34,10 @@ class FAISSService:
         """Initialize FAISS and load dataset."""
         logger.info("Initializing FAISS service...")
         
+        self.movie_db = None
+        self.df_cleaned = None
+        self.embeddings = None
+        
         try:
             # Initialize embeddings
             self.embeddings = HuggingFaceEmbeddings(
@@ -54,8 +58,8 @@ class FAISSService:
             logger.info(f"Dataset loaded: {DATASET_PATH} ({len(self.df_cleaned)} records)")
             
         except Exception as e:
-            logger.error(f"Failed to initialize FAISS service: {e}")
-            raise
+            logger.warning(f"FAISS service initialization failed (non-fatal): {e}")
+            logger.warning("FAISS search will return empty results until index is available.")
     
     def check_movie_exists(self, title: str) -> bool:
         """
@@ -67,6 +71,9 @@ class FAISSService:
         Returns:
             True if movie exists, False otherwise
         """
+        if self.df_cleaned is None:
+            logger.warning("Dataset not loaded, cannot check movie existence")
+            return False
         exists = self.df_cleaned['Title'].str.lower().str.contains(
             title.lower(), na=False
         ).any()
@@ -83,6 +90,9 @@ class FAISSService:
         Returns:
             Plot string if found, None otherwise
         """
+        if self.df_cleaned is None:
+            logger.warning("Dataset not loaded, cannot get plot")
+            return None
         mask = self.df_cleaned['Title'].str.lower().str.contains(
             title.lower(), na=False
         )
@@ -104,6 +114,9 @@ class FAISSService:
         Returns:
             List of matching documents
         """
+        if self.movie_db is None:
+            logger.warning("FAISS index not loaded, returning empty results")
+            return []
         logger.debug(f"Performing similarity search for: {query[:50]}...")
         results = self.movie_db.similarity_search(query, k=k)
         logger.info(f"Similarity search returned {len(results)} results")
@@ -120,3 +133,4 @@ class FAISSService:
 
 # Singleton instance
 faiss_service = FAISSService()
+
