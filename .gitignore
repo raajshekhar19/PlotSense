@@ -1,4 +1,5 @@
 .env
 project/
 artifacts/
-df1_cleaned.csv
+df1_cleaned.csvfrontend/.next/
+frontend/node_modules/
