@@ -13,3 +13,6 @@ fastapi
 uvicorn
 langsmith>=0.1.0
 langchain-groq
+langchain-huggingface
+sentence-transformers
+pandas

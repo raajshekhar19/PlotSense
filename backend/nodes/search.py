@@ -1,41 +1,87 @@
 """
-Similarity Search Node for PlotSense backend.
-Performs FAISS similarity search with aggregation.
+Similarity and Web Search Nodes for PlotSense backend.
+Matches hybrid_search_verbose.ipynb exactly.
 """
 import sys
-sys.path.insert(0, str(__file__).rsplit('\\', 2)[0])
+import re
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from models import MovieState
 from services.faiss_service import faiss_service
+from services.tavily_service import tavily_service
+from services.llm_service import llm_service
+from nodes.extract import extract_kg_entities
 from logger import get_logger
 
 logger = get_logger(__name__)
 
+def get_web_plot(state: MovieState) -> dict:
+    """Get the movie plot from web search."""
+    logger.info("--- Node: Get Web Plot ---")
+
+    movie_name = state.get("movie_name", "")
+    if isinstance(movie_name, dict):
+        movie_name = movie_name.get("text", "")
+    elif not isinstance(movie_name, str):
+        movie_name = str(movie_name)
+    movie_name = movie_name.strip()
+
+    if not movie_name:
+        return {"base_plot": "No movie name provided."}
+
+    try:
+        search_query = f"movie {movie_name} plot summary wikipedia"
+        logger.info(f"Searching Tavily: {search_query}")
+        raw_response = tavily_service.search_tool.invoke({"query": search_query})
+
+        results = raw_response.get("results", []) if isinstance(raw_response, dict) else []
+        target_content = ""
+        source_url = ""
+
+        for r in results:
+            if isinstance(r, dict) and r.get("content"):
+                target_content = r["content"]
+                source_url = r.get("url", "Unknown Source")
+                break
+
+        if not target_content:
+            logger.warning(f"No plot found for {movie_name}")
+            return {"base_plot": "No plot found on the web."}
+
+        logger.info(f"Plot source: {source_url}")
+
+        def clean_text(text) -> str:
+            if isinstance(text, list): text = " ".join(map(str, text))
+            if not isinstance(text, str): text = str(text)
+            text = text.replace("\\n", " ").replace("\n", " ").replace("\t", " ")
+            text = re.sub(r"\[\d+\]", "", text)
+            text = re.sub(r"\[|\]", "", text)
+            return re.sub(r"\s+", " ", text).strip()
+
+        plot = clean_text(target_content)
+        if not plot: return {"base_plot": "Plot extraction failed."}
+        
+        logger.info(f"Successfully retrieved plot for {movie_name}")
+        return {"base_plot": plot}
+
+    except Exception as e:
+        logger.error(f"Web Search Error: {e}")
+        return {"base_plot": f"Error: {e}"}
 
 def similarity_search(state: MovieState) -> dict:
-    """
-    Perform aggregated similarity search.
-    
-    Args:
-        state: Current workflow state
-        
-    Returns:
-        Dictionary with final documents
-    """
+    """Perform aggregated similarity search — matches notebook."""
     logger.info("--- Node: Similarity Search (aggregated) ---")
     
     query_text = state.get("base_plot") or state["query"]
     
-    logger.debug(f"Search query: {query_text[:100]}...")
-    
-    # Fetch more chunks than needed to get diverse movies
+    # Fetch MORE chunks than needed (k=25) to get chunks from different movies
     raw_docs = faiss_service.similarity_search(query_text, k=25)
     
     # Group chunks by Movie Name (Deduplicate)
     unique_movies = {}
     for doc in raw_docs:
         title = doc.metadata.get("title", "Unknown")
-        
         if title not in unique_movies:
             unique_movies[title] = {
                 "doc": doc,
@@ -45,34 +91,53 @@ def similarity_search(state: MovieState) -> dict:
         else:
             unique_movies[title]["chunks"].append(doc.page_content)
     
-    # Limit to top 5 unique movies
-    final_docs = []
-    for title, data in list(unique_movies.items())[:5]:
-        final_docs.append(data["doc"])
-    
-    # Fallback to Tavily if FAISS vector index is missing or returns absolutely nothing
-    if not final_docs:
-        logger.warning("FAISS returned 0 results. Falling back to Tavily Web Search...")
-        try:
-            from services.tavily_service import tavily_service
-            search_query = f"{query_text} movie title"
-            raw_response = tavily_service.search_tool.invoke({"query": search_query})
-            
-            results = raw_response.get("results", []) if isinstance(raw_response, dict) else []
-            
-            from langchain_core.documents import Document
-            for r in results[:3]:
-                if isinstance(r, dict) and r.get("content"):
-                    final_docs.append(Document(
-                        page_content=r["content"],
-                        metadata={"title": r.get("title", "Web Result"), "source": "Tavily Web Search", "url": r.get("url", "")}
-                    ))
-            
-            if final_docs:
-                logger.info(f"Retrieved {len(final_docs)} fallback documents from Tavily.")
-        except Exception as e:
-            logger.error(f"Tavily fallback failed: {e}")
-    
-    logger.info(f"Aggregated to {len(final_docs)} final documents.")
+    # Limit to top 5 UNIQUE movies
+    final_docs = [data["doc"] for title, data in list(unique_movies.items())[:5]]
+    logger.info(f"Aggregated to {len(final_docs)} unique movies.")
     
     return {"final_docs": final_docs}
+
+def generate_from_web(state: MovieState) -> dict:    
+    """Generate answer from web context when KG results are sparse — matches notebook."""
+    logger.info("--- Node: Generate From Web ---")
+
+    web_context = state.get("web_context")
+    entities    = extract_kg_entities(state)
+
+    if not web_context:
+        return {
+            "final_answer": (
+                f"I couldn't find enough results for '{state['query']}' "
+                "in my database or on the web. Try rephrasing or being more specific."
+            )
+        }
+
+    # Build constraint string for the LLM prompt
+    constraints = []
+    if entities.get('actor'): constraints.append(f"starring {entities['actor']}")
+    if entities.get('director'): constraints.append(f"directed by {entities['director']}")
+    if entities.get('genre'): constraints.append(f"in the {entities['genre']} genre")
+    if entities.get('year_min') and entities.get('year_max'):
+        constraints.append(f"released between {entities['year_min']} and {entities['year_max']}")
+    elif entities.get('year_min'):
+        constraints.append(f"released after {entities['year_min']}")
+    constraint_str = ", ".join(constraints) if constraints else "matching the user's request"
+
+    prompt = f"""You are a helpful movie recommendation assistant.
+
+The user asked: "{state['query']}"
+
+I searched the web and found this information:
+{web_context}
+
+Your job:
+- Recommend movies {constraint_str}
+- Only mention movies explicitly found in the web content above
+- If the web content mentions movies that do NOT match the constraints (wrong year, wrong actor), skip them
+- If you genuinely cannot find enough matching movies, say so honestly and suggest the user try a more specific search
+- List each movie with title, year, and one sentence on why it fits
+- Keep it conversational
+"""
+    answer = llm_service.gemini_model.invoke(prompt).content
+    logger.info(f"Web-based answer generated (len: {len(answer)})")
+    return {"final_answer": answer}

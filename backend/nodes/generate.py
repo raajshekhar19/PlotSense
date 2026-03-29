@@ -1,9 +1,10 @@
 """
 Answer Generation Nodes for PlotSense backend.
-Generates final responses using LLM.
+Generates final responses using LLM — matches notebook exactly.
 """
 import sys
-sys.path.insert(0, str(__file__).rsplit('\\', 2)[0])
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from models import MovieState
 from services.llm_service import llm_service
@@ -14,85 +15,63 @@ logger = get_logger(__name__)
 
 def generate_answer(state: MovieState) -> dict:
     """
-    Generate the final answer using retrieved documents.
-    
-    Args:
-        state: Current workflow state
-        
-    Returns:
-        Dictionary with final answer
+    Generate the final answer using retrieved documents and KG-confirmed titles.
+    Matches notebook exactly.
     """
     logger.info("--- Node: Generate Answer ---")
-    
-    # Check if we found any relevant movies
-    docs = state.get("final_docs")
-    
-    if not docs or len(docs) == 0:
-        logger.warning("No docs available for generation.")
+
+    docs      = state.get("final_docs", [])
+    kg_movies = state.get("kg_movies", [])
+
+    if not docs:
         return {
-            "final_answer": "I found some movies in my database, but none of them seem to match your description well enough. Could you provide more details about the plot?"
+            "final_answer": (
+                "I couldn't find enough matching movies. "
+                "Could you provide more details?"
+            )
         }
-    
-    # Prepare context from documents
+
+    # Build context — title + plot snippet
     context = "\n\n".join(
-        d.metadata.get("title", "Unknown") + ": " + d.page_content[:500]
+        f"{d.metadata.get('title', 'Unknown')} ({d.metadata.get('year', '')}): "
+        f"{d.page_content[:400]}"
         for d in docs
     )
-    
-    logger.debug(f"Context passed to LLM (first 200 chars):\n{context[:200]}...")
-    
-    # Get the movie name and plot for context
-    movie_name = state.get("movie_name", "")
-    base_plot = state.get("base_plot", "")
 
-    # Grounded prompt
-    prompt = f"""
-    You are an authentic, adaptive AI collaborator with a touch of wit.
-    Recommend movies based on the context below.
-    If the context is not helpful, admit you don't know.
+    # Tell LLM exactly which titles the KG confirmed are relevant
+    kg_titles_str = "\n".join(f"- {t}" for t in kg_movies) if kg_movies else "N/A"
 
-    The user asked for movies similar to "{movie_name}".
-    Here's the plot of "{movie_name}" for reference:
-    {base_plot[:500] if base_plot else "Plot not available."}
+    prompt = f"""You are a helpful movie recommendation assistant.
 
-    Movies found in database (sorted by similarity):
-    {context}
+User query: "{state['query']}"
 
-    User Query:
-    {state['query']}
-    
-    Instructions:
-    - Briefly explain why these movies fit the user's specific query.
-    - Maintain a helpful, peer-like tone.
-    """
-    
-    logger.info("Generating answer...")
-    
-    answer = llm_service.invoke_gemini(prompt)
-    
+The knowledge graph confirmed these movies match the query exactly:
+{kg_titles_str}
+
+Here are their plot summaries:
+{context}
+
+Instructions:
+- Recommend ONLY the movies listed above — these are verified matches
+- For each movie give the title, year, and a brief reason why it fits the query
+- If plots don't match the query well, still trust the KG titles and explain what you know
+- Be conversational and helpful
+"""
+
+    answer = llm_service.gemini_model.invoke(prompt).content
     logger.info(f"Final answer generated (len: {len(answer)})")
-    
     return {"final_answer": answer}
 
 
 def handle_invalid(state: MovieState) -> dict:
-    """
-    Handle invalid or gibberish queries.
-    
-    Args:
-        state: Current workflow state
-        
-    Returns:
-        Dictionary with error message
-    """
+    """Handle invalid or gibberish queries — matches notebook."""
     logger.info("--- Node: Handle Invalid/Gibberish ---")
-    
+
     message = (
         "I'm sorry, I didn't quite understand that. "
         "Could you please describe a movie plot, provide a title, "
         "or ask a specific question about actors or genres?"
     )
-    
-    logger.info(f"Invalid query handled: {state['query'][:50]}...")
-    
+
+    logger.info(f"Invalid query handled: {state['query'][:50]}")
     return {"final_answer": message}

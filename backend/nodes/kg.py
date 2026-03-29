@@ -1,128 +1,180 @@
 """
 Knowledge Graph Nodes for PlotSense backend.
-Handles KG queries and result processing.
+Matches hybrid_search_verbose.ipynb exactly.
 """
 import sys
-sys.path.insert(0, str(__file__).rsplit('\\', 2)[0])
+import re
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import pandas as pd
+from langchain_core.documents import Document
 from models import MovieState
-from services.llm_service import llm_service
 from services.neo4j_service import neo4j_service
+from services.tavily_service import tavily_service
 from services.faiss_service import faiss_service
+from services.llm_service import llm_service
+from nodes.extract import extract_kg_entities
+from config import DATASET_PATH
 from logger import get_logger
 
 logger = get_logger(__name__)
 
+# Load dataset using config path
+try:
+    df1_cleaned = pd.read_csv(DATASET_PATH)
+    logger.info(f"kg.py: Dataset loaded from {DATASET_PATH} ({len(df1_cleaned)} records)")
+except FileNotFoundError:
+    logger.error(f"Could not find dataset at {DATASET_PATH}")
+    df1_cleaned = pd.DataFrame(columns=['Title', 'Plot'])
 
-def kg_agent(state: MovieState) -> dict:
+def cypher_agent(state: MovieState) -> dict:
     """
-    Advanced Knowledge Graph agent for complex queries.
+    Generate and execute Cypher queries against Neo4j KG.
+    Uses run_cypher() for safe execution when Neo4j is unavailable.
+    """
+    logger.info("--- Node: Cypher Agent ---")
     
-    Args:
-        state: Current workflow state
+    entities = extract_kg_entities(state)
+    logger.info(f"Entities: {entities}")
+    
+    kg_schema = f"""You are a Neo4j Cypher expert for a movie knowledge graph.
+
+SCHEMA:
+  (m:Movie)     props: title (string), year (integer), plot (string)
+  (a:Actor)     props: name (string)
+  (d:Director)  props: name (string)
+  (g:Genre)     props: name (string)  ← compound strings like "Action-Thriller", "Crime / Thriller"
+                                         ALWAYS use CONTAINS, never =
+  Relationships (outward from Movie):
+  (m)-[:FEATURES]->(a:Actor)
+  (m)-[:DIRECTED_BY]->(d:Director)
+  (m)-[:BELONGS_TO]->(g:Genre)
+
+EXTRACTED ENTITIES:
+  actor    = {entities.get('actor')}
+  director = {entities.get('director')}
+  genre    = {entities.get('genre')}
+  year_min = {entities.get('year_min')}
+  year_max = {entities.get('year_max')}
+  keywords = {entities.get('keywords')}
+
+RULES:
+  1. Only MATCH a relationship if its entity is not null above.
+  2. ALWAYS use toLower() + CONTAINS for ALL string comparisons. Never use =.
+  3. Apply year_min/year_max on m.year if not null.
+  4. Always end with: RETURN DISTINCT m.title AS title, m.year AS year ORDER BY m.year DESC LIMIT 15
+  5. Return ONLY raw Cypher. No markdown, no backticks, no explanation.
+
+EXAMPLE for actor="amitabh", genre="thriller":
+  MATCH (m:Movie)-[:FEATURES]->(a:Actor)
+  MATCH (m)-[:BELONGS_TO]->(g:Genre)
+  WHERE toLower(a.name) CONTAINS 'amitabh'
+  AND toLower(g.name) CONTAINS 'thriller'
+  RETURN DISTINCT m.title AS title, m.year AS year
+  ORDER BY m.year DESC LIMIT 15
+
+Write the Cypher now:
+"""
+
+    max_retries = 3
+    last_error = None
+    
+    for attempt in range(max_retries):
+        raw = llm_service.gemini_model.invoke(kg_schema).content.strip()
+        cypher = re.sub(r"```cypher|```", "", raw).strip()
+        logger.info(f"Attempt {attempt+1} Cypher:\n{cypher}")
         
-    Returns:
-        Dictionary with KG movie titles
-    """
-    logger.info("--- Node: Advanced KG Agent ---")
-    
-    logger.info(f"Extracting entities from query: {state['query']}")
-    
-    # Extract entities using Gemini structured output
-    entities = llm_service.extract_filters(state['query'])
-    
-    logger.info(f"Extracted Entities:")
-    logger.info(f"  Actor: {entities.actor}")
-    logger.info(f"  Director: {entities.director}")
-    logger.info(f"  Genre: {entities.genre}")
-    logger.info(f"  Keywords: {entities.keywords}")
-    
-    # Dynamic Cypher to handle any combination of actor, director, genre, or plot
-    cypher = """
-    MATCH (m:Movie)
-    WHERE
-        ($actor IS NULL OR EXISTS { MATCH (m)-[:FEATURES]->(a:Actor) WHERE toLower(a.name) CONTAINS toLower($actor) }) AND
-        ($director IS NULL OR EXISTS { MATCH (m)-[:DIRECTED_BY]->(d:Director) WHERE toLower(d.name) CONTAINS toLower($director) }) AND
-        ($genre IS NULL OR EXISTS { MATCH (m)-[:BELONGS_TO]->(g:Genre) WHERE toLower(g.name) CONTAINS toLower($genre) }) AND
-        ($keywords IS NULL OR size($keywords)=0 OR ANY(k IN $keywords WHERE toLower(m.plot) CONTAINS toLower(k)))
-    RETURN DISTINCT m.title AS title
-    LIMIT 15
-    """
-    
-    params = {
-        "actor": entities.actor,
-        "director": entities.director,
-        "genre": entities.genre,
-        "keywords": entities.keywords if entities.keywords else None
-    }
-    
-    logger.info(f"Generated Cypher Params: {params}")
-    
-    data = neo4j_service.run_cypher(cypher, params)
-    titles = [d["title"] for d in data]
-    
-    logger.info(f"KG Found Titles: {titles}")
-    
-    return {"kg_movies": titles}
+        try:
+            # Use run_cypher() instead of graph.query() directly
+            # This safely returns [] when Neo4j is unavailable
+            results = neo4j_service.run_cypher(cypher)
+            titles = [r["title"] for r in results]
+            logger.info(f"KG Found {len(titles)} titles: {titles}")
+            
+            # Sparse check
+            sparse_threshold = 3
+            is_sparse = len(titles) < sparse_threshold
+            if is_sparse:
+                logger.warning(f"Sparse result ({len(titles)} < {sparse_threshold}) — will fallback to web")
+                
+            return {
+                "kg_movies": titles,
+                "kg_sparse": is_sparse
+            }
+        except Exception as e:
+            last_error = str(e)
+            logger.error(f"Cypher Error: {last_error}")
+            kg_schema += f"\nYour previous attempt failed:\nError: {last_error}\nBroken Cypher: {cypher}\nFix it and write only the corrected Cypher:"
+            
+    # All retries failed — treat as sparse
+    return {"kg_movies": [], "kg_sparse": True}
 
+def kg_web_fallback(state: MovieState) -> dict:
+    """Web fallback when KG results are sparse — matches notebook."""
+    logger.info("--- Node: KG Web Fallback ---")
+    
+    entities = extract_kg_entities(state)
+    parts = []
+    if entities.get('actor'): parts.append(entities['actor'])
+    if entities.get('director'): parts.append(f"directed by {entities['director']}")
+    if entities.get('genre'): parts.append(entities['genre'])
+    if entities.get('year_min') and entities.get('year_max'):
+        parts.append(f"from {entities['year_min']} to {entities['year_max']}")
+    elif entities.get('year_min'):
+        parts.append(f"after {entities['year_min']}")
+    if entities.get('keywords'): parts.append(" ".join(entities['keywords']))
+        
+    structured_query = " ".join(parts) + " best movies list"
+    logger.info(f"Structured search query: {structured_query}")
+    
+    search_queries = [structured_query, f"{structured_query} site:imdb.com"]
+    web_context = ""
+    
+    for q in search_queries:
+        try:
+            raw = tavily_service.search_tool.invoke({"query": q})
+            results = raw.get("results", [])
+            for r in results[:2]:
+                if r.get("content"):
+                    web_context += f"Source: {r.get('url', '')}\n{r['content'][:800]}\n\n"
+            if len(web_context) > 1500: break
+        except Exception as e:
+            logger.error(f"Search error for '{q}': {e}")
+            continue
+
+    if not web_context:
+        logger.warning("No web results found")
+        return {"web_context": None}
+
+    logger.info(f"Web context retrieved ({len(web_context)} chars)")
+    return {
+        "web_context": web_context,
+        "base_plot": web_context  # keep base_plot in sync for similarity_search fallback
+    }
 
 def kg_results_to_docs(state: MovieState) -> dict:
-    """
-    Convert KG movie titles to document objects directly via Neo4j.
-    
-    Args:
-        state: Current workflow state
-        
-    Returns:
-        Dictionary with final documents
-    """
+    """Convert KG movie titles to Document objects — matches notebook."""
     logger.info("--- Node: KG Results to Docs ---")
     
     titles = state.get("kg_movies", [])
     docs = []
     
-    if titles:
-        # Fetch the plots directly from Neo4j for the matched titles
-        cypher = """
-        MATCH (m:Movie)
-        WHERE m.title IN $titles
-        RETURN m.title AS title, m.plot AS plot
-        """
-        data = neo4j_service.run_cypher(cypher, {"titles": titles})
-        
-        from langchain_core.documents import Document
-        
-        for record in data:
-            if record.get("plot"):
-                docs.append(Document(
-                    page_content=record["plot"],
-                    metadata={"title": record["title"], "source": "Neo4j"}
-                ))
-                
-    # Fallback to Tavily if Neo4j returns absolutely nothing
-    if not docs:
-        logger.warning("Neo4j KG returned 0 results. Falling back to Tavily Web Search...")
-        try:
-            from services.tavily_service import tavily_service
-            query_text = state.get("query", "")
-            search_query = f"{query_text} movie title"
-            raw_response = tavily_service.search_tool.invoke({"query": search_query})
+    for title in titles:
+        # 1. Try exact match in df1_cleaned first
+        mask = df1_cleaned['Title'].str.lower() == title.lower()
+        if not mask.any():
+            # 2. Fallback: contains match
+            mask = df1_cleaned['Title'].str.lower().str.contains(title.lower(), na=False, regex=False)
             
-            results = raw_response.get("results", []) if isinstance(raw_response, dict) else []
+        if mask.any():
+            row = df1_cleaned[mask].iloc[0]
+            plot = row.get('Plot') or row.get('clean_plot') or ""
+            docs.append(Document(page_content=str(plot), metadata={"title": row['Title']}))
+        else:
+            # 3. Last resort: FAISS (only if title not in CSV)
+            faiss_matches = faiss_service.similarity_search(title, k=1)
+            if faiss_matches: docs.append(faiss_matches[0])
             
-            from langchain_core.documents import Document
-            for r in results[:5]:
-                if isinstance(r, dict) and r.get("content"):
-                    docs.append(Document(
-                        page_content=r["content"],
-                        metadata={"title": r.get("title", "Web Result"), "source": "Tavily Web Search", "url": r.get("url", "")}
-                    ))
-            
-            if docs:
-                logger.info(f"Retrieved {len(docs)} fallback documents from Tavily.")
-        except Exception as e:
-            logger.error(f"Tavily fallback failed: {e}")
-    
-    logger.info(f"Converted {len(docs)} KG titles to documents using Neo4j (or Web Fallback).")
-    
+    logger.info(f"Fetched {len(docs)} docs for {len(titles)} KG titles")
     return {"final_docs": docs}

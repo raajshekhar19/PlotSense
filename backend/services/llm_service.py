@@ -1,10 +1,10 @@
 """
 LLM Service for PlotSense backend.
-Handles Gemini and Ollama model initialization and invocation.
+Handles Groq model initialization and invocation.
+Matches hybrid_search_verbose.ipynb exactly.
 """
 from langchain_groq import ChatGroq
-from langchain_ollama import ChatOllama
-from config import GEMINI_MODEL, OLLAMA_MODEL
+from config import GROQ_MODEL
 from logger import get_logger
 from models import IntentClassification, MovieFilters
 
@@ -28,28 +28,24 @@ class LLMService:
             LLMService._initialized = True
     
     def _initialize(self):
-        """Initialize LLM models."""
+        """Initialize LLM model — single ChatGroq (matches notebook)."""
         logger.info("Initializing LLM models...")
         
         try:
-            # Gemini model for classification and extraction
+            # ChatGroq model — matches notebook exactly
             self.gemini_model = ChatGroq(
-                model=GEMINI_MODEL,
+                model=GROQ_MODEL,
                 temperature=1.0,
                 max_tokens=None,
                 timeout=None,
                 max_retries=2,
             )
-            logger.info(f"Gemini model initialized: {GEMINI_MODEL}")
+            logger.info(f"Groq model initialized: {GROQ_MODEL}")
             
             # Structured output models
             self.structured_classify = self.gemini_model.with_structured_output(IntentClassification)
             self.structured_extractor = self.gemini_model.with_structured_output(MovieFilters)
             logger.info("Structured output models configured")
-            
-            # Ollama model for answer generation
-            self.ollama_model = ChatOllama(model=OLLAMA_MODEL)
-            logger.info(f"Ollama model initialized: {OLLAMA_MODEL}")
             
         except Exception as e:
             logger.error(f"Failed to initialize LLM models: {e}")
@@ -57,7 +53,7 @@ class LLMService:
     
     def classify_intent(self, prompt: str) -> IntentClassification:
         """
-        Classify user query intent using Gemini.
+        Classify user query intent using structured output.
         
         Args:
             prompt: The classification prompt
@@ -72,7 +68,7 @@ class LLMService:
     
     def extract_filters(self, query: str) -> MovieFilters:
         """
-        Extract movie filters from query using Gemini.
+        Extract movie filters from query using structured output.
         
         Args:
             query: User's movie query
@@ -87,7 +83,7 @@ class LLMService:
     
     def invoke_gemini(self, prompt: str) -> str:
         """
-        Invoke Gemini model for general text generation.
+        Invoke Groq model for general text generation.
         
         Args:
             prompt: The prompt to send
@@ -95,7 +91,7 @@ class LLMService:
         Returns:
             Generated text response
         """
-        logger.debug("Invoking Gemini model")
+        logger.debug("Invoking Groq model")
         response = self.gemini_model.invoke(prompt)
         
         # Handle response content
@@ -111,25 +107,10 @@ class LLMService:
             return " ".join(parts).strip()
         return str(response.content).strip()
     
-    def invoke_ollama(self, prompt: str) -> str:
-        """
-        Invoke Ollama model for answer generation.
-        
-        Args:
-            prompt: The prompt to send
-            
-        Returns:
-            Generated text response
-        """
-        logger.debug("Invoking Ollama model")
-        response = self.ollama_model.invoke(prompt)
-        return response.content
-    
     def is_healthy(self) -> bool:
         """Check if LLM service is healthy."""
         try:
-            # Simple health check
-            return self.gemini_model is not None and self.ollama_model is not None
+            return self.gemini_model is not None
         except Exception as e:
             logger.error(f"LLM health check failed: {e}")
             return False

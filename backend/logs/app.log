@@ -2419,3 +2419,958 @@ Error: Failed to obtain connection towards 'READ' server.
 2026-03-30 00:29:51 - main - INFO - Intent: plot
 2026-03-30 00:29:51 - main - INFO - Movie Name: None
 2026-03-30 00:29:51 - main - INFO - Answer length: 941
+2026-03-30 00:42:16 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:42:17 - main - INFO - ==================================================
+2026-03-30 00:42:17 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:42:17 - main - INFO - ==================================================
+2026-03-30 00:42:20 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:42:20 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:42:20 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:42:20 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:42:20 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:42:20 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:42:22 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:42:22 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:42:22 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:42:29 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:42:30 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:42:30 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:42:30 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:42:30 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:42:30 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:42:30 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:42:30 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:42:34 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:42:34 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:42:34 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:42:34 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:42:34 - main - INFO - Workflow initialized successfully
+2026-03-30 00:42:34 - main - INFO - ==================================================
+2026-03-30 00:42:34 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:42:34 - main - INFO -    Project : plotsense
+2026-03-30 00:42:34 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:42:34 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:42:34 - main - INFO - ==================================================
+2026-03-30 00:42:34 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:42:35 - main - INFO - ==================================================
+2026-03-30 00:42:35 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:42:35 - main - INFO - ==================================================
+2026-03-30 00:42:38 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:42:38 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:42:38 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:42:38 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:42:38 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:42:38 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:42:39 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:42:39 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:42:39 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:42:45 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:42:45 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:42:45 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:42:45 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:42:45 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:42:45 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:42:45 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:42:45 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:42:50 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:42:50 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:42:50 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:42:50 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:42:50 - main - INFO - Workflow initialized successfully
+2026-03-30 00:42:50 - main - INFO - ==================================================
+2026-03-30 00:42:50 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:42:50 - main - INFO -    Project : plotsense
+2026-03-30 00:42:50 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:42:50 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:42:50 - main - INFO - ==================================================
+2026-03-30 00:43:39 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:43:40 - main - INFO - ==================================================
+2026-03-30 00:43:40 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:43:40 - main - INFO - ==================================================
+2026-03-30 00:43:42 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:43:42 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:43:42 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:43:42 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:43:42 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:43:43 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:43:43 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:43:43 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:43:43 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:43:50 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:43:50 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:43:50 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:43:50 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:43:50 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:43:50 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:43:50 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:43:50 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:43:55 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:43:55 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:43:55 - graph - INFO - Building LangGraph workflow...
+2026-03-30 00:43:55 - graph - INFO - LangGraph workflow compiled successfully
+2026-03-30 00:43:55 - main - INFO - Workflow initialized successfully
+2026-03-30 00:43:55 - main - INFO - ==================================================
+2026-03-30 00:43:55 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:43:55 - main - INFO -    Project : plotsense
+2026-03-30 00:43:55 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:43:55 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:43:55 - main - INFO - ==================================================
+2026-03-30 00:44:02 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:44:02 - main - INFO - ==================================================
+2026-03-30 00:44:02 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:44:02 - main - INFO - ==================================================
+2026-03-30 00:44:05 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:44:05 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:44:05 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:44:05 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:44:05 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:44:05 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:44:07 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:44:07 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:44:07 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:44:12 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:44:12 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:44:12 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:44:12 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:44:13 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:44:13 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:44:13 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:44:13 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:44:17 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:44:17 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:44:17 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:44:17 - main - WARNING - Workflow init failed (non-fatal): unexpected indent (plot.py, line 40)
+2026-03-30 00:44:17 - main - INFO - ==================================================
+2026-03-30 00:44:17 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:44:17 - main - INFO -    Project : plotsense
+2026-03-30 00:44:17 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:44:17 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:44:17 - main - INFO - ==================================================
+2026-03-30 00:44:17 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:44:17 - main - INFO - ==================================================
+2026-03-30 00:44:17 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:44:17 - main - INFO - ==================================================
+2026-03-30 00:44:20 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:44:20 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:44:20 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:44:20 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:44:20 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:44:21 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:44:21 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:44:21 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:44:21 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:44:27 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:44:27 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:44:27 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:44:27 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:44:27 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:44:27 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:44:27 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:44:27 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:44:31 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:44:31 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:44:31 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:44:32 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:44:32 - main - WARNING - Workflow init failed (non-fatal): cannot import name 'get_web_plot' from 'nodes.plot' (/Users/shresthpanigrahi/Desktop/Movie/backend/nodes/plot.py)
+2026-03-30 00:44:32 - main - INFO - ==================================================
+2026-03-30 00:44:32 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:44:32 - main - INFO -    Project : plotsense
+2026-03-30 00:44:32 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:44:32 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:44:32 - main - INFO - ==================================================
+2026-03-30 00:44:32 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:44:32 - main - INFO - ==================================================
+2026-03-30 00:44:32 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:44:32 - main - INFO - ==================================================
+2026-03-30 00:44:34 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:44:35 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:44:35 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:44:35 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:44:35 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:44:35 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:44:36 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:44:36 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:44:36 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:44:41 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:44:41 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:44:41 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:44:41 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:44:42 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:44:42 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:44:42 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:44:42 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:44:46 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:44:46 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:44:46 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:44:46 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:44:46 - main - WARNING - Workflow init failed (non-fatal): cannot import name 'get_web_plot' from 'nodes.plot' (/Users/shresthpanigrahi/Desktop/Movie/backend/nodes/plot.py)
+2026-03-30 00:44:46 - main - INFO - ==================================================
+2026-03-30 00:44:46 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:44:46 - main - INFO -    Project : plotsense
+2026-03-30 00:44:46 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:44:46 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:44:46 - main - INFO - ==================================================
+2026-03-30 00:45:04 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:45:05 - main - INFO - ==================================================
+2026-03-30 00:45:05 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:45:05 - main - INFO - ==================================================
+2026-03-30 00:45:08 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:45:08 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:45:08 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:45:08 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:45:08 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:45:09 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:45:09 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:45:09 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:45:09 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:45:15 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:45:16 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:45:16 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:45:16 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:45:16 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:45:16 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:45:16 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:45:16 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:45:20 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:45:20 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:45:20 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:45:20 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:45:20 - main - WARNING - Workflow init failed (non-fatal): cannot import name 'get_web_plot' from 'nodes.plot' (/Users/shresthpanigrahi/Desktop/Movie/backend/nodes/plot.py)
+2026-03-30 00:45:20 - main - INFO - ==================================================
+2026-03-30 00:45:20 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:45:20 - main - INFO -    Project : plotsense
+2026-03-30 00:45:20 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:45:20 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:45:20 - main - INFO - ==================================================
+2026-03-30 00:45:21 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:45:21 - main - INFO - ==================================================
+2026-03-30 00:45:21 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:45:21 - main - INFO - ==================================================
+2026-03-30 00:45:23 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:45:23 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:45:23 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:45:23 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:45:23 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:45:24 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:45:24 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:45:24 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:45:24 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:45:30 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:45:30 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:45:30 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:45:30 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:45:31 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:45:31 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:45:31 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:45:31 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:45:35 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:45:35 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:45:35 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:45:35 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:45:35 - main - WARNING - Workflow init failed (non-fatal): cannot import name 'get_web_plot' from 'nodes.plot' (/Users/shresthpanigrahi/Desktop/Movie/backend/nodes/plot.py)
+2026-03-30 00:45:35 - main - INFO - ==================================================
+2026-03-30 00:45:35 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:45:35 - main - INFO -    Project : plotsense
+2026-03-30 00:45:35 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:45:35 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:45:35 - main - INFO - ==================================================
+2026-03-30 00:45:38 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:45:39 - main - INFO - ==================================================
+2026-03-30 00:45:39 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:45:39 - main - INFO - ==================================================
+2026-03-30 00:45:41 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:45:41 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:45:41 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:45:41 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:45:41 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:45:41 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:45:43 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:45:43 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:45:43 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:45:49 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:45:49 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:45:49 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:45:49 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:45:49 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:45:49 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:45:49 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:45:49 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:45:53 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:45:53 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:45:53 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:45:53 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:45:53 - main - WARNING - Workflow init failed (non-fatal): cannot import name 'get_web_plot' from 'nodes.plot' (/Users/shresthpanigrahi/Desktop/Movie/backend/nodes/plot.py)
+2026-03-30 00:45:53 - main - INFO - ==================================================
+2026-03-30 00:45:53 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:45:53 - main - INFO -    Project : plotsense
+2026-03-30 00:45:53 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:45:53 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:45:53 - main - INFO - ==================================================
+2026-03-30 00:45:53 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:45:54 - main - INFO - ==================================================
+2026-03-30 00:45:54 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:45:54 - main - INFO - ==================================================
+2026-03-30 00:45:56 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:45:56 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:45:56 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:45:56 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:45:56 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:45:56 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:45:57 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:45:57 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:45:57 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:46:03 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:46:03 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:46:03 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:46:03 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:46:03 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:46:03 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:46:03 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:46:03 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:46:08 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:46:08 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:46:08 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:46:08 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:46:08 - main - WARNING - Workflow init failed (non-fatal): cannot import name 'get_web_plot' from 'nodes.plot' (/Users/shresthpanigrahi/Desktop/Movie/backend/nodes/plot.py)
+2026-03-30 00:46:08 - main - INFO - ==================================================
+2026-03-30 00:46:08 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:46:08 - main - INFO -    Project : plotsense
+2026-03-30 00:46:08 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:46:08 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:46:08 - main - INFO - ==================================================
+2026-03-30 00:47:17 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:47:17 - main - INFO - ==================================================
+2026-03-30 00:47:17 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:47:17 - main - INFO - ==================================================
+2026-03-30 00:47:19 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:47:19 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:47:19 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:47:19 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:47:19 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:47:20 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:47:20 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:47:20 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:47:20 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:47:26 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:47:26 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:47:26 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:47:26 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:47:26 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:47:26 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:47:26 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:47:26 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:47:31 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:47:31 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:47:31 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:47:31 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:47:31 - main - WARNING - Workflow init failed (non-fatal): cannot import name 'get_web_plot' from 'nodes.plot' (/Users/shresthpanigrahi/Desktop/Movie/backend/nodes/plot.py)
+2026-03-30 00:47:31 - main - INFO - ==================================================
+2026-03-30 00:47:31 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:47:31 - main - INFO -    Project : plotsense
+2026-03-30 00:47:31 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:47:31 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:47:31 - main - INFO - ==================================================
+2026-03-30 00:47:43 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:47:43 - main - INFO - ==================================================
+2026-03-30 00:47:43 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:47:43 - main - INFO - ==================================================
+2026-03-30 00:47:46 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:47:46 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:47:46 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:47:46 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:47:46 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:47:46 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:47:48 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:47:48 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:47:48 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:47:53 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:47:53 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:47:53 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:47:53 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:47:53 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:47:53 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:47:53 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:47:53 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:47:58 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:47:58 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:47:58 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:47:58 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:47:58 - nodes.kg - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:48:02 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 00:48:02 - graph - INFO - Workflow compiled successfully
+2026-03-30 00:48:02 - main - INFO - Workflow initialized successfully
+2026-03-30 00:48:02 - main - INFO - ==================================================
+2026-03-30 00:48:02 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:48:02 - main - INFO -    Project : plotsense
+2026-03-30 00:48:02 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:48:02 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:48:02 - main - INFO - ==================================================
+2026-03-30 00:48:02 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:48:02 - main - INFO - ==================================================
+2026-03-30 00:48:02 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:48:02 - main - INFO - ==================================================
+2026-03-30 00:48:06 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:48:06 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:48:06 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:48:06 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:48:06 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:48:06 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:48:07 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:48:07 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:48:07 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:48:13 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:48:14 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:48:14 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:48:14 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:48:14 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:48:14 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:48:14 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:48:14 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:48:18 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:48:18 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:48:18 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:48:18 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:48:18 - nodes.kg - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:48:22 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 00:48:22 - graph - INFO - Workflow compiled successfully
+2026-03-30 00:48:22 - main - INFO - Workflow initialized successfully
+2026-03-30 00:48:22 - main - INFO - ==================================================
+2026-03-30 00:48:22 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:48:22 - main - INFO -    Project : plotsense
+2026-03-30 00:48:22 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:48:22 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:48:22 - main - INFO - ==================================================
+2026-03-30 00:48:46 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 00:48:48 - main - INFO - ==================================================
+2026-03-30 00:48:48 - main - INFO - PlotSense Backend Starting...
+2026-03-30 00:48:48 - main - INFO - ==================================================
+2026-03-30 00:48:51 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 00:48:51 - services.llm_service - INFO - Gemini model initialized: llama-3.3-70b-versatile
+2026-03-30 00:48:51 - services.llm_service - INFO - Structured output models configured
+2026-03-30 00:48:51 - services.llm_service - INFO - Ollama model initialized: gemma2:2b
+2026-03-30 00:48:51 - main - INFO -   ✔ llm_service ready
+2026-03-30 00:48:51 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 00:48:52 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 00:48:52 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 00:48:52 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 00:48:58 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 00:48:58 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 00:48:58 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 00:48:58 - main - INFO -   ✔ faiss_service ready
+2026-03-30 00:48:59 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 00:48:59 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 00:48:59 - main - INFO -   ✔ tavily_service ready
+2026-03-30 00:48:59 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 00:49:03 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 00:49:03 - main - INFO -   ✔ reranker_service ready
+2026-03-30 00:49:03 - nodes.extract - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:49:03 - nodes.plot - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:49:03 - nodes.kg - ERROR - Could not find dataset.csv in root.
+2026-03-30 00:49:07 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 00:49:07 - graph - INFO - Workflow compiled successfully
+2026-03-30 00:49:07 - main - INFO - Workflow initialized successfully
+2026-03-30 00:49:07 - main - INFO - ==================================================
+2026-03-30 00:49:07 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 00:49:07 - main - INFO -    Project : plotsense
+2026-03-30 00:49:07 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 00:49:07 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 00:49:07 - main - INFO - ==================================================
+2026-03-30 00:49:14 - main - INFO - ==================================================
+2026-03-30 00:49:14 - main - INFO - Search request received: movies like dhurandhar
+2026-03-30 00:49:14 - main - INFO - ==================================================
+2026-03-30 00:49:14 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 00:49:15 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.8)
+2026-03-30 00:49:15 - graph - INFO - Routing: intent=movie_name
+2026-03-30 00:49:15 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 00:49:15 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-30 00:49:15 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 00:49:15 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 00:49:15 - nodes.search - INFO - --- Node: Get Web Plot ---
+2026-03-30 00:49:15 - nodes.search - INFO - Searching Tavily: movie Dhurandhar plot summary wikipedia
+2026-03-30 00:49:20 - nodes.search - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar:_The_Revenge
+2026-03-30 00:49:20 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 00:49:20 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:20 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 00:49:20 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:49:20 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:49:20 - main - INFO - Search completed successfully
+2026-03-30 00:49:20 - main - INFO - Intent: movie_name
+2026-03-30 00:49:20 - main - INFO - Movie Name: Dhurandhar
+2026-03-30 00:49:20 - main - INFO - Answer length: 71
+2026-03-30 00:49:25 - main - INFO - ==================================================
+2026-03-30 00:49:25 - main - INFO - Search request received: movies like abcd1234xyz
+2026-03-30 00:49:25 - main - INFO - ==================================================
+2026-03-30 00:49:25 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 00:49:25 - nodes.classify - INFO - Identified Intent: invalid (Confidence: 0.9)
+2026-03-30 00:49:25 - graph - INFO - Routing: intent=invalid
+2026-03-30 00:49:25 - nodes.generate - INFO - --- Node: Handle Invalid/Gibberish ---
+2026-03-30 00:49:25 - nodes.generate - INFO - Invalid query handled: movies like abcd1234xyz
+2026-03-30 00:49:25 - main - INFO - Search completed successfully
+2026-03-30 00:49:25 - main - INFO - Intent: invalid
+2026-03-30 00:49:25 - main - INFO - Movie Name: None
+2026-03-30 00:49:25 - main - INFO - Answer length: 150
+2026-03-30 00:49:32 - main - INFO - ==================================================
+2026-03-30 00:49:32 - main - INFO - Search request received: amitabh bachchan thriller films
+2026-03-30 00:49:32 - main - INFO - ==================================================
+2026-03-30 00:49:32 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 00:49:33 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.8)
+2026-03-30 00:49:33 - graph - INFO - Routing: intent=query_search
+2026-03-30 00:49:33 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 00:49:33 - nodes.kg - INFO - Entities: {'actor': 'amitabh', 'director': None, 'genre': 'thriller', 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 00:49:34 - nodes.kg - INFO - Attempt 1 Cypher: MATCH (m:Movie)
+OPTIONAL MATCH (m)-[:ACTED_IN]-(a:Actor)
+OPTIONAL MATCH (m)-[:BELONGS_TO]-(g:Genre)
+WHERE toLower(a.name) CONTAINS toLower("amitabh") OR NOT Exists(a)
+AND toLower(g.name) CONTAINS toLower("thriller") OR NOT Exists(g)
+RETURN DISTINCT m.title AS title, m.year AS year ORDER BY m.year DESC LIMIT 15
+2026-03-30 00:49:34 - nodes.kg - ERROR - Cypher Error: {code: Neo.ClientError.Statement.SyntaxError} {message: Argument to Exists(...) is not a pattern (line 4, column 65 (offset: 164))
+"WHERE toLower(a.name) CONTAINS toLower("amitabh") OR NOT Exists(a)"
+                                                                 ^}
+2026-03-30 00:49:34 - nodes.kg - INFO - Attempt 2 Cypher: MATCH (m:Movie)
+OPTIONAL MATCH (m)-[:ACTED_IN]-(a:Actor)
+OPTIONAL MATCH (m)-[:BELONGS_TO]-(g:Genre)
+WHERE (Exists(a) AND toLower(a.name) CONTAINS toLower("amitabh")) OR NOT Exists(a)
+AND (Exists(g) AND toLower(g.name) CONTAINS toLower("thriller")) OR NOT Exists(g)
+RETURN DISTINCT m.title AS title, m.year AS year ORDER BY m.year DESC LIMIT 15
+2026-03-30 00:49:34 - nodes.kg - ERROR - Cypher Error: {code: Neo.ClientError.Statement.SyntaxError} {message: Argument to Exists(...) is not a pattern (line 4, column 15 (offset: 114))
+"WHERE (Exists(a) AND toLower(a.name) CONTAINS toLower("amitabh")) OR NOT Exists(a)"
+               ^}
+2026-03-30 00:49:35 - nodes.kg - INFO - Attempt 3 Cypher: MATCH (m:Movie)
+OPTIONAL MATCH (m)-[:ACTED_IN]-(a:Actor)
+OPTIONAL MATCH (m)-[:BELONGS_TO]-(g:Genre)
+WHERE (a IS NOT NULL AND toLower(a.name) CONTAINS toLower("amitabh")) OR a IS NULL
+AND (g IS NOT NULL AND toLower(g.name) CONTAINS toLower("thriller")) OR g IS NULL
+RETURN DISTINCT m.title AS title, m.year AS year ORDER BY m.year DESC LIMIT 15
+2026-03-30 00:49:35 - nodes.kg - INFO - KG Found 15 titles.
+2026-03-30 00:49:35 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 00:49:35 - nodes.kg - INFO - Fetched 0 docs for 15 KG titles
+2026-03-30 00:49:35 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 00:49:35 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 00:49:35 - main - INFO - Search completed successfully
+2026-03-30 00:49:35 - main - INFO - Intent: query_search
+2026-03-30 00:49:35 - main - INFO - Movie Name: None
+2026-03-30 00:49:35 - main - INFO - Answer length: 71
+2026-03-30 01:08:38 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 01:08:38 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 01:08:38 - services.llm_service - INFO - Structured output models configured
+2026-03-30 01:08:38 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 01:08:44 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 01:08:44 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 01:08:44 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 01:08:44 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:08:45 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:08:45 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 01:08:45 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 01:08:46 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 01:08:46 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 01:08:47 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:08:51 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 01:09:14 - __main__ - INFO - ==================================================
+2026-03-30 01:09:14 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 01:09:14 - __main__ - INFO - ==================================================
+2026-03-30 01:09:16 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 01:09:16 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 01:09:16 - services.llm_service - INFO - Structured output models configured
+2026-03-30 01:09:16 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 01:09:17 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 01:09:17 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 01:09:17 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 01:09:18 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 01:09:23 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 01:09:23 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 01:09:23 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 01:09:23 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 01:09:23 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 01:09:23 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 01:09:23 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 01:09:23 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 01:09:27 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 01:09:27 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 01:09:27 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:09:28 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:09:28 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:09:32 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 01:09:32 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 01:09:32 - graph - INFO - Workflow compiled successfully
+2026-03-30 01:09:32 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 01:09:32 - __main__ - INFO - ==================================================
+2026-03-30 01:09:32 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 01:09:32 - __main__ - INFO -    Project : plotsense
+2026-03-30 01:09:32 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 01:09:32 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 01:09:32 - __main__ - INFO - ==================================================
+2026-03-30 01:09:32 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 01:10:20 - __main__ - INFO - ==================================================
+2026-03-30 01:10:20 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 01:10:20 - __main__ - INFO - ==================================================
+2026-03-30 01:10:22 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 01:10:22 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 01:10:22 - services.llm_service - INFO - Structured output models configured
+2026-03-30 01:10:22 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 01:10:22 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 01:10:23 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 01:10:23 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 01:10:23 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 01:10:29 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 01:10:29 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 01:10:29 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 01:10:29 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 01:10:29 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 01:10:29 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 01:10:29 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 01:10:29 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 01:10:33 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 01:10:33 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 01:10:33 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:10:34 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:10:34 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:10:38 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 01:10:38 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 01:10:38 - graph - INFO - Workflow compiled successfully
+2026-03-30 01:10:38 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 01:10:38 - __main__ - INFO - ==================================================
+2026-03-30 01:10:38 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 01:10:38 - __main__ - INFO -    Project : plotsense
+2026-03-30 01:10:38 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 01:10:38 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 01:10:38 - __main__ - INFO - ==================================================
+2026-03-30 01:10:38 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 01:10:40 - main - INFO - ==================================================
+2026-03-30 01:10:40 - main - INFO - PlotSense Backend Starting...
+2026-03-30 01:10:40 - main - INFO - ==================================================
+2026-03-30 01:10:42 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 01:10:42 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 01:10:42 - services.llm_service - INFO - Structured output models configured
+2026-03-30 01:10:42 - main - INFO -   ✔ llm_service ready
+2026-03-30 01:10:42 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 01:10:44 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 01:10:44 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 01:10:44 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 01:10:51 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 01:10:51 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 01:10:51 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 01:10:51 - main - INFO -   ✔ faiss_service ready
+2026-03-30 01:10:52 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 01:10:52 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 01:10:52 - main - INFO -   ✔ tavily_service ready
+2026-03-30 01:10:52 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 01:10:55 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 01:10:55 - main - INFO -   ✔ reranker_service ready
+2026-03-30 01:10:56 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:10:56 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:10:57 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:11:01 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 01:11:01 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 01:11:01 - graph - INFO - Workflow compiled successfully
+2026-03-30 01:11:01 - main - INFO - Workflow initialized successfully
+2026-03-30 01:11:01 - main - INFO - ==================================================
+2026-03-30 01:11:01 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 01:11:01 - main - INFO -    Project : plotsense
+2026-03-30 01:11:01 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 01:11:01 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 01:11:01 - main - INFO - ==================================================
+2026-03-30 01:11:26 - main - INFO - ==================================================
+2026-03-30 01:11:26 - main - INFO - Search request received: amitabh bachchan thriller movies
+2026-03-30 01:11:26 - main - INFO - ==================================================
+2026-03-30 01:11:26 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:11:26 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 1.0)
+2026-03-30 01:11:26 - graph - INFO - Routing: intent=query_search
+2026-03-30 01:11:26 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 01:11:27 - nodes.kg - INFO - Entities: {'actor': 'amitabh', 'director': None, 'genre': 'thriller', 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 01:11:27 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:FEATURES]->(a:Actor)
+MATCH (m)-[:BELONGS_TO]->(g:Genre)
+WHERE toLower(a.name) CONTAINS 'amitabh'
+AND toLower(g.name) CONTAINS 'thriller'
+RETURN DISTINCT m.title AS title, m.year AS year ORDER BY m.year DESC LIMIT 15
+2026-03-30 01:11:27 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 01:11:28 - services.neo4j_service - INFO - Cypher Result Count: 1
+2026-03-30 01:11:28 - nodes.kg - INFO - KG Found 1 titles: ['Kandahar ( കാണ്ഡഹാർ )']
+2026-03-30 01:11:28 - nodes.kg - WARNING - Sparse result (1 < 3) — will fallback to web
+2026-03-30 01:11:28 - nodes.kg - INFO - --- Node: KG Web Fallback ---
+2026-03-30 01:11:28 - nodes.kg - INFO - Structured search query: amitabh thriller best movies list
+2026-03-30 01:11:36 - nodes.kg - INFO - Web context retrieved (791 chars)
+2026-03-30 01:11:36 - nodes.search - INFO - --- Node: Generate From Web ---
+2026-03-30 01:11:37 - nodes.search - INFO - Web-based answer generated (len: 368)
+2026-03-30 01:11:37 - main - INFO - Search completed successfully
+2026-03-30 01:11:37 - main - INFO - Intent: query_search
+2026-03-30 01:11:37 - main - INFO - Movie Name: None
+2026-03-30 01:11:37 - main - INFO - Answer length: 368
+2026-03-30 01:11:45 - main - INFO - ==================================================
+2026-03-30 01:11:45 - main - INFO - Search request received: movies like inception
+2026-03-30 01:11:45 - main - INFO - ==================================================
+2026-03-30 01:11:45 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:11:46 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.9)
+2026-03-30 01:11:46 - graph - INFO - Routing: intent=movie_name
+2026-03-30 01:11:46 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 01:11:46 - nodes.extract - INFO - Extracted Name: Inception
+2026-03-30 01:11:46 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 01:11:46 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-30 01:11:46 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-30 01:11:46 - nodes.plot - INFO - Retrieved plot from Dataset for Inception.
+2026-03-30 01:11:46 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:11:46 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 01:11:46 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 01:11:46 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:11:46 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:11:46 - main - INFO - Search completed successfully
+2026-03-30 01:11:46 - main - INFO - Intent: movie_name
+2026-03-30 01:11:46 - main - INFO - Movie Name: Inception
+2026-03-30 01:11:46 - main - INFO - Answer length: 71
+2026-03-30 01:11:59 - main - INFO - ==================================================
+2026-03-30 01:11:59 - main - INFO - Search request received: asdfghjkl12345xyz
+2026-03-30 01:11:59 - main - INFO - ==================================================
+2026-03-30 01:11:59 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:12:00 - nodes.classify - INFO - Identified Intent: invalid (Confidence: 1.0)
+2026-03-30 01:12:00 - graph - INFO - Routing: intent=invalid
+2026-03-30 01:12:00 - nodes.generate - INFO - --- Node: Handle Invalid/Gibberish ---
+2026-03-30 01:12:00 - nodes.generate - INFO - Invalid query handled: asdfghjkl12345xyz
+2026-03-30 01:12:00 - main - INFO - Search completed successfully
+2026-03-30 01:12:00 - main - INFO - Intent: invalid
+2026-03-30 01:12:00 - main - INFO - Movie Name: None
+2026-03-30 01:12:00 - main - INFO - Answer length: 150
+2026-03-30 01:12:09 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 01:14:30 - main - INFO - ==================================================
+2026-03-30 01:14:30 - main - INFO - PlotSense Backend Starting...
+2026-03-30 01:14:30 - main - INFO - ==================================================
+2026-03-30 01:14:33 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 01:14:33 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 01:14:33 - services.llm_service - INFO - Structured output models configured
+2026-03-30 01:14:33 - main - INFO -   ✔ llm_service ready
+2026-03-30 01:14:33 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 01:14:34 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 01:14:34 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 01:14:34 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 01:14:40 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 01:14:40 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 01:14:40 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 01:14:40 - main - INFO -   ✔ faiss_service ready
+2026-03-30 01:14:40 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 01:14:40 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 01:14:40 - main - INFO -   ✔ tavily_service ready
+2026-03-30 01:14:40 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 01:14:45 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 01:14:45 - main - INFO -   ✔ reranker_service ready
+2026-03-30 01:14:46 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:14:47 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:14:47 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:14:51 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 01:14:52 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 01:14:52 - graph - INFO - Workflow compiled successfully
+2026-03-30 01:14:52 - main - INFO - Workflow initialized successfully
+2026-03-30 01:14:52 - main - INFO - ==================================================
+2026-03-30 01:14:52 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 01:14:52 - main - INFO -    Project : plotsense
+2026-03-30 01:14:52 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 01:14:52 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 01:14:52 - main - INFO - ==================================================
+2026-03-30 01:15:56 - main - INFO - ==================================================
+2026-03-30 01:15:56 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 01:15:56 - main - INFO - ==================================================
+2026-03-30 01:15:56 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:15:56 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.9)
+2026-03-30 01:15:56 - graph - INFO - Routing: intent=plot
+2026-03-30 01:15:56 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:15:56 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 01:15:56 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 01:15:56 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:15:56 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:15:56 - main - INFO - Search completed successfully
+2026-03-30 01:15:56 - main - INFO - Intent: plot
+2026-03-30 01:15:56 - main - INFO - Movie Name: None
+2026-03-30 01:15:56 - main - INFO - Answer length: 71
+2026-03-30 01:23:42 - main - INFO - ==================================================
+2026-03-30 01:23:42 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 01:23:42 - main - INFO - ==================================================
+2026-03-30 01:23:42 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:23:42 - nodes.classify - INFO - Identified Intent: plot (Confidence: 1.0)
+2026-03-30 01:23:42 - graph - INFO - Routing: intent=plot
+2026-03-30 01:23:42 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:23:42 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 01:23:42 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 01:23:42 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:23:42 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:23:42 - main - INFO - Search completed successfully
+2026-03-30 01:23:42 - main - INFO - Intent: plot
+2026-03-30 01:23:42 - main - INFO - Movie Name: None
+2026-03-30 01:23:42 - main - INFO - Answer length: 71
+2026-03-30 01:24:14 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 01:24:29 - main - INFO - ==================================================
+2026-03-30 01:24:29 - main - INFO - PlotSense Backend Starting...
+2026-03-30 01:24:29 - main - INFO - ==================================================
+2026-03-30 01:24:40 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 01:24:40 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 01:24:40 - services.llm_service - INFO - Structured output models configured
+2026-03-30 01:24:40 - main - INFO -   ✔ llm_service ready
+2026-03-30 01:24:42 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 01:24:43 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 01:24:43 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 01:24:43 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 01:24:52 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 01:24:53 - services.faiss_service - WARNING - FAISS service initialization failed (non-fatal): Error in faiss::FileIOReader::FileIOReader(const char *) at /Users/runner/work/faiss-wheels/faiss-wheels/third-party/faiss/faiss/impl/io.cpp:70: Error: 'f' failed: could not open /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3/index.faiss for reading: No such file or directory
+2026-03-30 01:24:53 - services.faiss_service - WARNING - FAISS search will return empty results until index is available.
+2026-03-30 01:24:54 - main - INFO -   ✔ faiss_service ready
+2026-03-30 01:24:54 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 01:24:54 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 01:24:54 - main - INFO -   ✔ tavily_service ready
+2026-03-30 01:24:54 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 01:24:59 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 01:24:59 - main - INFO -   ✔ reranker_service ready
+2026-03-30 01:25:01 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:25:03 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:25:04 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:25:08 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 01:25:08 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 01:25:08 - graph - INFO - Workflow compiled successfully
+2026-03-30 01:25:08 - main - INFO - Workflow initialized successfully
+2026-03-30 01:25:08 - main - INFO - ==================================================
+2026-03-30 01:25:08 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 01:25:08 - main - INFO -    Project : plotsense
+2026-03-30 01:25:08 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 01:25:08 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 01:25:08 - main - INFO - ==================================================
+2026-03-30 01:27:03 - main - INFO - ==================================================
+2026-03-30 01:27:03 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 01:27:03 - main - INFO - ==================================================
+2026-03-30 01:27:03 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:27:04 - nodes.classify - INFO - Identified Intent: plot (Confidence: 1.0)
+2026-03-30 01:27:04 - graph - INFO - Routing: intent=plot
+2026-03-30 01:27:04 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:27:04 - services.faiss_service - WARNING - FAISS index not loaded, returning empty results
+2026-03-30 01:27:04 - nodes.search - INFO - Aggregated to 0 unique movies.
+2026-03-30 01:27:04 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:27:04 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:27:04 - main - INFO - Search completed successfully
+2026-03-30 01:27:04 - main - INFO - Intent: plot
+2026-03-30 01:27:04 - main - INFO - Movie Name: None
+2026-03-30 01:27:04 - main - INFO - Answer length: 71
+2026-03-30 01:28:11 - main - INFO - PlotSense Backend Shutting Down...
+2026-03-30 01:28:14 - main - INFO - ==================================================
+2026-03-30 01:28:14 - main - INFO - PlotSense Backend Starting...
+2026-03-30 01:28:14 - main - INFO - ==================================================
+2026-03-30 01:28:19 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 01:28:19 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 01:28:19 - services.llm_service - INFO - Structured output models configured
+2026-03-30 01:28:19 - main - INFO -   ✔ llm_service ready
+2026-03-30 01:28:20 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 01:28:20 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 01:28:20 - main - INFO -   ✔ neo4j_service ready
+2026-03-30 01:28:20 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 01:28:26 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 01:28:27 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 01:28:27 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:28:27 - main - INFO -   ✔ faiss_service ready
+2026-03-30 01:28:27 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 01:28:27 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 01:28:27 - main - INFO -   ✔ tavily_service ready
+2026-03-30 01:28:27 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 01:28:31 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 01:28:31 - main - INFO -   ✔ reranker_service ready
+2026-03-30 01:28:32 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:28:32 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:28:32 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 01:28:36 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 01:28:36 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 01:28:36 - graph - INFO - Workflow compiled successfully
+2026-03-30 01:28:36 - main - INFO - Workflow initialized successfully
+2026-03-30 01:28:36 - main - INFO - ==================================================
+2026-03-30 01:28:36 - main - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 01:28:36 - main - INFO -    Project : plotsense
+2026-03-30 01:28:36 - main - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 01:28:36 - main - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 01:28:36 - main - INFO - ==================================================
+2026-03-30 01:35:36 - main - INFO - ==================================================
+2026-03-30 01:35:36 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 01:35:36 - main - INFO - ==================================================
+2026-03-30 01:35:37 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:35:37 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.95)
+2026-03-30 01:35:37 - graph - INFO - Routing: intent=plot
+2026-03-30 01:35:37 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:35:38 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 01:35:38 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 01:35:38 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:35:38 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 01:35:39 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 01:35:39 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:35:41 - nodes.generate - INFO - Final answer generated (len: 1686)
+2026-03-30 01:35:41 - main - INFO - Search completed successfully
+2026-03-30 01:35:41 - main - INFO - Intent: plot
+2026-03-30 01:35:41 - main - INFO - Movie Name: None
+2026-03-30 01:35:41 - main - INFO - Answer length: 1686
+2026-03-30 01:37:00 - main - INFO - ==================================================
+2026-03-30 01:37:00 - main - INFO - Search request received: A heist film where the twist is the crew planned to fail
+2026-03-30 01:37:00 - main - INFO - ==================================================
+2026-03-30 01:37:00 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:37:01 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.95)
+2026-03-30 01:37:01 - graph - INFO - Routing: intent=plot
+2026-03-30 01:37:01 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:37:01 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 01:37:01 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 01:37:01 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:37:01 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 01:37:01 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 01:37:01 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:37:03 - nodes.generate - INFO - Final answer generated (len: 1545)
+2026-03-30 01:37:03 - main - INFO - Search completed successfully
+2026-03-30 01:37:03 - main - INFO - Intent: plot
+2026-03-30 01:37:03 - main - INFO - Movie Name: None
+2026-03-30 01:37:03 - main - INFO - Answer length: 1545
+2026-03-30 01:37:35 - main - INFO - ==================================================
+2026-03-30 01:37:35 - main - INFO - Search request received: movies likeDhurandhar
+2026-03-30 01:37:35 - main - INFO - ==================================================
+2026-03-30 01:37:35 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:37:35 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.8)
+2026-03-30 01:37:35 - graph - INFO - Routing: intent=movie_name
+2026-03-30 01:37:35 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 01:37:36 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-30 01:37:36 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 01:37:36 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 01:37:36 - nodes.search - INFO - --- Node: Get Web Plot ---
+2026-03-30 01:37:36 - nodes.search - INFO - Searching Tavily: movie Dhurandhar plot summary wikipedia
+2026-03-30 01:37:41 - nodes.search - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar:_The_Revenge
+2026-03-30 01:37:41 - nodes.search - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 01:37:41 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:37:41 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 01:37:41 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 01:37:41 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:37:41 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 01:37:41 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 01:37:41 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:37:43 - nodes.generate - INFO - Final answer generated (len: 960)
+2026-03-30 01:37:43 - main - INFO - Search completed successfully
+2026-03-30 01:37:43 - main - INFO - Intent: movie_name
+2026-03-30 01:37:43 - main - INFO - Movie Name: Dhurandhar
+2026-03-30 01:37:43 - main - INFO - Answer length: 960
+2026-03-30 01:38:04 - main - INFO - ==================================================
+2026-03-30 01:38:04 - main - INFO - Search request received: movie related to space where people get stuck in space
+2026-03-30 01:38:04 - main - INFO - ==================================================
+2026-03-30 01:38:04 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 01:38:05 - nodes.classify - INFO - Identified Intent: plot (Confidence: 0.85)
+2026-03-30 01:38:05 - graph - INFO - Routing: intent=plot
+2026-03-30 01:38:05 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 01:38:05 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 01:38:05 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 01:38:05 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 01:38:05 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 01:38:05 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 01:38:05 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 01:38:08 - nodes.generate - INFO - Final answer generated (len: 1316)
+2026-03-30 01:38:08 - main - INFO - Search completed successfully
+2026-03-30 01:38:08 - main - INFO - Intent: plot
+2026-03-30 01:38:08 - main - INFO - Movie Name: None
+2026-03-30 01:38:08 - main - INFO - Answer length: 1316

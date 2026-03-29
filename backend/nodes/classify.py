@@ -1,9 +1,10 @@
 """
 Query Classification Node for PlotSense backend.
-Classifies user intent using Gemini structured output.
+Classifies user intent using robust JSON fallback — matches notebook.
 """
 import sys
-sys.path.insert(0, str(__file__).rsplit('\\', 2)[0])
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from models import MovieState
 from services.llm_service import llm_service
@@ -12,50 +13,46 @@ from logger import get_logger
 logger = get_logger(__name__)
 
 
+import re
+import json
+
 def classify_query(state: MovieState) -> dict:
     """
-    Classify the user's movie query intent.
+    Classify the user's movie query intent with robust fallback.
+    """
+    logger.info("--- Node: Classify Query ---")
     
-    Args:
-        state: Current workflow state
+    prompt = f"""You are a Movie Intent Classifier. Analyze the query and return ONLY a JSON object.
+
+INTENTS:
+- "plot"         : user describes a story/scene (e.g. "movie where a man grows potatoes on Mars")
+- "movie_name"   : user names a specific movie and wants similar ones (e.g. "movies like Inception")
+- "query_search" : user filters by actor / director / genre / year (e.g. "Tom Hanks action movies")
+- "invalid"      : gibberish or completely off-topic
+
+Return ONLY this JSON, nothing else:
+{{"intent": "plot|movie_name|query_search|invalid", "confidence_score": 0.0}}
+
+Query: "{state['query']}"
+"""
+    
+    raw = llm_service.gemini_model.invoke(prompt).content.strip()
+    
+    # Strip accidental markdown
+    raw = re.sub(r"```json|```", "", raw).strip()
+
+    try:
+        parsed = json.loads(raw)
+        intent = parsed.get("intent", "invalid")
+        score  = parsed.get("confidence_score", 0.0)
+    except json.JSONDecodeError:
+        # Fallback: scan raw text for intent keyword
+        intent = "invalid"
+        for candidate in ["plot", "movie_name", "query_search"]:
+            if candidate in raw.lower():
+                intent = candidate
+                break
+        score = 0.5
         
-    Returns:
-        Dictionary with classified intent
-    """
-    logger.info("--- Node: Classify Query (Gemini Structured) ---")
-    
-    prompt = f"""
-    ### ROLE
-    You are a highly accurate Movie Intent Classifier. Your goal is to categorize user input so the system can choose the correct search path.
-
-    ### INTENT DEFINITIONS
-    1. 'plot': The user is describing specific events, scenes, or storylines (e.g., "movie where a man grows potatoes on Mars").
-    2. 'movie_name': The user provides a specific, recognizable movie title. They want recommendations SIMILAR to this movie or based on its plot.
-       - INCLUDES: "Movies like Inception", "Something similar to Titanic", "Recommendations based on Matrix".
-    3. 'query_search': The user is asking for a list based on ACTORS, DIRECTORS, GENRES, or YEARS.
-       - INCLUDES: "Movies with Tom Hanks", "Best 90s thrillers", "Sci-fi movies directed by Nolan".
-    4. 'invalid': Gibberish, random characters, or completely unrelated to movies.
-
-    ### EXAMPLES
-    - "A movie where a man is trapped on Mars" -> plot
-    - "Suggest me movie based on movie Titanic" -> movie_name
-    - "Movies like Metro in Dino" -> movie_name
-    - "Similar to Interstellar" -> movie_name
-    - "Action movies starring Keanu Reeves" -> query_search
-    - "Best horror from 2023" -> query_search
-
-    ### INSTRUCTION
-    Analyze the query below. 
-    - If the user names a SPECIFIC MOVIE to get similar recommendations (e.g., "Like [Movie Name]"), classify as 'movie_name'.
-    - Only classify as 'query_search' if they are filtering by Actor, Director, Genre, or Year.
-    
-    User Query: "{state['query']}"
-    """
-    
-    logger.debug(f"Classification prompt length: {len(prompt)}")
-    
-    response = llm_service.classify_intent(prompt)
-    
-    logger.info(f"Identified Intent: {response.intent} (Confidence: {response.confidence_score})")
-    
-    return {"intent": response.intent}
+    logger.info(f"Identified Intent: {intent} (Confidence: {score})")
+    return {"intent": intent}

@@ -48,15 +48,13 @@ os.environ["LANGSMITH_API_KEY"]       = LANGSMITH_API_KEY
 os.environ["LANGSMITH_PROJECT"]       = LANGSMITH_PROJECT
 
 # Model Configuration
-GEMINI_MODEL = "llama-3.3-70b-versatile"
-OLLAMA_MODEL = "gemma2:2b"
+GROQ_MODEL = "moonshotai/kimi-k2-instruct-0905"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-MODEL = "minimax/minimax-m2.5:free" 
 
 # FAISS Configuration
 FAISS_INDEX_PATH = str(ARTIFACTS_DIR / "movie_faiss_v3")
-DATASET_PATH = str(BASE_DIR / "df1_cleaned.csv")
+DATASET_PATH = str(BASE_DIR / "dataset.csv")
 
 # Logging Configuration
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

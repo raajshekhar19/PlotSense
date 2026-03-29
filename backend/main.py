@@ -212,7 +212,9 @@ async def search_movies(request: SearchRequest):
             intent=result.get("intent"),
             movie_name=result.get("movie_name"),
             answer=result.get("final_answer", "No answer generated"),
-            kg_movies=movies_list
+            kg_movies=movies_list,
+            needs_clarification=result.get("needs_clarification", False),
+            clarification_question=result.get("clarification_question"),
         )
         
     except Exception as e:

@@ -18,6 +18,10 @@ class MovieState(TypedDict):
     movie_exists: Optional[bool]
     base_plot: Optional[str]
     kg_movies: Optional[List[str]]
+    kg_sparse: Optional[bool]
+    web_context: Optional[str]
+    needs_clarification: Optional[bool]
+    clarification_question: Optional[str]
     final_docs: Optional[List[Any]]  # List[Document]
     final_answer: Optional[str]
 
@@ -69,6 +73,9 @@ class SearchResponse(BaseModel):
     movie_name: Optional[str] = None
     answer: str
     kg_movies: Optional[List[Any]] = None
+    sources: Optional[List[str]] = None
+    needs_clarification: Optional[bool] = False
+    clarification_question: Optional[str] = None
 
 
 class HealthResponse(BaseModel):

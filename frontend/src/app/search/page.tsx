@@ -15,6 +15,8 @@ interface BackendResponse {
   movie_name: string | null;
   answer: string;
   kg_movies: string[] | null;
+  needs_clarification: boolean | null;
+  clarification_question: string | null;
 }
 
 interface MatchResult {
@@ -60,6 +62,25 @@ export default function SearchPage() {
 
       setIntent(data.intent);
       setAiAnswer(data.answer);
+
+      // ── Clarification short-circuit ───────────────────────────
+      // When the backend doesn't recognise the movie, surface the
+      // clarification question as a single info card and stop here.
+      if (data.needs_clarification && data.clarification_question) {
+        setResults([
+          {
+            id: "clarification-0",
+            title: "🤔 Hmm, I'm not sure about that one…",
+            year: "",
+            genre: "clarification",
+            snippet: data.clarification_question,
+            score: 0,
+            sources: ["PlotSense"],
+            director: "",
+          },
+        ]);
+        return;
+      }
 
       // Build result cards from the backend response
       const cards: MatchResult[] = [];
