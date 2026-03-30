@@ -1,0 +1,323 @@
+/* ========================================
+   MovieDetailModal — Scoped CSS Module
+   ======================================== */
+
+/* ── Backdrop overlay ───────────────────── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ── Modal shell ────────────────────────── */
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 56rem; /* 896px */
+  max-height: 90vh;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(75, 78, 109, 0.3);
+}
+
+/* ── Blurred poster background layer ────── */
+.posterBg {
+  position: absolute;
+  inset: -20px; /* overflow to hide blur edge artifacts */
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px);
+  transform: scale(1.12);
+  transition: opacity 0.5s ease;
+}
+
+.posterOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.75) 40%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* ── Content layer on top ───────────────── */
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem;
+  overflow-y: auto;
+  max-height: 90vh;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(75, 78, 109, 0.4) transparent;
+}
+
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: rgba(75, 78, 109, 0.4);
+  border-radius: 3px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ── Close button ───────────────────────── */
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(34, 34, 34, 0.8);
+  border: 1px solid rgba(75, 78, 109, 0.4);
+  color: #95a3b3;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.closeBtn:hover {
+  color: #fff;
+  background: rgba(34, 34, 34, 0.95);
+  border-color: rgba(132, 220, 198, 0.4);
+  transform: scale(1.05);
+}
+
+/* ── Sharp poster (DVD cover) ───────────── */
+.posterSharp {
+  width: 160px;
+  height: 240px;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+.posterSharpImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.posterPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(75, 78, 109, 0.25);
+  border: 1px dashed rgba(75, 78, 109, 0.5);
+  border-radius: 0.75rem;
+}
+
+/* ── Trailer embed container ────────────── */
+.trailerWrap {
+  position: relative;
+  width: 160px;
+  height: 240px;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.trailerIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* ── Spinner overlay on poster ──────────── */
+.spinnerOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 0.75rem;
+  z-index: 5;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(132, 220, 198, 0.2);
+  border-top-color: #84DCC6;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── "Why This Result?" blockquote ──────── */
+.reasonSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(75, 78, 109, 0.25);
+}
+
+.reasonLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(149, 163, 179, 0.55);
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+.reasonBlock {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.reasonBar {
+  width: 3.5px;
+  min-height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #d4a050 0%, #c49040 50%, #b4803a 100%);
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.reasonText {
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: rgba(230, 230, 230, 0.75);
+  font-family: var(--font-sans);
+}
+
+/* ── Trailer button ─────────────────────── */
+.trailerBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1.5px solid rgba(132, 220, 198, 0.35);
+  background: rgba(132, 220, 198, 0.08);
+  color: #84DCC6;
+  font-family: var(--font-sans);
+}
+
+.trailerBtn:hover {
+  background: rgba(132, 220, 198, 0.18);
+  border-color: rgba(132, 220, 198, 0.6);
+  box-shadow: 0 0 20px rgba(132, 220, 198, 0.12);
+  transform: translateY(-1px);
+}
+
+.trailerBtnActive {
+  border-color: rgba(212, 160, 80, 0.5);
+  background: rgba(212, 160, 80, 0.1);
+  color: #d4a050;
+}
+
+.trailerBtnActive:hover {
+  border-color: rgba(212, 160, 80, 0.7);
+  background: rgba(212, 160, 80, 0.2);
+  box-shadow: 0 0 20px rgba(212, 160, 80, 0.12);
+}
+
+.trailerError {
+  font-size: 0.75rem;
+  color: rgba(255, 120, 120, 0.7);
+  margin-top: 0.4rem;
+  font-family: var(--font-sans);
+}
+
+/* ── Meta pills ─────────────────────────── */
+.metaPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.pill {
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+}
+
+.pillFaiss {
+  background: rgba(75, 78, 109, 0.4);
+  color: #95a3b3;
+}
+
+.pillAqua {
+  background: rgba(132, 220, 198, 0.15);
+  color: #84DCC6;
+  border: 1px solid rgba(132, 220, 198, 0.2);
+}
+
+.pillScore {
+  border: 1px solid rgba(149, 163, 179, 0.2);
+  color: #95a3b3;
+}
+
+/* ── Responsive ─────────────────────────── */
+@media (max-width: 768px) {
+  .modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    height: 100vh;
+  }
+
+  .content {
+    padding: 1.5rem;
+    max-height: 100vh;
+  }
+
+  .posterSharp,
+  .trailerWrap {
+    width: 120px;
+    height: 180px;
+  }
+
+  .closeBtn {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}

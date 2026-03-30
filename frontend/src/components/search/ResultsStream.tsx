@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SkeletonResultCard } from "../LoadingStates";
 import AnswerSynthesis from "./AnswerSynthesis";
+import MovieDetailModal from "./MovieDetailModal";
+
+/* ════════════════════════════════════════════
+   Types
+   ════════════════════════════════════════════ */
 
 interface MatchResult {
   id: string;
@@ -14,7 +19,15 @@ interface MatchResult {
   score: number;
   sources: string[];
   director: string;
-  posterUrl?: string; // Optional real TMDB url
+  posterUrl?: string;
+  reason?: string;
+}
+
+interface CardRect {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
 }
 
 interface Props {
@@ -26,12 +39,50 @@ interface Props {
   onResultClick: (result: MatchResult) => void;
 }
 
+/* ════════════════════════════════════════════
+   Component
+   ════════════════════════════════════════════ */
+
 export default function ResultsStream({ query, intentHover, results, isLoading, aiAnswer, onResultClick }: Props) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  
-  // Highlight snippet Helper
+  const [cardRect, setCardRect] = useState<CardRect | null>(null);
+  const cardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  // ── Set card ref ──────────────────────────
+  const setCardRef = useCallback((id: string, el: HTMLDivElement | null) => {
+    if (el) {
+      cardRefs.current.set(id, el);
+    } else {
+      cardRefs.current.delete(id);
+    }
+  }, []);
+
+  // ── Open modal with card rect capture ─────
+  const openModal = useCallback((r: MatchResult) => {
+    const el = cardRefs.current.get(r.id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      setCardRect({
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+      });
+    } else {
+      setCardRect(null);
+    }
+    setExpandedId(r.id);
+    onResultClick(r);
+  }, [onResultClick]);
+
+  // ── Close modal ───────────────────────────
+  const closeModal = useCallback(() => {
+    setExpandedId(null);
+    setCardRect(null);
+  }, []);
+
+  // ── Snippet highlight helper ──────────────
   const renderSnippet = (text: string) => {
-    // Simple mock highlighting
     return text.split(/(<mark>.*?<\/mark>)/g).map((part, i) => {
       if (part.startsWith("<mark>") && part.endsWith("</mark>")) {
         return (
@@ -44,270 +95,276 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
     });
   };
 
-  // SVG Ring calculation
+  // ── Score ring color ──────────────────────
   const getScoreColor = (score: number) => {
     if (score >= 90) return "#84DCC6";
     if (score >= 70) return "#95A3B3";
     return "#4B4E6D";
   };
 
+  // Currently selected result for modal
+  const selectedResult = expandedId
+    ? results?.find((res) => res.id === expandedId) ?? null
+    : null;
+
   return (
     <div className="w-full h-full min-h-[100dvh] bg-[#1A1A1A] py-8 px-8 overflow-y-auto custom-scrollbar flex flex-col relative border-l border-grape/30">
-        
-        {/* Results Header */}
-        {(isLoading || results) && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-between w-full mb-6"
-          >
-             <div className="flex items-center gap-4">
-               <span className="font-sans text-[13px] text-steel/70 italic">
-                 Results for → {query || "..."}
-               </span>
-               <div className="bg-grape text-aqua font-mono text-[11px] px-2 py-0.5 rounded-full uppercase tracking-wider">
-                 {intentHover || "PLOT SEARCH"}
-               </div>
-               {results && (
-                 <span className="font-sans text-[13px] text-steel">
-                   {results.length} matches found
-                 </span>
-               )}
-             </div>
-             
-             <div className="text-[13px] font-sans text-steel cursor-pointer hover:text-white transition-colors">
-               Relevance ▾
-             </div>
-          </motion.div>
-        )}
-
-        {/* Answer Synthesis (Phase 2 integration - if results exist) */}
-        {results && results.length > 0 && !isLoading && aiAnswer && (
-          <div className="mb-8">
-            <AnswerSynthesis answerText={aiAnswer} />
+      {/* Results Header */}
+      {(isLoading || results) && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-between w-full mb-6"
+        >
+          <div className="flex items-center gap-4">
+            <span className="font-sans text-[13px] text-steel/70 italic">
+              Results for → {query || "..."}
+            </span>
+            <div className="bg-grape text-aqua font-mono text-[11px] px-2 py-0.5 rounded-full uppercase tracking-wider">
+              {intentHover || "PLOT SEARCH"}
+            </div>
+            {results && (
+              <span className="font-sans text-[13px] text-steel">
+                {results.length} matches found
+              </span>
+            )}
           </div>
-        )}
 
-        {/* Skeletons Layout */}
-        {isLoading && (
-          <div className="flex flex-col gap-4">
-            {[1, 2, 3, 4].map((i, idx) => (
-               <SkeletonResultCard key={i} staggerDelay={idx * 0.1} />
-            ))}
+          <div className="text-[13px] font-sans text-steel cursor-pointer hover:text-white transition-colors">
+            Relevance ▾
           </div>
-        )}
+        </motion.div>
+      )}
 
-        {/* Results Layout */}
-        {!isLoading && results && results.length > 0 && (
-          <div className="flex flex-col gap-4 pb-20">
-            {results.map((r, idx) => {
-              const isBestMatch = idx === 0;
-              const radius = 24;
-              const circumference = 2 * Math.PI * radius;
-              const offset = circumference - (r.score / 100) * circumference;
+      {/* Answer Synthesis */}
+      {results && results.length > 0 && !isLoading && aiAnswer && (
+        <div className="mb-8">
+          <AnswerSynthesis answerText={aiAnswer} />
+        </div>
+      )}
 
-              return (
+      {/* Skeletons */}
+      {isLoading && (
+        <div className="flex flex-col gap-4">
+          {[1, 2, 3, 4].map((i, idx) => (
+            <SkeletonResultCard key={i} staggerDelay={idx * 0.1} />
+          ))}
+        </div>
+      )}
+
+      {/* Results Cards */}
+      {!isLoading && results && results.length > 0 && (
+        <div className="flex flex-col gap-4 pb-20">
+          {results.map((r, idx) => {
+            const isBestMatch = idx === 0;
+            const radius = 24;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (r.score / 100) * circumference;
+            const isSourceCard = expandedId === r.id;
+
+            return (
+              <motion.div
+                layout
+                key={r.id}
+                ref={(el: HTMLDivElement | null) => setCardRef(r.id, el)}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{
+                  opacity: isSourceCard ? 0.45 : 1,
+                  y: 0,
+                  scale: isSourceCard ? 0.98 : 1,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  delay: idx * 0.08,
+                }}
+                onClick={() => openModal(r)}
+                className={`relative w-full bg-[#2A2A2A] rounded-2xl p-5 flex gap-5 cursor-pointer font-sans transition-all group overflow-hidden ${
+                  isBestMatch
+                    ? "border-[1.5px] border-aqua/50 scale-[1.01]"
+                    : "border border-grape/40 hover:border-aqua/60 hover:bg-[#2E2E2E]"
+                }`}
+                whileHover={!isBestMatch && !isSourceCard ? { scale: 1.005 } : undefined}
+              >
+                {/* Hover shimmer */}
                 <motion.div
-                  layout
-                  key={r.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30, delay: idx * 0.08 }}
-                  onClick={() => {
-                    setExpandedId(expandedId === r.id ? null : r.id);
-                    onResultClick(r);
-                  }}
-                  className={`relative w-full bg-[#2A2A2A] rounded-2xl p-5 flex gap-5 cursor-pointer font-sans transition-all group overflow-hidden ${
-                    isBestMatch 
-                      ? "border-[1.5px] border-aqua/50 scale-[1.01]" 
-                      : "border border-grape/40 hover:border-aqua/60 hover:bg-[#2E2E2E]"
-                  }`}
-                  whileHover={!isBestMatch ? { scale: 1.005 } : undefined}
-                >
-                  {/* Hover shimmer effect */}
-                  <motion.div 
-                    initial={{ x: "-100%", opacity: 0 }}
-                    whileHover={{ x: "200%", opacity: 1 }}
-                    transition={{ duration: 1, ease: "easeInOut" }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-aqua/5 to-transparent skew-x-12 pointer-events-none"
-                  />
+                  initial={{ x: "-100%", opacity: 0 }}
+                  whileHover={{ x: "200%", opacity: 1 }}
+                  transition={{ duration: 1, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-aqua/5 to-transparent skew-x-12 pointer-events-none"
+                />
 
-                  {/* Best Match Badge */}
-                  {isBestMatch && (
-                    <div className="absolute top-0 right-4 -translate-y-1/2 rotate-[-2deg] font-mono text-[10px] bg-aqua text-carbon font-bold px-2 py-0.5 rounded shadow-[0_4px_12px_rgba(132,220,198,0.3)]">
-                      BEST MATCH
+                {/* Best Match Badge */}
+                {isBestMatch && (
+                  <div className="absolute top-0 right-4 -translate-y-1/2 rotate-[-2deg] font-mono text-[10px] bg-aqua text-carbon font-bold px-2 py-0.5 rounded shadow-[0_4px_12px_rgba(132,220,198,0.3)]">
+                    BEST MATCH
+                  </div>
+                )}
+
+                {/* Poster Left */}
+                <div className="w-[80px] h-[110px] bg-grape/30 rounded-xl shrink-0 flex items-center justify-center overflow-hidden border border-grape border-dashed">
+                  {r.posterUrl ? (
+                    <img
+                      src={r.posterUrl}
+                      alt={r.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="text-aqua/40">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
+                        <line x1="7" y1="2" x2="7" y2="22" />
+                        <line x1="17" y1="2" x2="17" y2="22" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <line x1="2" y1="7" x2="7" y2="7" />
+                        <line x1="2" y1="17" x2="7" y2="17" />
+                        <line x1="17" y1="17" x2="22" y2="17" />
+                        <line x1="17" y1="7" x2="22" y2="7" />
+                      </svg>
                     </div>
                   )}
+                </div>
 
-                  {/* Poster Left */}
-                  <div className="w-[80px] h-[110px] bg-grape/30 rounded-xl shrink-0 flex items-center justify-center overflow-hidden border border-grape border-dashed">
-                    {r.posterUrl ? (
-                      <img src={r.posterUrl} alt={r.title} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="text-aqua/40">
-                         {/* Film Icon Placeholder */}
-                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                {/* Center Content */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <h3 className="text-white font-bold text-[18px] leading-tight flex items-center gap-2">
+                    {r.title}
+                    <span className="font-normal text-[13px] text-steel font-mono">
+                      {r.year} &nbsp;·&nbsp; {r.genre}
+                    </span>
+                  </h3>
+
+                  <p className="mt-2 text-[14px] text-steel/80 leading-relaxed line-clamp-2">
+                    {renderSnippet(r.snippet)}
+                  </p>
+                </div>
+
+                {/* Right Meta (Score ring) */}
+                <div className="w-[80px] shrink-0 flex flex-col items-center justify-center gap-2 border-l border-grape/20 pl-4 py-1 relative">
+                  <div className="relative w-[56px] h-[56px] flex items-center justify-center">
+                    <svg className="absolute w-full h-full -rotate-90">
+                      <circle
+                        cx="28"
+                        cy="28"
+                        r={radius}
+                        fill="none"
+                        stroke="rgba(75,78,109,0.3)"
+                        strokeWidth="4"
+                      />
+                      <motion.circle
+                        cx="28"
+                        cy="28"
+                        r={radius}
+                        fill="none"
+                        stroke={getScoreColor(r.score)}
+                        strokeWidth="4"
+                        strokeDasharray={circumference}
+                        initial={{ strokeDashoffset: circumference }}
+                        animate={{ strokeDashoffset: offset }}
+                        transition={{
+                          duration: 1.5,
+                          ease: "easeOut",
+                          delay: idx * 0.1 + 0.3,
+                        }}
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <span className="font-mono text-white text-[14px] font-bold">
+                      {r.score}%
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col gap-1 items-center mt-1">
+                    {r.sources.map((s) => (
+                      <div
+                        key={s}
+                        className={`text-[9px] font-mono px-1.5 py-[1px] rounded uppercase ${
+                          s === "FAISS"
+                            ? "bg-grape/40 text-steel"
+                            : "bg-aqua/20 text-aqua border border-aqua/20"
+                        }`}
+                      >
+                        {s}
                       </div>
-                    )}
+                    ))}
                   </div>
 
-                  {/* Center Content */}
-                  <div className="flex-1 flex flex-col justify-center">
-                    <h3 className="text-white font-bold text-[18px] leading-tight flex items-center gap-2">
-                       {r.title} 
-                       <span className="font-normal text-[13px] text-steel font-mono">{r.year} &nbsp;·&nbsp; {r.genre}</span>
-                    </h3>
-                    
-                    <p className={`mt-2 text-[14px] text-steel/80 leading-relaxed line-clamp-2`}>
-                      {renderSnippet(r.snippet)}
-                    </p>
-                  </div>
+                  {/* View Details hover text */}
+                  <span className="absolute -bottom-2 right-0 left-4 text-center text-aqua text-[12px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    View Details →
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
 
-                  {/* Right Meta (Score ring) */}
-                  <div className="w-[80px] shrink-0 flex flex-col items-center justify-center gap-2 border-l border-grape/20 pl-4 py-1 relative">
-                     <div className="relative w-[56px] h-[56px] flex items-center justify-center">
-                        {/* Background ring */}
-                        <svg className="absolute w-full h-full -rotate-90">
-                           <circle cx="28" cy="28" r={radius} fill="none" stroke="rgba(75,78,109,0.3)" strokeWidth="4" />
-                           <motion.circle 
-                             cx="28" cy="28" r={radius}
-                             fill="none" 
-                             stroke={getScoreColor(r.score)} 
-                             strokeWidth="4" 
-                             strokeDasharray={circumference}
-                             initial={{ strokeDashoffset: circumference }}
-                             animate={{ strokeDashoffset: offset }}
-                             transition={{ duration: 1.5, ease: "easeOut", delay: idx * 0.1 + 0.3 }}
-                             strokeLinecap="round"
-                           />
-                        </svg>
-                        <span className="font-mono text-white text-[14px] font-bold">{r.score}%</span>
-                     </div>
-
-                     <div className="flex flex-col gap-1 items-center mt-1">
-                       {r.sources.map(s => (
-                          <div key={s} className={`text-[9px] font-mono px-1.5 py-[1px] rounded uppercase ${s === 'FAISS' ? 'bg-grape/40 text-steel' : 'bg-aqua/20 text-aqua border border-aqua/20'}`}>
-                            {s}
-                          </div>
-                       ))}
-                     </div>
-
-                     {/* View Details hover text */}
-                     <span className="absolute -bottom-2 right-0 left-4 text-center text-aqua text-[12px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                       View Details →
-                     </span>
-                  </div>
-                </motion.div>
-              );
-            })}
+      {/* Empty State */}
+      {!isLoading && results && results.length === 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="w-full flex-1 flex flex-col items-center justify-center text-center -mt-20"
+        >
+          <div className="mb-6 opacity-60">
+            <svg
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+              fill="none"
+              stroke="#4B4E6D"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="60" cy="60" r="50" />
+              <circle cx="60" cy="60" r="16" />
+              <line x1="60" y1="10" x2="60" y2="44" />
+              <line x1="60" y1="76" x2="60" y2="110" />
+              <line x1="10" y1="60" x2="44" y2="60" />
+              <line x1="76" y1="60" x2="110" y2="60" />
+              <circle cx="35" cy="35" r="4" />
+              <circle cx="85" cy="35" r="4" />
+              <circle cx="35" cy="85" r="4" />
+              <circle cx="85" cy="85" r="4" />
+            </svg>
           </div>
-        )}
+          <p className="font-sans text-[16px] text-steel mb-8">
+            Nothing found. Try describing the vibe differently.
+          </p>
+          <div className="flex gap-4">
+            <button className="text-[13px] bg-transparent border border-grape text-steel px-4 py-2 rounded-lg hover:border-aqua hover:text-white transition-colors">
+              &quot;Visually stunning sci-fi&quot;
+            </button>
+            <button className="text-[13px] bg-transparent border border-grape text-steel px-4 py-2 rounded-lg hover:border-aqua hover:text-white transition-colors">
+              &quot;Movies directed by Nolan&quot;
+            </button>
+          </div>
+        </motion.div>
+      )}
 
-        {/* Empty State */}
-        {!isLoading && results && results.length === 0 && (
-           <motion.div 
-             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-             className="w-full flex-1 flex flex-col items-center justify-center text-center -mt-20"
-           >
-              {/* Illustration lines */}
-              <div className="mb-6 opacity-60">
-                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" stroke="#4B4E6D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                   <circle cx="60" cy="60" r="50"/>
-                   <circle cx="60" cy="60" r="16"/>
-                   <line x1="60" y1="10" x2="60" y2="44"/>
-                   <line x1="60" y1="76" x2="60" y2="110"/>
-                   <line x1="10" y1="60" x2="44" y2="60"/>
-                   <line x1="76" y1="60" x2="110" y2="60"/>
-                   <circle cx="35" cy="35" r="4"/>
-                   <circle cx="85" cy="35" r="4"/>
-                   <circle cx="35" cy="85" r="4"/>
-                   <circle cx="85" cy="85" r="4"/>
-                </svg>
-              </div>
-              <p className="font-sans text-[16px] text-steel mb-8">
-                Nothing found. Try describing the vibe differently.
-              </p>
-              <div className="flex gap-4">
-                 <button className="text-[13px] bg-transparent border border-grape text-steel px-4 py-2 rounded-lg hover:border-aqua hover:text-white transition-colors">
-                   "Visually stunning sci-fi"
-                 </button>
-                 <button className="text-[13px] bg-transparent border border-grape text-steel px-4 py-2 rounded-lg hover:border-aqua hover:text-white transition-colors">
-                   "Movies directed by Nolan"
-                 </button>
-              </div>
-           </motion.div>
+      {/* ═══════════════════════════════════════
+           Movie Detail Modal (Portal-like)
+         ═══════════════════════════════════════ */}
+      <AnimatePresence>
+        {selectedResult && (
+          <MovieDetailModal
+            key={selectedResult.id}
+            result={selectedResult}
+            cardRect={cardRect}
+            onClose={closeModal}
+          />
         )}
-         {/* Full screen modal for View Details */}
-         <AnimatePresence>
-           {expandedId && (
-             <motion.div
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ opacity: 0 }}
-               onClick={() => setExpandedId(null)}
-               className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-             >
-               <motion.div
-                 initial={{ scale: 0.95, y: 20 }}
-                 animate={{ scale: 1, y: 0 }}
-                 exit={{ scale: 0.95, y: 20 }}
-                 onClick={(e) => e.stopPropagation()}
-                 className="bg-[#1A1A1A] border border-grape/40 relative w-full max-w-2xl max-h-[85vh] overflow-y-auto custom-scrollbar rounded-2xl p-8 shadow-2xl"
-               >
-                 <button 
-                   onClick={() => setExpandedId(null)}
-                   className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-carbon text-steel hover:text-white transition-colors"
-                 >
-                   ✕
-                 </button>
-                 {(() => {
-                   const r = results?.find(res => res.id === expandedId) as MatchResult;
-                   if (!r) return null;
-                   return (
-                     <div className="flex flex-col gap-6 font-sans">
-                       <div className="flex gap-6">
-                         <div className="w-[120px] h-[180px] bg-grape/30 rounded-xl shrink-0 border border-grape border-dashed overflow-hidden">
-                           {r.posterUrl ? (
-                             <img src={r.posterUrl} alt={r.title} className="w-full h-full object-cover" />
-                           ) : (
-                             <div className="w-full h-full flex items-center justify-center text-aqua/40">
-                               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
-                             </div>
-                           )}
-                         </div>
-                         <div className="flex-1 pt-2">
-                           <h2 className="text-3xl font-bold text-white mb-2">{r.title}</h2>
-                           <div className="font-mono text-steel flex gap-3 text-sm mb-4">
-                             {r.year && <span>{r.year}</span>}
-                             {r.year && r.genre && <span>•</span>}
-                             {r.genre && <span>{r.genre}</span>}
-                           </div>
-                           <div className="flex flex-wrap gap-2 mb-4">
-                              {r.sources.map(s => (
-                                 <div key={s} className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase ${s === 'FAISS' ? 'bg-grape/40 text-steel' : 'bg-aqua/20 text-aqua border border-aqua/20'}`}>
-                                   {s}
-                                 </div>
-                              ))}
-                              <div className="text-[10px] font-mono px-2 py-0.5 rounded border border-steel/20 text-steel flex items-center gap-1">
-                                Match Score: <strong className="text-aqua">{r.score}%</strong>
-                              </div>
-                           </div>
-                         </div>
-                       </div>
-                       
-                       <div className="border-t border-grape/30 pt-6">
-                         <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-wider">Plot Summary</h3>
-                         <p className="text-[15px] text-steel/90 leading-relaxed font-sans mt-2 whitespace-pre-wrap">
-                           {renderSnippet(r.snippet).map((part, i) => <span key={i}>{part}</span>)}
-                         </p>
-                       </div>
-                     </div>
-                   );
-                 })()}
-               </motion.div>
-             </motion.div>
-           )}
-         </AnimatePresence>
+      </AnimatePresence>
     </div>
   );
 }
