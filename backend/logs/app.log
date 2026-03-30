@@ -4411,3 +4411,202 @@ ORDER BY m.year DESC LIMIT 15
 2026-03-30 12:26:23 - __main__ - INFO - Movie Name: None
 2026-03-30 12:26:23 - __main__ - INFO - Answer length: 1668
 2026-03-30 12:26:39 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 12:51:07 - __main__ - INFO - ==================================================
+2026-03-30 12:51:07 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 12:51:07 - __main__ - INFO - ==================================================
+2026-03-30 12:51:10 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 12:51:10 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 12:51:10 - services.llm_service - INFO - Structured output models configured
+2026-03-30 12:51:10 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 12:51:10 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 12:51:11 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 12:51:11 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 12:51:11 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 12:51:18 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 12:51:19 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 12:51:19 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 12:51:19 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 12:51:20 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 12:51:20 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 12:51:20 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 12:51:20 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 12:51:24 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 12:51:24 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 12:51:25 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 12:51:25 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 12:51:26 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 12:51:30 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 12:51:31 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 12:51:31 - graph - INFO - Workflow compiled successfully
+2026-03-30 12:51:31 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 12:51:31 - __main__ - INFO - ==================================================
+2026-03-30 12:51:31 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 12:51:31 - __main__ - INFO -    Project : plotsense
+2026-03-30 12:51:31 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 12:51:31 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 12:51:31 - __main__ - INFO - ==================================================
+2026-03-30 12:54:02 - __main__ - INFO - ==================================================
+2026-03-30 12:54:02 - __main__ - INFO - Search request received: romantic movies with thrill
+2026-03-30 12:54:02 - __main__ - INFO - ==================================================
+2026-03-30 12:54:03 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 12:54:03 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.9)
+2026-03-30 12:54:03 - graph - INFO - Routing: intent=query_search
+2026-03-30 12:54:03 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 12:54:04 - nodes.kg - INFO - Entities: {'actor': None, 'director': None, 'genre': 'thriller', 'year_min': None, 'year_max': None, 'keywords': ['romantic']}
+2026-03-30 12:54:05 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:BELONGS_TO]->(g:Genre)
+WHERE toLower(g.name) CONTAINS 'thriller'
+AND (toLower(m.plot) CONTAINS 'romantic' OR toLower(m.title) CONTAINS 'romantic')
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 12:54:05 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 12:54:06 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 12:54:06 - nodes.kg - INFO - KG Found 15 titles: ['The Killing of a Sacred Deer', ' Killing Ground', 'Mersal', 'Blade Runner 2049', 'The Shape of Water', 'Deadpool', 'Pencil', 'Ex Machina', 'Crimson Peak', 'Charlie', 'Locust', 'The Captive', 'Runner Runner', 'Zombie Hunter', 'Enemy']
+2026-03-30 12:54:06 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 12:54:06 - nodes.kg - INFO - Fetched 15 docs for 15 KG titles
+2026-03-30 12:54:06 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 12:54:06 - nodes.rerank - INFO - Reranking 15 documents.
+2026-03-30 12:54:07 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 12:54:07 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 12:54:09 - nodes.generate - INFO - Final answer generated (len: 1924)
+2026-03-30 12:54:09 - __main__ - INFO - Search completed successfully
+2026-03-30 12:54:09 - __main__ - INFO - Intent: query_search
+2026-03-30 12:54:09 - __main__ - INFO - Movie Name: None
+2026-03-30 12:54:09 - __main__ - INFO - Answer length: 1924
+2026-03-30 12:56:45 - __main__ - INFO - ==================================================
+2026-03-30 12:56:45 - __main__ - INFO - Search request received: movies by Christopher Nolan
+2026-03-30 12:56:45 - __main__ - INFO - ==================================================
+2026-03-30 12:56:45 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 12:56:45 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 1.0)
+2026-03-30 12:56:45 - graph - INFO - Routing: intent=query_search
+2026-03-30 12:56:45 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 12:56:46 - nodes.kg - INFO - Entities: {'actor': None, 'director': 'nolan', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 12:56:46 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE toLower(d.name) CONTAINS 'nolan'
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 12:56:46 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 12:56:47 - services.neo4j_service - INFO - Cypher Result Count: 11
+2026-03-30 12:56:47 - nodes.kg - INFO - KG Found 11 titles: ['Dunkirk', 'Interstellar', 'Dark Knight Rises, TheThe Dark Knight Rises', 'The Dark Knight Rises', 'Inception', ' The Dark Knight', 'The Dark Knight', 'The Prestige', 'Batman Begins', 'Insomnia', 'Memento']
+2026-03-30 12:56:47 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 12:56:48 - nodes.kg - INFO - Fetched 11 docs for 11 KG titles
+2026-03-30 12:56:48 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 12:56:48 - nodes.rerank - INFO - Reranking 11 documents.
+2026-03-30 12:56:48 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 12:56:48 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 12:56:50 - nodes.generate - INFO - Final answer generated (len: 1182)
+2026-03-30 12:56:50 - __main__ - INFO - Search completed successfully
+2026-03-30 12:56:50 - __main__ - INFO - Intent: query_search
+2026-03-30 12:56:50 - __main__ - INFO - Movie Name: None
+2026-03-30 12:56:50 - __main__ - INFO - Answer length: 1182
+2026-03-30 13:02:41 - __main__ - INFO - ==================================================
+2026-03-30 13:02:41 - __main__ - INFO - Search request received: movies like Dunkirk
+2026-03-30 13:02:41 - __main__ - INFO - ==================================================
+2026-03-30 13:02:41 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:02:41 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 1.0)
+2026-03-30 13:02:41 - graph - INFO - Routing: intent=movie_name
+2026-03-30 13:02:41 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 13:02:42 - nodes.extract - INFO - Extracted Name: Dunkirk
+2026-03-30 13:02:42 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 13:02:42 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-30 13:02:42 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-30 13:02:42 - nodes.plot - INFO - Retrieved plot from Dataset for Dunkirk.
+2026-03-30 13:02:42 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 13:02:43 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 13:02:43 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 13:02:43 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 13:02:43 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 13:02:43 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 13:02:43 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 13:02:45 - nodes.generate - INFO - Final answer generated (len: 1339)
+2026-03-30 13:02:45 - __main__ - INFO - Search completed successfully
+2026-03-30 13:02:45 - __main__ - INFO - Intent: movie_name
+2026-03-30 13:02:45 - __main__ - INFO - Movie Name: Dunkirk
+2026-03-30 13:02:45 - __main__ - INFO - Answer length: 1339
+2026-03-30 13:22:35 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 13:22:38 - __main__ - INFO - ==================================================
+2026-03-30 13:22:38 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 13:22:38 - __main__ - INFO - ==================================================
+2026-03-30 13:22:41 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 13:22:41 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 13:22:41 - services.llm_service - INFO - Structured output models configured
+2026-03-30 13:22:41 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 13:22:41 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 13:22:43 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 13:22:43 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 13:22:43 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 13:22:52 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 13:22:53 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 13:22:53 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:22:53 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 13:22:54 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 13:22:54 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 13:22:54 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 13:22:54 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 13:23:02 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 13:23:02 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 13:23:03 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:23:04 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:23:04 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:23:09 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 13:23:09 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 13:23:09 - graph - INFO - Workflow compiled successfully
+2026-03-30 13:23:09 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 13:23:09 - __main__ - INFO - ==================================================
+2026-03-30 13:23:09 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 13:23:09 - __main__ - INFO -    Project : plotsense
+2026-03-30 13:23:09 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 13:23:09 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 13:23:09 - __main__ - INFO - ==================================================
+2026-03-30 13:23:13 - __main__ - INFO - ==================================================
+2026-03-30 13:23:13 - __main__ - INFO - Search request received: movies like Memento
+2026-03-30 13:23:13 - __main__ - INFO - ==================================================
+2026-03-30 13:23:14 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:23:14 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.95)
+2026-03-30 13:23:14 - graph - INFO - Routing: intent=movie_name
+2026-03-30 13:23:14 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 13:23:15 - nodes.extract - INFO - Extracted Name: Memento
+2026-03-30 13:23:15 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 13:23:15 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-30 13:23:15 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-30 13:23:15 - nodes.plot - INFO - Retrieved plot from Dataset for Memento.
+2026-03-30 13:23:15 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 13:23:16 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 13:23:16 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 13:23:16 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 13:23:16 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 13:23:16 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 13:23:16 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 13:23:18 - nodes.generate - INFO - Final answer generated (len: 1447)
+2026-03-30 13:23:18 - __main__ - INFO - Search completed successfully
+2026-03-30 13:23:18 - __main__ - INFO - Intent: movie_name
+2026-03-30 13:23:18 - __main__ - INFO - Movie Name: Memento
+2026-03-30 13:23:18 - __main__ - INFO - Answer length: 1447
+2026-03-30 13:27:07 - __main__ - INFO - ==================================================
+2026-03-30 13:27:07 - __main__ - INFO - Search request received: slice of life genre
+2026-03-30 13:27:07 - __main__ - INFO - ==================================================
+2026-03-30 13:27:07 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:27:08 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.9)
+2026-03-30 13:27:08 - graph - INFO - Routing: intent=query_search
+2026-03-30 13:27:08 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 13:27:08 - nodes.kg - INFO - Entities: {'actor': None, 'director': None, 'genre': 'slice of life', 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:27:09 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:BELONGS_TO]->(g:Genre)
+WHERE toLower(g.name) CONTAINS 'slice of life'
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 13:27:09 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:27:09 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 13:27:09 - nodes.kg - INFO - KG Found 15 titles: ['What a Wonderful Family 2!', 'P and JK', 'Fireworks, Should We See It from the Side or the Bottom? and Raving Jeff’s Stronger Battle', 'My Teacher', 'Peach Girl and GJS Returns 4 Trilogy', 'Eiga Tamagotchi: Himitsu no Otodake Daisakusen!', 'Seitokai Yakuindomo', 'The Anthem of the Heart', 'Free! -Take Your Marks!-', 'One Week Friends', 'Somebody', 'The Long Excuse', 'Your Name', 'My Tomorrow, Your Yesterday', 'My Dad and Mr. Ito']
+2026-03-30 13:27:09 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 13:27:09 - nodes.kg - INFO - Fetched 15 docs for 15 KG titles
+2026-03-30 13:27:09 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 13:27:09 - nodes.rerank - INFO - Reranking 15 documents.
+2026-03-30 13:27:10 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 13:27:10 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 13:27:12 - nodes.generate - INFO - Final answer generated (len: 2081)
+2026-03-30 13:27:12 - __main__ - INFO - Search completed successfully
+2026-03-30 13:27:12 - __main__ - INFO - Intent: query_search
+2026-03-30 13:27:12 - __main__ - INFO - Movie Name: None
+2026-03-30 13:27:12 - __main__ - INFO - Answer length: 2081

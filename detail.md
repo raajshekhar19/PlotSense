@@ -8,7 +8,7 @@ Below is an extremely detailed breakdown of the system architecture and its core
 
 The system is built on a loosely coupled microservice-like structure within the FastAPI application. Each external integration is managed by a distinct service module.
 
-- **FastAPI Endpoints (`main.py`)**: The primary entry point. It handles HTTP requests, CORS, and provides APIs for search (`/search`) and health checks (`/health` and `/health/services`). It also manages the lifecycle of the services, initializing them at startup.
+- **FastAPI Endpoints (`main.py`)**: The primary entry point. It handles HTTP requests, CORS, and provides APIs for search (`/search`) and health checks (`/health`). Crucially, it also features a **high-performance concurrent poster fetcher**. It routinely hits the IMDb Autocomplete JSON API in the background using `asyncio.gather` with dynamic anti-bot rate limit staggering. This intercepts outgoing pipeline data to safely enrich the JSON response with ultra-high resolution poster URLs (`posterUrl`) for the top five movies without significantly blocking the overall response latency.
 - **LLM Service (`llm_service.py`)**: Manages interactions with the Large Language Model (e.g., Llama, GPT). Used for query classification, information extraction, final answer generation, and Cypher query generation for Neo4j.
 - **Neo4j Service (`neo4j_service.py`)**: Interfaces with a Neo4j Knowledge Graph. This is extremely useful for structured data queries (e.g., finding all movies by a specific director, or actors who starred together in a specific year).
 - **FAISS Service (`faiss_service.py`)**: Manages the FAISS vector database. Used for dense similarity search (semantic matching) against movie plots embedded in a vector space. Ideal for "movies where a man goes to mars and grows potatoes" type queries.
@@ -87,6 +87,9 @@ LangGraph Classifier ──► (Invalid) ──► Error Message
                                                                           │
                                                                           ▼
                                                                      LLM Synthesis
+                                                                          │
+                                                                          ▼
+                                                                Async IMDb Poster Fetch
                                                                           │
                                                                           ▼
                                                             API Response (Frontend UI)
