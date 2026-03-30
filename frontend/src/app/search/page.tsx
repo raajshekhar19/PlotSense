@@ -94,7 +94,7 @@ export default function SearchPage() {
               title: movie,
               year: "",
               genre: data.intent || "search",
-              snippet: data.answer ? data.answer.substring(0, 200) : "",
+              snippet: data.answer || "",
               score: Math.max(60, 98 - idx * 8),
               sources: data.intent === "plot" ? ["FAISS"] : ["Neo4j"],
               director: "",
@@ -105,7 +105,7 @@ export default function SearchPage() {
               title: movie.title || "Unknown",
               year: movie.year || "",
               genre: data.intent || "search",
-              snippet: movie.snippet || (data.answer ? data.answer.substring(0, 200) : ""),
+              snippet: movie.snippet || data.answer || "",
               score: Math.max(60, 98 - idx * 8),
               sources: movie.source ? [movie.source] : (data.intent === "plot" ? ["FAISS"] : ["Neo4j"]),
               director: movie.director || "",
@@ -114,18 +114,13 @@ export default function SearchPage() {
         });
       }
 
-      // If the intent found a specific movie name, add it as primary result  
-      if (data.movie_name && !cards.some(c => c.title.toLowerCase() === data.movie_name!.toLowerCase())) {
-        cards.unshift({
-          id: "primary-0",
-          title: data.movie_name,
-          year: "",
-          genre: data.intent === "plot" ? "Plot Match" : data.intent || "",
-          snippet: data.answer ? data.answer.substring(0, 250) : "",
-          score: 98,
-          sources: ["FAISS", "Neo4j"],
-          director: "",
-        });
+      // If the intent found a specific movie name (like querying for recommendations),
+      // we don't want the movie itself showing up in the results, so remove it if it exists
+      if (data.movie_name) {
+        const movieIndex = cards.findIndex(c => c.title.toLowerCase() === data.movie_name!.toLowerCase());
+        if (movieIndex !== -1) {
+          cards.splice(movieIndex, 1);
+        }
       }
 
       // If we got an answer but no structured results, create a single result card from the answer
@@ -141,7 +136,7 @@ export default function SearchPage() {
                 title: title,
                 year: "",
                 genre: data.intent || "",
-                snippet: data.answer ? data.answer.substring(0, 200) : "",
+                snippet: data.answer || "",
                 score: Math.max(55, 95 - idx * 10),
                 sources: data.intent === "plot" ? ["FAISS"] : ["Neo4j"],
                 director: "",
@@ -158,7 +153,7 @@ export default function SearchPage() {
           title: data.movie_name || "AI Response",
           year: "",
           genre: data.intent || "search",
-          snippet: data.answer.substring(0, 300),
+          snippet: data.answer || "",
           score: 90,
           sources: ["LLM"],
           director: "",

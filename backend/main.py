@@ -194,8 +194,6 @@ async def search_movies(request: SearchRequest):
         if result.get("final_docs"):
             for d in result["final_docs"]:
                 plot_preview = d.page_content.strip()
-                if len(plot_preview) > 250:
-                    plot_preview = plot_preview[:247] + "..."
                     
                 movies_list.append({
                     "title": d.metadata.get("title", "Unknown Title"),

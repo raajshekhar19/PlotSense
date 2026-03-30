@@ -3374,3 +3374,300 @@ RETURN DISTINCT m.title AS title, m.year AS year ORDER BY m.year DESC LIMIT 15
 2026-03-30 01:38:08 - main - INFO - Intent: plot
 2026-03-30 01:38:08 - main - INFO - Movie Name: None
 2026-03-30 01:38:08 - main - INFO - Answer length: 1316
+2026-03-30 09:04:00 - __main__ - INFO - ==================================================
+2026-03-30 09:04:00 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 09:04:00 - __main__ - INFO - ==================================================
+2026-03-30 09:04:03 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 09:04:03 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 09:04:03 - services.llm_service - INFO - Structured output models configured
+2026-03-30 09:04:03 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 09:04:03 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 09:04:09 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 09:04:09 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 09:04:09 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 09:04:15 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 09:04:16 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 09:04:16 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:04:16 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 09:04:16 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 09:04:16 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 09:04:16 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 09:04:16 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 09:04:20 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 09:04:20 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 09:04:21 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:04:21 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:04:22 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:04:26 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 09:04:26 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 09:04:26 - graph - INFO - Workflow compiled successfully
+2026-03-30 09:04:26 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 09:04:26 - __main__ - INFO - ==================================================
+2026-03-30 09:04:26 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 09:04:26 - __main__ - INFO -    Project : plotsense
+2026-03-30 09:04:26 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 09:04:26 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 09:04:26 - __main__ - INFO - ==================================================
+2026-03-30 09:05:07 - __main__ - INFO - ==================================================
+2026-03-30 09:05:07 - __main__ - INFO - Search request received: a movie containing elements of slice of life genre
+2026-03-30 09:05:07 - __main__ - INFO - ==================================================
+2026-03-30 09:05:08 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 09:05:08 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.95)
+2026-03-30 09:05:08 - graph - INFO - Routing: intent=query_search
+2026-03-30 09:05:08 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 09:05:09 - nodes.kg - INFO - Entities: {'actor': None, 'director': None, 'genre': 'slice of life', 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 09:05:09 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:BELONGS_TO]->(g:Genre)
+WHERE toLower(g.name) CONTAINS 'slice of life'
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 09:05:09 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 09:05:10 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 09:05:10 - nodes.kg - INFO - KG Found 15 titles: ['What a Wonderful Family 2!', 'P and JK', 'Fireworks, Should We See It from the Side or the Bottom? and Raving Jeff’s Stronger Battle', 'My Teacher', 'Peach Girl and GJS Returns 4 Trilogy', 'Eiga Tamagotchi: Himitsu no Otodake Daisakusen!', 'Seitokai Yakuindomo', 'The Anthem of the Heart', 'Free! -Take Your Marks!-', 'One Week Friends', 'Somebody', 'The Long Excuse', 'Your Name', 'My Tomorrow, Your Yesterday', 'My Dad and Mr. Ito']
+2026-03-30 09:05:10 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 09:05:10 - nodes.kg - INFO - Fetched 15 docs for 15 KG titles
+2026-03-30 09:05:10 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 09:05:10 - nodes.rerank - INFO - Reranking 15 documents.
+2026-03-30 09:05:11 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 09:05:11 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 09:05:13 - nodes.generate - INFO - Final answer generated (len: 2096)
+2026-03-30 09:05:13 - __main__ - INFO - Search completed successfully
+2026-03-30 09:05:13 - __main__ - INFO - Intent: query_search
+2026-03-30 09:05:13 - __main__ - INFO - Movie Name: None
+2026-03-30 09:05:13 - __main__ - INFO - Answer length: 2096
+2026-03-30 09:07:10 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 09:21:25 - __main__ - INFO - ==================================================
+2026-03-30 09:21:25 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 09:21:25 - __main__ - INFO - ==================================================
+2026-03-30 09:21:27 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 09:21:27 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 09:21:27 - services.llm_service - INFO - Structured output models configured
+2026-03-30 09:21:27 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 09:21:28 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 09:21:29 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 09:21:29 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 09:21:29 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 09:21:37 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 09:21:37 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 09:21:38 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:21:38 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 09:21:38 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 09:21:38 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 09:21:38 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 09:21:38 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 09:21:42 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 09:21:42 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 09:21:43 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:21:44 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:21:44 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:21:49 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 09:21:49 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 09:21:49 - graph - INFO - Workflow compiled successfully
+2026-03-30 09:21:49 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 09:21:49 - __main__ - INFO - ==================================================
+2026-03-30 09:21:49 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 09:21:49 - __main__ - INFO -    Project : plotsense
+2026-03-30 09:21:49 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 09:21:49 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 09:21:49 - __main__ - INFO - ==================================================
+2026-03-30 09:21:52 - __main__ - INFO - ==================================================
+2026-03-30 09:21:52 - __main__ - INFO - Search request received: movies like Dhurnadhar
+2026-03-30 09:21:52 - __main__ - INFO - ==================================================
+2026-03-30 09:21:52 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 09:21:54 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.95)
+2026-03-30 09:21:54 - graph - INFO - Routing: intent=movie_name
+2026-03-30 09:21:54 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 09:21:54 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-30 09:21:54 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 09:21:54 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 09:21:54 - nodes.search - INFO - --- Node: Get Web Plot ---
+2026-03-30 09:21:54 - nodes.search - INFO - Searching Tavily: movie Dhurandhar plot summary wikipedia
+2026-03-30 09:21:58 - nodes.search - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar
+2026-03-30 09:21:58 - nodes.search - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 09:21:58 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 09:21:59 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 09:21:59 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 09:21:59 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 09:21:59 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 09:21:59 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 09:21:59 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 09:22:01 - nodes.generate - INFO - Final answer generated (len: 1522)
+2026-03-30 09:22:01 - __main__ - INFO - Search completed successfully
+2026-03-30 09:22:01 - __main__ - INFO - Intent: movie_name
+2026-03-30 09:22:01 - __main__ - INFO - Movie Name: Dhurandhar
+2026-03-30 09:22:01 - __main__ - INFO - Answer length: 1522
+2026-03-30 09:27:00 - __main__ - INFO - ==================================================
+2026-03-30 09:27:00 - __main__ - INFO - Search request received: movies like Dhurandhar
+2026-03-30 09:27:00 - __main__ - INFO - ==================================================
+2026-03-30 09:27:00 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 09:27:03 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.95)
+2026-03-30 09:27:03 - graph - INFO - Routing: intent=movie_name
+2026-03-30 09:27:03 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 09:27:05 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-30 09:27:05 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 09:27:05 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 09:27:05 - nodes.search - INFO - --- Node: Get Web Plot ---
+2026-03-30 09:27:05 - nodes.search - INFO - Searching Tavily: movie Dhurandhar plot summary wikipedia
+2026-03-30 09:27:06 - nodes.search - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar
+2026-03-30 09:27:06 - nodes.search - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 09:27:06 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 09:27:07 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 09:27:07 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 09:27:07 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 09:27:07 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 09:27:07 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 09:27:07 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 09:27:12 - __main__ - ERROR - Search error: Error code: 503 - {'error': {'message': 'moonshotai/kimi-k2-instruct-0905 is currently over capacity. Please try again and back off exponentially. Visit https://groqstatus.com to see if there is an active incident.', 'type': 'internal_server_error'}}
+2026-03-30 09:27:16 - __main__ - INFO - ==================================================
+2026-03-30 09:27:16 - __main__ - INFO - Search request received: movies like Dhurandhar
+2026-03-30 09:27:16 - __main__ - INFO - ==================================================
+2026-03-30 09:27:16 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 09:27:18 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.95)
+2026-03-30 09:27:18 - graph - INFO - Routing: intent=movie_name
+2026-03-30 09:27:18 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 09:27:23 - __main__ - ERROR - Search error: Error code: 503 - {'error': {'message': 'moonshotai/kimi-k2-instruct-0905 is currently over capacity. Please try again and back off exponentially. Visit https://groqstatus.com to see if there is an active incident.', 'type': 'internal_server_error'}}
+2026-03-30 09:27:34 - __main__ - INFO - ==================================================
+2026-03-30 09:27:34 - __main__ - INFO - Search request received: movies like Dhurandhar
+2026-03-30 09:27:34 - __main__ - INFO - ==================================================
+2026-03-30 09:27:34 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 09:27:36 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.9)
+2026-03-30 09:27:36 - graph - INFO - Routing: intent=movie_name
+2026-03-30 09:27:36 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 09:27:38 - nodes.extract - INFO - Extracted Name: Dhurandhar
+2026-03-30 09:27:38 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 09:27:38 - nodes.extract - INFO - Movie Exists in DB: False
+2026-03-30 09:27:38 - nodes.search - INFO - --- Node: Get Web Plot ---
+2026-03-30 09:27:38 - nodes.search - INFO - Searching Tavily: movie Dhurandhar plot summary wikipedia
+2026-03-30 09:27:40 - nodes.search - INFO - Plot source: https://en.wikipedia.org/wiki/Dhurandhar
+2026-03-30 09:27:40 - nodes.search - INFO - Successfully retrieved plot for Dhurandhar
+2026-03-30 09:27:40 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 09:27:40 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 09:27:40 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 09:27:40 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 09:27:40 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 09:27:40 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 09:27:40 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 09:27:43 - nodes.generate - INFO - Final answer generated (len: 453)
+2026-03-30 09:27:43 - __main__ - INFO - Search completed successfully
+2026-03-30 09:27:43 - __main__ - INFO - Intent: movie_name
+2026-03-30 09:27:43 - __main__ - INFO - Movie Name: Dhurandhar
+2026-03-30 09:27:43 - __main__ - INFO - Answer length: 453
+2026-03-30 09:39:04 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 09:39:06 - __main__ - INFO - ==================================================
+2026-03-30 09:39:06 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 09:39:06 - __main__ - INFO - ==================================================
+2026-03-30 09:39:09 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 09:39:09 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 09:39:09 - services.llm_service - INFO - Structured output models configured
+2026-03-30 09:39:09 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 09:39:09 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 09:39:10 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 09:39:10 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 09:39:10 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 09:39:17 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 09:39:18 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 09:39:18 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:39:18 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 09:39:19 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 09:39:19 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 09:39:19 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 09:39:19 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 09:39:23 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 09:39:23 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 09:39:24 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:39:25 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:39:25 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:39:30 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 09:39:30 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 09:39:30 - graph - INFO - Workflow compiled successfully
+2026-03-30 09:39:30 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 09:39:30 - __main__ - INFO - ==================================================
+2026-03-30 09:39:30 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 09:39:30 - __main__ - INFO -    Project : plotsense
+2026-03-30 09:39:30 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 09:39:30 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 09:39:30 - __main__ - INFO - ==================================================
+2026-03-30 09:39:33 - __main__ - INFO - ==================================================
+2026-03-30 09:39:33 - __main__ - INFO - Search request received: movies like Interstellar
+2026-03-30 09:39:33 - __main__ - INFO - ==================================================
+2026-03-30 09:39:33 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 09:39:35 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 1.0)
+2026-03-30 09:39:35 - graph - INFO - Routing: intent=movie_name
+2026-03-30 09:39:35 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 09:39:37 - nodes.extract - INFO - Extracted Name: Interstellar
+2026-03-30 09:39:37 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 09:39:37 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-30 09:39:37 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-30 09:39:37 - nodes.plot - INFO - Retrieved plot from Dataset for Interstellar.
+2026-03-30 09:39:37 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 09:39:38 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 09:39:38 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 09:39:38 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 09:39:38 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 09:39:38 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 09:39:38 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 09:39:44 - nodes.generate - INFO - Final answer generated (len: 950)
+2026-03-30 09:39:44 - __main__ - INFO - Search completed successfully
+2026-03-30 09:39:44 - __main__ - INFO - Intent: movie_name
+2026-03-30 09:39:44 - __main__ - INFO - Movie Name: Interstellar
+2026-03-30 09:39:44 - __main__ - INFO - Answer length: 950
+2026-03-30 09:45:40 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 09:45:43 - __main__ - INFO - ==================================================
+2026-03-30 09:45:43 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 09:45:43 - __main__ - INFO - ==================================================
+2026-03-30 09:45:46 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 09:45:46 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 09:45:46 - services.llm_service - INFO - Structured output models configured
+2026-03-30 09:45:46 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 09:45:46 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 09:45:47 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 09:45:47 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 09:45:47 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 09:45:53 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 09:45:54 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 09:45:55 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:45:55 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 09:45:55 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 09:45:55 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 09:45:55 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 09:45:55 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 09:45:59 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 09:45:59 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 09:46:00 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:46:01 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:46:01 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 09:46:05 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 09:46:05 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 09:46:06 - graph - INFO - Workflow compiled successfully
+2026-03-30 09:46:06 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 09:46:06 - __main__ - INFO - ==================================================
+2026-03-30 09:46:06 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 09:46:06 - __main__ - INFO -    Project : plotsense
+2026-03-30 09:46:06 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 09:46:06 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 09:46:06 - __main__ - INFO - ==================================================
+2026-03-30 09:46:09 - __main__ - INFO - ==================================================
+2026-03-30 09:46:09 - __main__ - INFO - Search request received: movies like Martian
+2026-03-30 09:46:09 - __main__ - INFO - ==================================================
+2026-03-30 09:46:09 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 09:46:11 - nodes.classify - INFO - Identified Intent: movie_name (Confidence: 0.9)
+2026-03-30 09:46:11 - graph - INFO - Routing: intent=movie_name
+2026-03-30 09:46:11 - nodes.extract - INFO - --- Node: Extract Movie Name ---
+2026-03-30 09:46:12 - nodes.extract - INFO - Extracted Name: Martian
+2026-03-30 09:46:12 - nodes.extract - INFO - --- Node: Check Movie Exists ---
+2026-03-30 09:46:12 - nodes.extract - INFO - Movie Exists in DB: True
+2026-03-30 09:46:12 - nodes.plot - INFO - --- Node: Get Dataset Plot ---
+2026-03-30 09:46:12 - nodes.plot - INFO - Retrieved plot from Dataset for Martian.
+2026-03-30 09:46:12 - nodes.search - INFO - --- Node: Similarity Search (aggregated) ---
+2026-03-30 09:46:12 - services.faiss_service - INFO - Similarity search returned 25 results
+2026-03-30 09:46:12 - nodes.search - INFO - Aggregated to 5 unique movies.
+2026-03-30 09:46:12 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 09:46:12 - nodes.rerank - INFO - Reranking 5 documents.
+2026-03-30 09:46:13 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 09:46:13 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 09:46:16 - nodes.generate - INFO - Final answer generated (len: 1512)
+2026-03-30 09:46:16 - __main__ - INFO - Search completed successfully
+2026-03-30 09:46:16 - __main__ - INFO - Intent: movie_name
+2026-03-30 09:46:16 - __main__ - INFO - Movie Name: Martian
+2026-03-30 09:46:16 - __main__ - INFO - Answer length: 1512
+2026-03-30 09:46:24 - __main__ - INFO - PlotSense Backend Shutting Down...

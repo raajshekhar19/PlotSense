@@ -158,12 +158,9 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
                        <span className="font-normal text-[13px] text-steel font-mono">{r.year} &nbsp;·&nbsp; {r.genre}</span>
                     </h3>
                     
-                    <motion.p 
-                      layout="position"
-                      className={`mt-2 text-[14px] text-steel/80 leading-relaxed ${expandedId === r.id ? "" : "line-clamp-2"}`}
-                    >
+                    <p className={`mt-2 text-[14px] text-steel/80 leading-relaxed line-clamp-2`}>
                       {renderSnippet(r.snippet)}
-                    </motion.p>
+                    </p>
                   </div>
 
                   {/* Right Meta (Score ring) */}
@@ -197,7 +194,7 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
 
                      {/* View Details hover text */}
                      <span className="absolute -bottom-2 right-0 left-4 text-center text-aqua text-[12px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                       {expandedId === r.id ? "Minimize" : "View Details →"}
+                       View Details →
                      </span>
                   </div>
                 </motion.div>
@@ -240,6 +237,77 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
               </div>
            </motion.div>
         )}
+         {/* Full screen modal for View Details */}
+         <AnimatePresence>
+           {expandedId && (
+             <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+               onClick={() => setExpandedId(null)}
+               className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+             >
+               <motion.div
+                 initial={{ scale: 0.95, y: 20 }}
+                 animate={{ scale: 1, y: 0 }}
+                 exit={{ scale: 0.95, y: 20 }}
+                 onClick={(e) => e.stopPropagation()}
+                 className="bg-[#1A1A1A] border border-grape/40 relative w-full max-w-2xl max-h-[85vh] overflow-y-auto custom-scrollbar rounded-2xl p-8 shadow-2xl"
+               >
+                 <button 
+                   onClick={() => setExpandedId(null)}
+                   className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-carbon text-steel hover:text-white transition-colors"
+                 >
+                   ✕
+                 </button>
+                 {(() => {
+                   const r = results?.find(res => res.id === expandedId) as MatchResult;
+                   if (!r) return null;
+                   return (
+                     <div className="flex flex-col gap-6 font-sans">
+                       <div className="flex gap-6">
+                         <div className="w-[120px] h-[180px] bg-grape/30 rounded-xl shrink-0 border border-grape border-dashed overflow-hidden">
+                           {r.posterUrl ? (
+                             <img src={r.posterUrl} alt={r.title} className="w-full h-full object-cover" />
+                           ) : (
+                             <div className="w-full h-full flex items-center justify-center text-aqua/40">
+                               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                             </div>
+                           )}
+                         </div>
+                         <div className="flex-1 pt-2">
+                           <h2 className="text-3xl font-bold text-white mb-2">{r.title}</h2>
+                           <div className="font-mono text-steel flex gap-3 text-sm mb-4">
+                             {r.year && <span>{r.year}</span>}
+                             {r.year && r.genre && <span>•</span>}
+                             {r.genre && <span>{r.genre}</span>}
+                           </div>
+                           <div className="flex flex-wrap gap-2 mb-4">
+                              {r.sources.map(s => (
+                                 <div key={s} className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase ${s === 'FAISS' ? 'bg-grape/40 text-steel' : 'bg-aqua/20 text-aqua border border-aqua/20'}`}>
+                                   {s}
+                                 </div>
+                              ))}
+                              <div className="text-[10px] font-mono px-2 py-0.5 rounded border border-steel/20 text-steel flex items-center gap-1">
+                                Match Score: <strong className="text-aqua">{r.score}%</strong>
+                              </div>
+                           </div>
+                         </div>
+                       </div>
+                       
+                       <div className="border-t border-grape/30 pt-6">
+                         <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-wider">Plot Summary</h3>
+                         <p className="text-[15px] text-steel/90 leading-relaxed font-sans mt-2 whitespace-pre-wrap">
+                           {renderSnippet(r.snippet).map((part, i) => <span key={i}>{part}</span>)}
+                         </p>
+                       </div>
+                     </div>
+                   );
+                 })()}
+               </motion.div>
+             </motion.div>
+           )}
+         </AnimatePresence>
     </div>
   );
 }
