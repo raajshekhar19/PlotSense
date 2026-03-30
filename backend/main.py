@@ -158,6 +158,38 @@ async def services_health_check():
     )
 
 
+import asyncio
+import urllib.request
+import json
+import os
+
+def fetch_poster_sync(title: str) -> str:
+    """Fetch movie poster using IMDb's public suggestion API synchronously."""
+    if not title: return ""
+    
+    import re
+    # Clean string: lowercase, replace space with _, keep only alphanum and _
+    formatted = re.sub(r'[^a-zA-Z0-9_\-]', '', title.lower().replace(' ', '_'))
+    if not formatted: return ""
+    
+    first_letter = formatted[0]
+    url = f"https://v3.sg.media-imdb.com/suggestion/{first_letter}/{formatted}.json"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    try:
+        with urllib.request.urlopen(req, timeout=8) as res:
+            data = json.loads(res.read().decode('utf-8'))
+            for item in data.get("d", []):
+                # Return the first item that has an image
+                if "i" in item and "imageUrl" in item["i"]:
+                    # Keep original high res image rather than _V1_UX68_ scale defaults
+                    img_url = item["i"]["imageUrl"]
+                    return img_url.replace("._V1_.jpg", "._V1_SX600_.jpg")
+            return ""
+    except Exception as e:
+        logger.warning(f"Failed to fetch poster for {title}: {e}")
+        return ""
+
+
 # =====================
 # Search Endpoint
 # =====================
@@ -204,6 +236,31 @@ async def search_movies(request: SearchRequest):
                 })
         elif result.get("kg_movies"):
             movies_list = result["kg_movies"]
+            
+        # Concurrently fetch posters
+        if movies_list:
+            async def get_poster_for_idx(idx: int, title_str: str, stagger_ms: float):
+                if title_str:
+                    await asyncio.sleep(stagger_ms)
+                    poster_url = await asyncio.to_thread(fetch_poster_sync, title_str)
+                    if poster_url and isinstance(movies_list[idx], dict):
+                        movies_list[idx]["posterUrl"] = poster_url
+            
+            tasks = []
+            for i, m in enumerate(movies_list):
+                if isinstance(m, dict):
+                    t = m.get("title", "")
+                elif isinstance(m, str):
+                    t = m
+                    movies_list[i] = {"title": m, "snippet": "", "source": "PlotSense DB", "year": "", "director": ""}
+                else:
+                    t = ""
+                
+                # Stagger requests by 200ms per index to avoid rate limits
+                tasks.append(get_poster_for_idx(i, t, i * 0.2))
+            
+            if tasks:
+                await asyncio.gather(*tasks)
             
         return SearchResponse(
             query=request.query,

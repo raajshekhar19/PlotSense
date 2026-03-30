@@ -109,6 +109,7 @@ export default function SearchPage() {
               score: Math.max(60, 98 - idx * 8),
               sources: movie.source ? [movie.source] : (data.intent === "plot" ? ["FAISS"] : ["Neo4j"]),
               director: movie.director || "",
+              posterUrl: movie.posterUrl || "",
             });
           }
         });
