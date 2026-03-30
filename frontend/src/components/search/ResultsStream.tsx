@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SkeletonResultCard } from "../LoadingStates";
 import AnswerSynthesis from "./AnswerSynthesis";
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export default function ResultsStream({ query, intentHover, results, isLoading, aiAnswer, onResultClick }: Props) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   
   // Highlight snippet Helper
   const renderSnippet = (text: string) => {
@@ -106,11 +108,15 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
 
               return (
                 <motion.div
+                  layout
                   key={r.id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30, delay: idx * 0.08 }}
-                  onClick={() => onResultClick(r)}
+                  onClick={() => {
+                    setExpandedId(expandedId === r.id ? null : r.id);
+                    onResultClick(r);
+                  }}
                   className={`relative w-full bg-[#2A2A2A] rounded-2xl p-5 flex gap-5 cursor-pointer font-sans transition-all group overflow-hidden ${
                     isBestMatch 
                       ? "border-[1.5px] border-aqua/50 scale-[1.01]" 
@@ -152,16 +158,12 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
                        <span className="font-normal text-[13px] text-steel font-mono">{r.year} &nbsp;·&nbsp; {r.genre}</span>
                     </h3>
                     
-                    <p className="mt-2 text-[14px] text-steel/80 leading-relaxed line-clamp-2">
+                    <motion.p 
+                      layout="position"
+                      className={`mt-2 text-[14px] text-steel/80 leading-relaxed ${expandedId === r.id ? "" : "line-clamp-2"}`}
+                    >
                       {renderSnippet(r.snippet)}
-                    </p>
-
-                    <div className="mt-3 flex flex-wrap gap-2 items-center text-[13px] text-steel">
-                      <div className="flex items-center gap-2">
-                         <div className="w-5 h-5 rounded-full bg-grape text-white text-[10px] flex items-center justify-center font-bold">CN</div>
-                         <span>Dir: {r.director}</span>
-                      </div>
-                    </div>
+                    </motion.p>
                   </div>
 
                   {/* Right Meta (Score ring) */}
@@ -195,7 +197,7 @@ export default function ResultsStream({ query, intentHover, results, isLoading, 
 
                      {/* View Details hover text */}
                      <span className="absolute -bottom-2 right-0 left-4 text-center text-aqua text-[12px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                       View Details →
+                       {expandedId === r.id ? "Minimize" : "View Details →"}
                      </span>
                   </div>
                 </motion.div>

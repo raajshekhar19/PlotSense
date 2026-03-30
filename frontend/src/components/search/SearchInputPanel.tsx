@@ -4,8 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SearchSubmitAnimation } from "../LoadingStates";
 import IntentVisualizer from "./IntentVisualizer";
-import { ChevronDown } from "lucide-react";
-
 interface Props {
   onSearch: (query: string) => void;
   isSearching: boolean;
@@ -17,12 +15,9 @@ const EXAMPLES = [
   "A heist film where the twist is the crew planned to fail",
 ];
 
-const FILTERS = ["Genre", "Decade", "Language", "Min Rating"];
-
 export default function SearchInputPanel({ onSearch, isSearching }: Props) {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-grow textarea
@@ -150,31 +145,6 @@ export default function SearchInputPanel({ onSearch, isSearching }: Props) {
           <SearchSubmitAnimation isSubmitting={isSearching} />
         </div>
 
-        {/* Filters */}
-        <div className="mt-6">
-           <button 
-             onClick={() => setShowFilters(!showFilters)}
-             className="flex items-center text-steel font-sans text-sm hover:text-white transition-colors"
-           >
-             Filters <ChevronDown className={`ml-1 w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
-           </button>
-           <AnimatePresence>
-             {showFilters && (
-               <motion.div
-                 initial={{ height: 0, opacity: 0 }}
-                 animate={{ height: "auto", opacity: 1 }}
-                 exit={{ height: 0, opacity: 0 }}
-                 className="overflow-hidden flex flex-wrap gap-2 pt-3"
-               >
-                  {FILTERS.map(f => (
-                    <button key={f} className="font-sans text-[12px] bg-carbon border border-grape text-steel px-3 py-1 rounded-full hover:border-aqua hover:text-aqua transition-colors">
-                      {f} ▾
-                    </button>
-                  ))}
-               </motion.div>
-             )}
-           </AnimatePresence>
-        </div>
 
       </div>
 
