@@ -36,8 +36,9 @@ COPY . .
 # These must exist at build time in backend/faiss_index/
 COPY faiss_index/ /app/faiss_index/
 
-# Copy dataset into the image
-COPY dataset.csv /app/dataset.csv
+# Download dataset into the image
+RUN pip install gdown && \
+    gdown --id 13cya6zHklhYAuXX8DDqscU4ftCbKA8cU -O /app/dataset.csv
 
 # Expose the API port
 EXPOSE 8000
