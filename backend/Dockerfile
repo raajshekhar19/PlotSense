@@ -13,6 +13,7 @@
 # =============================================================================
 
 FROM python:3.11-slim
+RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
 
 # Prevent Python from buffering stdout/stderr (important for Docker logs)
 ENV PYTHONUNBUFFERED=1
@@ -29,16 +30,16 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install gdown
+
+RUN gdown --id 13cya6zHklhYAuXX8DDqscU4ftCbKA8cU -O /app/faiss_index.zip && \
+    unzip /app/faiss_index.zip -d /app/ && \
+    rm /app/faiss_index.zip
+
+RUN gdown --id DATASET_FILE_ID -O /app/dataset.csv
+
 # Copy application source code
 COPY . .
-
-# Copy FAISS index files into the image (baked in — no persistent volume needed)
-# These must exist at build time in backend/faiss_index/
-COPY faiss_index/ /app/faiss_index/
-
-# Download dataset into the image
-RUN pip install gdown && \
-    gdown --id 13cya6zHklhYAuXX8DDqscU4ftCbKA8cU -O /app/dataset.csv
 
 # Expose the API port
 EXPOSE 8000
