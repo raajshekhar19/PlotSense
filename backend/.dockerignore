@@ -1,0 +1,39 @@
+# Version control
+.git
+.gitignore
+
+# Virtual environment
+.venv
+venv
+
+# Python bytecode
+__pycache__
+*.pyc
+*.pyo
+
+# Environment files
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# Notebooks and test files
+*.ipynb
+test_*.py
+
+# IDE and OS files
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Documentation
+*.md
+!requirements.txt
+
+# Build artifacts (not the FAISS index!)
+# NOTE: Do NOT add *.faiss, *.pkl, *.index, *.bin, *.npy here
+# The FAISS index files in faiss_index/ MUST be included in the Docker build

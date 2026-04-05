@@ -17,6 +17,7 @@ interface BackendResponse {
   kg_movies: string[] | null;
   needs_clarification: boolean | null;
   clarification_question: string | null;
+  search_status: string;
 }
 
 interface MatchResult {
@@ -76,6 +77,24 @@ export default function SearchPage() {
             snippet: data.clarification_question,
             score: 0,
             sources: ["PlotSense"],
+            director: "",
+          },
+        ]);
+        return;
+      }
+
+      // ── Not Found short-circuit ────────────────────────────────
+      // When the backend search_status is "not_found" (e.g. missing director/actor)
+      if (data.search_status === "not_found") {
+        setResults([
+          {
+            id: "not-found-0",
+            title: "Not Found",
+            year: "",
+            genre: "error",
+            snippet: data.answer || "We couldn't find the requested person in our database or on the web. Try searching by plot description instead.",
+            score: 0,
+            sources: ["System"],
             director: "",
           },
         ]);

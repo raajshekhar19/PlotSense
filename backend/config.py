@@ -53,8 +53,15 @@ EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
 # FAISS Configuration
-FAISS_INDEX_PATH = str(ARTIFACTS_DIR / "movie_faiss_v3")
-DATASET_PATH = str(BASE_DIR / "dataset.csv")
+# Docker layout: /app/faiss_index/  (BACKEND_DIR / "faiss_index")
+# Local layout:  ../artifacts/movie_faiss_v3  (ARTIFACTS_DIR / "movie_faiss_v3")
+_DOCKER_FAISS_PATH = BACKEND_DIR / "faiss_index"
+_LOCAL_FAISS_PATH = ARTIFACTS_DIR / "movie_faiss_v3"
+FAISS_INDEX_PATH = str(_DOCKER_FAISS_PATH if _DOCKER_FAISS_PATH.exists() else _LOCAL_FAISS_PATH)
+
+_DOCKER_DATASET_PATH = BACKEND_DIR / "dataset.csv"
+_LOCAL_DATASET_PATH = BASE_DIR / "dataset.csv"
+DATASET_PATH = str(_DOCKER_DATASET_PATH if _DOCKER_DATASET_PATH.exists() else _LOCAL_DATASET_PATH)
 
 # Logging Configuration
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

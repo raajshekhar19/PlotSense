@@ -1,9 +1,20 @@
 .env
 project/
 artifacts/
-df1_cleaned.csvfrontend/.next/
+df1_cleaned.csv
+frontend/.next/
 frontend/node_modules/
 .venv
 __pycache__
 *.pyc
 backend/logs/
+
+# FAISS index & binary data — baked into Docker, never committed to Git
+*.faiss
+*.index
+*.pkl
+*.bin
+*.npy
+backend/faiss_index/
+backend/dataset.csv
+dataset.csv

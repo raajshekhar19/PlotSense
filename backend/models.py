@@ -22,6 +22,9 @@ class MovieState(TypedDict):
     web_context: Optional[str]
     needs_clarification: Optional[bool]
     clarification_question: Optional[str]
+    kg_entities: Optional[dict]
+    entity_not_found: Optional[bool]
+    search_status: Optional[str]
     final_docs: Optional[List[Any]]  # List[Document]
     final_answer: Optional[str]
 
@@ -76,6 +79,7 @@ class SearchResponse(BaseModel):
     sources: Optional[List[str]] = None
     needs_clarification: Optional[bool] = False
     clarification_question: Optional[str] = None
+    search_status: str = "success"
 
 
 class HealthResponse(BaseModel):

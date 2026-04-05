@@ -28,6 +28,75 @@ except FileNotFoundError:
     logger.error(f"Could not find dataset at {DATASET_PATH}")
     df1_cleaned = pd.DataFrame(columns=['Title', 'Plot'])
 
+def check_entity_exists(state: MovieState) -> dict:
+    """
+    Check if the extracted actor/director actually exists in the Neo4j graph.
+    If not, we can short-circuit before generating expensive Cypher queries.
+    """
+    logger.info("--- Node: Check Entity Exists ---")
+    entities = state.get("kg_entities", {})
+    actor = entities.get('actor')
+    director = entities.get('director')
+    
+    # If no actor/director, we assume it's a genre query, so bypass check
+    if not actor and not director:
+        return {"entity_not_found": False}
+        
+    try:
+        # Build query to check if name contains the exact keyword
+        clauses = []
+        if actor: clauses.append(f"toLower(n.name) CONTAINS '{actor.lower()}'")
+        if director: clauses.append(f"toLower(n.name) CONTAINS '{director.lower()}'")
+        where_clause = " OR ".join(clauses)
+        
+        cypher = f"MATCH (n) WHERE ('Actor' IN labels(n) OR 'Director' IN labels(n)) AND ({where_clause}) RETURN n LIMIT 1"
+        res = neo4j_service.run_cypher(cypher)
+        
+        if not res:
+            logger.warning(f"Entity not found in graph. actor={actor}, director={director}")
+            return {"entity_not_found": True}
+        
+        return {"entity_not_found": False}
+    except Exception as e:
+        logger.error(f"Entity exists check failed: {e}")
+        # Safely fall through if Neo4j is down
+        return {"entity_not_found": False}
+
+def handle_missing_entity(state: MovieState) -> dict:
+    """
+    Handler for when an entity is missing from the graph or Cypher returns 0 results for a person.
+    Searches Tavily, skips FAISS, and surfaces the failure immediately if web also fails.
+    """
+    logger.info("--- Node: Handle Missing Entity ---")
+    entities = state.get("kg_entities", {})
+    actor = entities.get('actor')
+    director = entities.get('director')
+    
+    person = actor or director or "the requested person"
+    query = f"{person} filmography movies directed or starring list"
+    
+    logger.info(f"Searching web for missing entity: {query}")
+    try:
+        raw = tavily_service.search_tool.invoke({"query": query})
+        results = raw.get("results", [])
+        web_context = ""
+        for r in results[:2]:
+            if r.get("content"):
+                web_context += f"Source: {r.get('url', '')}\n{r['content'][:800]}\n\n"
+                
+        if len(web_context) > 100:
+            logger.info("Found missing entity data on the web.")
+            return {"web_context": web_context, "search_status": "partial"}
+    except Exception as e:
+        logger.error(f"Missing entity web search error: {e}")
+        
+    # If we get here, web failed too.
+    logger.warning("Missing entity entirely. Aborting search.")
+    return {
+        "final_answer": f"We couldn't find {person} in our database or on the web. Try searching by plot description instead.",
+        "search_status": "not_found"
+    }
+
 def cypher_agent(state: MovieState) -> dict:
     """
     Generate and execute Cypher queries against Neo4j KG.
@@ -35,7 +104,7 @@ def cypher_agent(state: MovieState) -> dict:
     """
     logger.info("--- Node: Cypher Agent ---")
     
-    entities = extract_kg_entities(state)
+    entities = state.get("kg_entities", {})
     logger.info(f"Entities: {entities}")
     
     kg_schema = f"""You are a Neo4j Cypher expert for a movie knowledge graph.
@@ -114,7 +183,7 @@ def kg_web_fallback(state: MovieState) -> dict:
     """Web fallback when KG results are sparse — matches notebook."""
     logger.info("--- Node: KG Web Fallback ---")
     
-    entities = extract_kg_entities(state)
+    entities = state.get("kg_entities", {})
     parts = []
     if entities.get('actor'): parts.append(entities['actor'])
     if entities.get('director'): parts.append(f"directed by {entities['director']}")

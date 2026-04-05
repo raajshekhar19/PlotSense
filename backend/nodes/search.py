@@ -69,6 +69,40 @@ def get_web_plot(state: MovieState) -> dict:
         logger.error(f"Web Search Error: {e}")
         return {"base_plot": f"Error: {e}"}
 
+def strip_intent_language(state: MovieState) -> dict:
+    """
+    Remove functional navigation vocabulary (like 'show me movies by', 'directed by') 
+    so FAISS only receives pure semantic keywords.
+    """
+    logger.info("--- Node: Strip Intent Language ---")
+    
+    query = state["query"]
+    prompt = f"""You are a query optimizer for a semantic vector database.
+The user asked: "{query}"
+
+Strip away ALL navigational language, conversational filler, and explicit structural words.
+Remove phrases like:
+- "show me"
+- "movies by"
+- "directed by"
+- "films starring"
+- "list of"
+- "I want to watch"
+
+Return ONLY the core semantic keywords or plot descriptions remaining.
+If stripping leaves absolutely nothing (e.g., query was literally just "movies"), return the original query.
+
+Cleaned query:"""
+    
+    try:
+        response = llm_service.gemini_model.invoke(prompt)
+        cleaned = response.content.strip()
+        logger.info(f"Stripped query from '{query}' -> '{cleaned}'")
+        return {"base_plot": cleaned}
+    except Exception as e:
+        logger.error(f"Intent strip failed: {e}")
+        return {"base_plot": query}
+
 def similarity_search(state: MovieState) -> dict:
     """Perform aggregated similarity search — matches notebook."""
     logger.info("--- Node: Similarity Search (aggregated) ---")

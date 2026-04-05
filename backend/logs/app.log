@@ -4610,3 +4610,302 @@ ORDER BY m.year DESC LIMIT 15
 2026-03-30 13:27:12 - __main__ - INFO - Intent: query_search
 2026-03-30 13:27:12 - __main__ - INFO - Movie Name: None
 2026-03-30 13:27:12 - __main__ - INFO - Answer length: 2081
+2026-03-30 13:44:15 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 13:44:49 - __main__ - INFO - ==================================================
+2026-03-30 13:44:49 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 13:44:49 - __main__ - INFO - ==================================================
+2026-03-30 13:44:52 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 13:44:52 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 13:44:52 - services.llm_service - INFO - Structured output models configured
+2026-03-30 13:44:52 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 13:44:52 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 13:44:53 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 13:44:53 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 13:44:54 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 13:45:00 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 13:45:01 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 13:45:01 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:45:01 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 13:45:02 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 13:45:02 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 13:45:02 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 13:45:02 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 13:45:06 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 13:45:06 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 13:45:07 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:45:07 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:45:08 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:45:13 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 13:45:13 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 13:45:13 - graph - INFO - Workflow compiled successfully
+2026-03-30 13:45:13 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 13:45:13 - __main__ - INFO - ==================================================
+2026-03-30 13:45:13 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 13:45:13 - __main__ - INFO -    Project : plotsense
+2026-03-30 13:45:13 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 13:45:13 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 13:45:13 - __main__ - INFO - ==================================================
+2026-03-30 13:45:16 - __main__ - INFO - ==================================================
+2026-03-30 13:45:16 - __main__ - INFO - Search request received: movies by Aditya Dhar
+2026-03-30 13:45:16 - __main__ - INFO - ==================================================
+2026-03-30 13:45:16 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:45:17 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.95)
+2026-03-30 13:45:17 - graph - INFO - Routing: intent=query_search
+2026-03-30 13:45:17 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 13:45:17 - nodes.kg - INFO - Entities: {'actor': None, 'director': 'dhar', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:45:18 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE toLower(d.name) CONTAINS 'dhar'
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 13:45:18 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:45:18 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 13:45:18 - nodes.kg - INFO - KG Found 15 titles: ['Hindi Medium', 'Abhay Chopra', 'Tumhari Sulu', 'Uppu Huli Khara', 'Sakhavu', 'Varnyathil Aashanka', 'Kochavva Paulo Ayyappa Coelho', 'Jackson Durai', 'Chandrettan Evideya', 'Sata Lota Pan Sagla Khota', 'Soukhyam', 'Strings Of Passion', 'Shaadi Ke Side Effects', 'Bang Bang!', '7th Day']
+2026-03-30 13:45:18 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 13:45:18 - nodes.kg - INFO - Fetched 15 docs for 15 KG titles
+2026-03-30 13:45:18 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 13:45:18 - nodes.rerank - INFO - Reranking 15 documents.
+2026-03-30 13:45:19 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 13:45:19 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 13:45:22 - nodes.generate - INFO - Final answer generated (len: 1648)
+2026-03-30 13:45:22 - __main__ - INFO - Search completed successfully
+2026-03-30 13:45:22 - __main__ - INFO - Intent: query_search
+2026-03-30 13:45:22 - __main__ - INFO - Movie Name: None
+2026-03-30 13:45:22 - __main__ - INFO - Answer length: 1648
+2026-03-30 13:45:41 - __main__ - INFO - ==================================================
+2026-03-30 13:45:41 - __main__ - INFO - Search request received: movies by Aditya Dhar director of Dhurandhar
+2026-03-30 13:45:41 - __main__ - INFO - ==================================================
+2026-03-30 13:45:41 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:45:42 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 1.0)
+2026-03-30 13:45:42 - graph - INFO - Routing: intent=query_search
+2026-03-30 13:45:42 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 13:45:42 - nodes.kg - INFO - Entities: {'actor': None, 'director': 'dhar', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:45:43 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE toLower(d.name) CONTAINS 'dhar'
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 13:45:43 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:45:44 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 13:45:44 - nodes.kg - INFO - KG Found 15 titles: ['Hindi Medium', 'Abhay Chopra', 'Tumhari Sulu', 'Uppu Huli Khara', 'Sakhavu', 'Varnyathil Aashanka', 'Kochavva Paulo Ayyappa Coelho', 'Jackson Durai', 'Chandrettan Evideya', 'Sata Lota Pan Sagla Khota', 'Soukhyam', 'Strings Of Passion', 'Shaadi Ke Side Effects', 'Bang Bang!', '7th Day']
+2026-03-30 13:45:44 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 13:45:44 - nodes.kg - INFO - Fetched 15 docs for 15 KG titles
+2026-03-30 13:45:44 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 13:45:44 - nodes.rerank - INFO - Reranking 15 documents.
+2026-03-30 13:45:44 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 13:45:44 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 13:45:49 - nodes.generate - INFO - Final answer generated (len: 2672)
+2026-03-30 13:45:49 - __main__ - INFO - Search completed successfully
+2026-03-30 13:45:49 - __main__ - INFO - Intent: query_search
+2026-03-30 13:45:49 - __main__ - INFO - Movie Name: None
+2026-03-30 13:45:49 - __main__ - INFO - Answer length: 2672
+2026-03-30 13:53:33 - __main__ - INFO - ==================================================
+2026-03-30 13:53:33 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 13:53:33 - __main__ - INFO - ==================================================
+2026-03-30 13:53:36 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 13:53:36 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 13:53:36 - services.llm_service - INFO - Structured output models configured
+2026-03-30 13:53:36 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 13:53:36 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 13:53:37 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 13:53:37 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 13:53:37 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 13:53:44 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 13:53:45 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 13:53:45 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:53:45 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 13:53:45 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 13:53:45 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 13:53:45 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 13:53:45 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 13:53:50 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 13:53:50 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 13:53:52 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:53:52 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:53:53 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:53:57 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 13:53:57 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 13:53:57 - graph - INFO - Workflow compiled successfully
+2026-03-30 13:53:57 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 13:53:57 - __main__ - INFO - ==================================================
+2026-03-30 13:53:57 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 13:53:57 - __main__ - INFO -    Project : plotsense
+2026-03-30 13:53:57 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 13:53:57 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 13:53:57 - __main__ - INFO - ==================================================
+2026-03-30 13:53:57 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 13:54:17 - __main__ - INFO - ==================================================
+2026-03-30 13:54:17 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 13:54:17 - __main__ - INFO - ==================================================
+2026-03-30 13:54:19 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 13:54:19 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 13:54:19 - services.llm_service - INFO - Structured output models configured
+2026-03-30 13:54:19 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 13:54:20 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 13:54:21 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 13:54:21 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 13:54:21 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 13:54:27 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 13:54:28 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 13:54:28 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:54:28 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 13:54:28 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 13:54:28 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 13:54:28 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 13:54:28 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 13:54:33 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 13:54:33 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 13:54:33 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:54:34 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:54:34 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:54:39 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 13:54:39 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 13:54:39 - graph - INFO - Workflow compiled successfully
+2026-03-30 13:54:39 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 13:54:39 - __main__ - INFO - ==================================================
+2026-03-30 13:54:39 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 13:54:39 - __main__ - INFO -    Project : plotsense
+2026-03-30 13:54:39 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 13:54:39 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 13:54:39 - __main__ - INFO - ==================================================
+2026-03-30 13:54:55 - __main__ - INFO - ==================================================
+2026-03-30 13:54:55 - __main__ - INFO - Search request received: movies by Dhurandhar
+2026-03-30 13:54:55 - __main__ - INFO - ==================================================
+2026-03-30 13:54:55 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:54:56 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.85)
+2026-03-30 13:54:56 - graph - INFO - Routing: intent=query_search
+2026-03-30 13:54:56 - nodes.extract - INFO - --- Node: Extract KG Entities ---
+2026-03-30 13:54:57 - nodes.extract - INFO - Extracted KG Entities: {'actor': None, 'director': 'dhurandhar', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:54:57 - nodes.kg - INFO - --- Node: Check Entity Exists ---
+2026-03-30 13:54:57 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:54:58 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-30 13:54:58 - nodes.kg - WARNING - Entity not found in graph. actor=None, director=dhurandhar
+2026-03-30 13:54:58 - nodes.kg - INFO - --- Node: Handle Missing Entity ---
+2026-03-30 13:54:58 - nodes.kg - INFO - Searching web for missing entity: dhurandhar filmography movies directed or starring list
+2026-03-30 13:55:01 - nodes.kg - INFO - Found missing entity data on the web.
+2026-03-30 13:55:01 - nodes.search - INFO - --- Node: Generate From Web ---
+2026-03-30 13:55:03 - nodes.search - INFO - Web-based answer generated (len: 523)
+2026-03-30 13:55:03 - __main__ - INFO - Search completed successfully
+2026-03-30 13:55:03 - __main__ - INFO - Intent: query_search
+2026-03-30 13:55:03 - __main__ - INFO - Movie Name: None
+2026-03-30 13:55:03 - __main__ - INFO - Answer length: 523
+2026-03-30 13:55:20 - __main__ - INFO - ==================================================
+2026-03-30 13:55:20 - __main__ - INFO - Search request received: movies directed by asdfjaksldfasd
+2026-03-30 13:55:20 - __main__ - INFO - ==================================================
+2026-03-30 13:55:20 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:55:20 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.0)
+2026-03-30 13:55:20 - graph - INFO - Routing: intent=query_search
+2026-03-30 13:55:20 - nodes.extract - INFO - --- Node: Extract KG Entities ---
+2026-03-30 13:55:21 - nodes.extract - INFO - Extracted KG Entities: {'actor': None, 'director': 'asdfjaksldfasd', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:55:21 - nodes.kg - INFO - --- Node: Check Entity Exists ---
+2026-03-30 13:55:21 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:55:22 - services.neo4j_service - INFO - Cypher Result Count: 0
+2026-03-30 13:55:22 - nodes.kg - WARNING - Entity not found in graph. actor=None, director=asdfjaksldfasd
+2026-03-30 13:55:22 - nodes.kg - INFO - --- Node: Handle Missing Entity ---
+2026-03-30 13:55:22 - nodes.kg - INFO - Searching web for missing entity: asdfjaksldfasd filmography movies directed or starring list
+2026-03-30 13:55:26 - nodes.kg - INFO - Found missing entity data on the web.
+2026-03-30 13:55:26 - nodes.search - INFO - --- Node: Generate From Web ---
+2026-03-30 13:55:27 - nodes.search - INFO - Web-based answer generated (len: 395)
+2026-03-30 13:55:27 - __main__ - INFO - Search completed successfully
+2026-03-30 13:55:27 - __main__ - INFO - Intent: query_search
+2026-03-30 13:55:27 - __main__ - INFO - Movie Name: None
+2026-03-30 13:55:27 - __main__ - INFO - Answer length: 395
+2026-03-30 13:56:58 - __main__ - INFO - ==================================================
+2026-03-30 13:56:58 - __main__ - INFO - PlotSense Backend Starting...
+2026-03-30 13:56:58 - __main__ - INFO - ==================================================
+2026-03-30 13:57:00 - services.llm_service - INFO - Initializing LLM models...
+2026-03-30 13:57:00 - services.llm_service - INFO - Groq model initialized: moonshotai/kimi-k2-instruct-0905
+2026-03-30 13:57:00 - services.llm_service - INFO - Structured output models configured
+2026-03-30 13:57:00 - __main__ - INFO -   ✔ llm_service ready
+2026-03-30 13:57:01 - services.neo4j_service - INFO - Initializing Neo4j connection...
+2026-03-30 13:57:02 - services.neo4j_service - INFO - Neo4j connected successfully: neo4j+s://b7a7a14e.databases.neo4j.io
+2026-03-30 13:57:02 - __main__ - INFO -   ✔ neo4j_service ready
+2026-03-30 13:57:02 - services.faiss_service - INFO - Initializing FAISS service...
+2026-03-30 13:57:08 - services.faiss_service - INFO - Embeddings model loaded: sentence-transformers/all-MiniLM-L6-v2
+2026-03-30 13:57:09 - services.faiss_service - INFO - FAISS index loaded from: /Users/shresthpanigrahi/Desktop/Movie/artifacts/movie_faiss_v3
+2026-03-30 13:57:09 - services.faiss_service - INFO - Dataset loaded: /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:57:09 - __main__ - INFO -   ✔ faiss_service ready
+2026-03-30 13:57:09 - services.tavily_service - INFO - Initializing Tavily service...
+2026-03-30 13:57:09 - services.tavily_service - INFO - Tavily search client initialized
+2026-03-30 13:57:09 - __main__ - INFO -   ✔ tavily_service ready
+2026-03-30 13:57:09 - services.reranker_service - INFO - Initializing Reranker service...
+2026-03-30 13:57:14 - services.reranker_service - INFO - CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2
+2026-03-30 13:57:14 - __main__ - INFO -   ✔ reranker_service ready
+2026-03-30 13:57:15 - nodes.extract - INFO - extract.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:57:15 - nodes.plot - INFO - plot.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:57:16 - nodes.kg - INFO - kg.py: Dataset loaded from /Users/shresthpanigrahi/Desktop/Movie/dataset.csv (34886 records)
+2026-03-30 13:57:20 - nodes.rerank - INFO - CrossEncoder reranker loaded successfully
+2026-03-30 13:57:21 - graph - INFO - Building LangGraph workflow (hybrid_search_verbose edition)...
+2026-03-30 13:57:21 - graph - INFO - Workflow compiled successfully
+2026-03-30 13:57:21 - __main__ - INFO - Workflow initialized successfully
+2026-03-30 13:57:21 - __main__ - INFO - ==================================================
+2026-03-30 13:57:21 - __main__ - INFO - ✅ LangSmith tracing ENABLED
+2026-03-30 13:57:21 - __main__ - INFO -    Project : plotsense
+2026-03-30 13:57:21 - __main__ - INFO -    Endpoint: https://api.smith.langchain.com
+2026-03-30 13:57:21 - __main__ - INFO - Server ready at http://0.0.0.0:8000
+2026-03-30 13:57:21 - __main__ - INFO - ==================================================
+2026-03-30 13:57:21 - __main__ - INFO - PlotSense Backend Shutting Down...
+2026-03-30 13:57:23 - __main__ - INFO - ==================================================
+2026-03-30 13:57:23 - __main__ - INFO - Search request received: movies by Aditya Dhar director of Dhurandhar
+2026-03-30 13:57:23 - __main__ - INFO - ==================================================
+2026-03-30 13:57:23 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:57:23 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 0.95)
+2026-03-30 13:57:23 - graph - INFO - Routing: intent=query_search
+2026-03-30 13:57:23 - nodes.extract - INFO - --- Node: Extract KG Entities ---
+2026-03-30 13:57:24 - nodes.extract - INFO - Extracted KG Entities: {'actor': None, 'director': 'dhar', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:57:24 - nodes.kg - INFO - --- Node: Check Entity Exists ---
+2026-03-30 13:57:24 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:57:24 - services.neo4j_service - INFO - Cypher Result Count: 1
+2026-03-30 13:57:24 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 13:57:24 - nodes.kg - INFO - Entities: {'actor': None, 'director': 'dhar', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:57:25 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE toLower(d.name) CONTAINS 'dhar'
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 13:57:25 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:57:25 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 13:57:25 - nodes.kg - INFO - KG Found 15 titles: ['Hindi Medium', 'Abhay Chopra', 'Tumhari Sulu', 'Uppu Huli Khara', 'Sakhavu', 'Varnyathil Aashanka', 'Kochavva Paulo Ayyappa Coelho', 'Jackson Durai', 'Chandrettan Evideya', 'Sata Lota Pan Sagla Khota', 'Soukhyam', 'Strings Of Passion', 'Shaadi Ke Side Effects', 'Bang Bang!', '7th Day']
+2026-03-30 13:57:25 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 13:57:25 - nodes.kg - INFO - Fetched 15 docs for 15 KG titles
+2026-03-30 13:57:25 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 13:57:25 - nodes.rerank - INFO - Reranking 15 documents.
+2026-03-30 13:57:27 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 13:57:27 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 13:57:30 - nodes.generate - INFO - Final answer generated (len: 2102)
+2026-03-30 13:57:30 - __main__ - INFO - Search completed successfully
+2026-03-30 13:57:30 - __main__ - INFO - Intent: query_search
+2026-03-30 13:57:30 - __main__ - INFO - Movie Name: None
+2026-03-30 13:57:30 - __main__ - INFO - Answer length: 2102
+2026-03-30 13:58:08 - __main__ - INFO - ==================================================
+2026-03-30 13:58:08 - __main__ - INFO - Search request received: movies by Rohit Shetty
+2026-03-30 13:58:08 - __main__ - INFO - ==================================================
+2026-03-30 13:58:08 - nodes.classify - INFO - --- Node: Classify Query ---
+2026-03-30 13:58:09 - nodes.classify - INFO - Identified Intent: query_search (Confidence: 1.0)
+2026-03-30 13:58:09 - graph - INFO - Routing: intent=query_search
+2026-03-30 13:58:09 - nodes.extract - INFO - --- Node: Extract KG Entities ---
+2026-03-30 13:58:09 - nodes.extract - INFO - Extracted KG Entities: {'actor': None, 'director': 'shetty', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:58:09 - nodes.kg - INFO - --- Node: Check Entity Exists ---
+2026-03-30 13:58:09 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:58:10 - services.neo4j_service - INFO - Cypher Result Count: 1
+2026-03-30 13:58:10 - nodes.kg - INFO - --- Node: Cypher Agent ---
+2026-03-30 13:58:10 - nodes.kg - INFO - Entities: {'actor': None, 'director': 'shetty', 'genre': None, 'year_min': None, 'year_max': None, 'keywords': None}
+2026-03-30 13:58:10 - nodes.kg - INFO - Attempt 1 Cypher:
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE toLower(d.name) CONTAINS 'shetty'
+RETURN DISTINCT m.title AS title, m.year AS year
+ORDER BY m.year DESC LIMIT 15
+2026-03-30 13:58:10 - services.neo4j_service - INFO - --- Executing Cypher ---
+2026-03-30 13:58:10 - services.neo4j_service - INFO - Cypher Result Count: 15
+2026-03-30 13:58:10 - nodes.kg - INFO - KG Found 15 titles: ['Golmaal Again', 'Kirik Party', 'Singham Returns', 'Ulidavaru Kandanthe', 'Ulidavaru Kandanthe ', 'Chennai Express', 'Bol Bachchan', 'Singham', 'Golmaal 3', 'All The Best: Fun Begins', 'Sunday', 'Golmaal Returns', 'Golmaal: Fun Unlimited', 'Anil Devgan', 'Vivek Agnihotri']
+2026-03-30 13:58:10 - nodes.kg - INFO - --- Node: KG Results to Docs ---
+2026-03-30 13:58:11 - nodes.kg - INFO - Fetched 15 docs for 15 KG titles
+2026-03-30 13:58:11 - nodes.rerank - INFO - --- Node: Hybrid Rerank (Cross-Encoder) ---
+2026-03-30 13:58:11 - nodes.rerank - INFO - Reranking 15 documents.
+2026-03-30 13:58:11 - nodes.rerank - INFO - Reranked top 5 docs.
+2026-03-30 13:58:11 - nodes.generate - INFO - --- Node: Generate Answer ---
+2026-03-30 13:58:14 - nodes.generate - INFO - Final answer generated (len: 1774)
+2026-03-30 13:58:14 - __main__ - INFO - Search completed successfully
+2026-03-30 13:58:14 - __main__ - INFO - Intent: query_search
+2026-03-30 13:58:14 - __main__ - INFO - Movie Name: None
+2026-03-30 13:58:14 - __main__ - INFO - Answer length: 1774

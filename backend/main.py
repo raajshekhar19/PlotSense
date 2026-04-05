@@ -6,14 +6,115 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from slowapi import Limiter
+from slowapi.errors import RateLimitExceeded
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from config import API_HOST, API_PORT, LANGSMITH_TRACING, LANGSMITH_PROJECT, LANGSMITH_ENDPOINT
 from logger import get_logger
 from models import SearchRequest, SearchResponse, HealthResponse, ServiceHealthResponse
 
 logger = get_logger(__name__)
+
+
+# =====================
+# Rate Limiter Setup
+# =====================
+
+# IPs that bypass all rate limits (localhost for dev & health-check scripts)
+_WHITELISTED_IPS = {"127.0.0.1", "::1"}
+
+
+def _get_real_ip(request: Request) -> str:
+    """
+    Extract the *real* client IP, respecting X-Forwarded-For when behind a
+    reverse proxy (Render, Fly.io, nginx, etc.).
+    """
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        # The first address is the original client
+        client_ip = forwarded.split(",")[0].strip()
+    else:
+        client_ip = request.client.host if request.client else "unknown"
+    return client_ip
+
+
+def _is_whitelisted(request: Request) -> bool:
+    """Return True if the request comes from a whitelisted (localhost) IP."""
+    client_ip = _get_real_ip(request)
+    return client_ip in _WHITELISTED_IPS
+
+
+limiter = Limiter(
+    key_func=_get_real_ip,
+    default_limits=["30/minute"],           # Global fallback: 30 req/min/IP
+    storage_uri="memory://",
+)
+
+
+def _rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded) -> JSONResponse:
+    """
+    Custom 429 handler that returns a clean JSON body and Retry-After header.
+    """
+    # Parse the window reset time from the exception details
+    retry_after = int(getattr(exc, "retry_after", 60) or 60)
+    # SlowAPI stores the detail string; try to extract a sensible retry window
+    try:
+        # exc.detail often looks like "Rate limit exceeded: 10 per 1 minute"
+        # We fall back to 60s if we cannot parse
+        window_seconds = 60
+        detail = str(getattr(exc, "detail", ""))
+        if "minute" in detail:
+            window_seconds = 60
+        elif "hour" in detail:
+            window_seconds = 3600
+        elif "second" in detail:
+            window_seconds = 1
+        retry_after = window_seconds
+    except Exception:
+        retry_after = 60
+
+    return JSONResponse(
+        status_code=429,
+        content={
+            "error": "Rate limit exceeded",
+            "message": "You are sending too many requests. Please slow down.",
+            "retry_after_seconds": retry_after,
+        },
+        headers={"Retry-After": str(retry_after)},
+    )
+
+
+class RateLimitHeaderMiddleware(BaseHTTPMiddleware):
+    """
+    Middleware that injects X-RateLimit-* headers into every response
+    by reading the state that SlowAPI writes to request.state.
+    """
+
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        view_rate_limit = getattr(request.state, "view_rate_limit", None)
+        if view_rate_limit:
+            # view_rate_limit is a string like "10 per 1 minute"
+            try:
+                parts = view_rate_limit.split()
+                limit_value = parts[0]
+                response.headers["X-RateLimit-Limit"] = limit_value
+            except Exception:
+                pass
+
+        rate_limit_remaining = getattr(request.state, "_rate_limiting_remaining", None)
+        if rate_limit_remaining is not None:
+            response.headers["X-RateLimit-Remaining"] = str(rate_limit_remaining)
+
+        rate_limit_reset = getattr(request.state, "_rate_limiting_reset", None)
+        if rate_limit_reset is not None:
+            response.headers["X-RateLimit-Reset"] = str(rate_limit_reset)
+
+        return response
 
 
 # =====================
@@ -81,7 +182,12 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS middleware
+# --- Rate limiter integration ---
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(RateLimitHeaderMiddleware)
+
+# CORS middleware (must be outermost to set CORS headers on 429 responses too)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -96,7 +202,8 @@ app.add_middleware(
 # =====================
 
 @app.get("/health", response_model=HealthResponse, tags=["Health"])
-async def health_check():
+@limiter.limit("60/minute", exempt_when=_is_whitelisted)
+async def health_check(request: Request):
     """Basic health check endpoint."""
     logger.debug("Health check requested")
     return HealthResponse(
@@ -195,7 +302,8 @@ def fetch_poster_sync(title: str) -> str:
 # =====================
 
 @app.post("/search", response_model=SearchResponse, tags=["Search"])
-async def search_movies(request: SearchRequest):
+@limiter.limit("10/minute", exempt_when=_is_whitelisted)
+async def search_movies(request: Request, search_request: SearchRequest):
     """
     Search for movies based on user query.
     
@@ -205,7 +313,7 @@ async def search_movies(request: SearchRequest):
     - Complex queries: "comedy movies with Tom Hanks from the 90s"
     """
     logger.info("=" * 50)
-    logger.info(f"Search request received: {request.query}")
+    logger.info(f"Search request received: {search_request.query}")
     logger.info("=" * 50)
     
     try:
@@ -214,7 +322,7 @@ async def search_movies(request: SearchRequest):
         workflow = get_workflow()
         
         # Invoke the workflow
-        result = workflow.invoke({"query": request.query})
+        result = workflow.invoke({"query": search_request.query})
         
         logger.info(f"Search completed successfully")
         logger.info(f"Intent: {result.get('intent')}")
@@ -263,13 +371,14 @@ async def search_movies(request: SearchRequest):
                 await asyncio.gather(*tasks)
             
         return SearchResponse(
-            query=request.query,
+            query=search_request.query,
             intent=result.get("intent"),
             movie_name=result.get("movie_name"),
             answer=result.get("final_answer", "No answer generated"),
             kg_movies=movies_list,
             needs_clarification=result.get("needs_clarification", False),
             clarification_question=result.get("clarification_question"),
+            search_status=result.get("search_status", "success"),
         )
         
     except Exception as e:

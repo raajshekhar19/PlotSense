@@ -6,10 +6,10 @@ from langgraph.graph import StateGraph, END
 
 from models import MovieState
 from nodes.classify import classify_query
-from nodes.extract import extract_movie_name, check_movie_exists
+from nodes.extract import extract_movie_name, check_movie_exists, extract_kg_entities_node
 from nodes.plot import get_dataset_plot
-from nodes.search import get_web_plot, similarity_search, generate_from_web
-from nodes.kg import cypher_agent, kg_results_to_docs, kg_web_fallback
+from nodes.search import get_web_plot, similarity_search, generate_from_web, strip_intent_language
+from nodes.kg import cypher_agent, kg_results_to_docs, kg_web_fallback, check_entity_exists, handle_missing_entity
 from nodes.rerank import hybrid_rerank
 from nodes.generate import generate_answer, handle_invalid
 from nodes.clarify import clarification_node
@@ -30,10 +30,10 @@ def route_after_classification(state: MovieState):
     elif intent == "movie_name":
         return "extract_movie_name"
     elif intent == "query_search":
-        return "kg_agent"
+        return "extract_kg_entities_node"
     elif intent == "invalid":
         return "handle_invalid"
-    return "kg_agent"
+    return "extract_kg_entities_node"
 
 
 def route_after_extraction(state: MovieState):
@@ -56,8 +56,17 @@ def route_after_web_plot(state: MovieState):
     return "clarification_node"
 
 
+def route_after_entity_check(state: MovieState):
+    if state.get("entity_not_found"):
+        return "handle_missing_entity"
+    return "kg_agent"
+
+
 def route_after_kg(state: MovieState):
     if state.get("kg_sparse"):
+        entities = state.get("kg_entities", {})
+        if entities.get("actor") or entities.get("director"):
+            return "handle_missing_entity"
         return "kg_web_fallback"
     return "kg_results_to_docs"
 
@@ -65,7 +74,13 @@ def route_after_kg(state: MovieState):
 def route_after_kg_web_fallback(state: MovieState):
     if state.get("web_context"):
         return "generate_from_web"
-    return "similarity_search"
+    return "strip_intent_language"
+
+
+def route_after_missing_entity(state: MovieState):
+    if state.get("search_status") == "not_found":
+        return END
+    return "generate_from_web"
 
 
 # =====================
@@ -85,6 +100,13 @@ def build_graph():
     graph.add_node("get_dataset_plot",   get_dataset_plot)
     graph.add_node("get_web_plot",       get_web_plot)
     graph.add_node("clarification_node", clarification_node)
+    
+    # New KG Nodes
+    graph.add_node("extract_kg_entities_node", extract_kg_entities_node)
+    graph.add_node("check_entity_exists",      check_entity_exists)
+    graph.add_node("handle_missing_entity",    handle_missing_entity)
+    graph.add_node("strip_intent_language",    strip_intent_language)
+    
     graph.add_node("kg_agent",           cypher_agent)
     graph.add_node("kg_results_to_docs", kg_results_to_docs)
     graph.add_node("kg_web_fallback",    kg_web_fallback)
@@ -99,10 +121,10 @@ def build_graph():
 
     # ── Conditional edges ────────────────────────────────────────
     graph.add_conditional_edges("classify_query", route_after_classification, {
-        "similarity_search":  "similarity_search",
-        "extract_movie_name": "extract_movie_name",
-        "kg_agent":           "kg_agent",
-        "handle_invalid":     "handle_invalid"
+        "similarity_search":          "similarity_search",
+        "extract_movie_name":         "extract_movie_name",
+        "extract_kg_entities_node":   "extract_kg_entities_node",
+        "handle_invalid":             "handle_invalid"
     })
 
     graph.add_conditional_edges("extract_movie_name", route_after_extraction, {
@@ -120,20 +142,33 @@ def build_graph():
         "similarity_search":  "similarity_search",
         "clarification_node": "clarification_node"
     })
+    
+    # Entity Check Conditional
+    graph.add_conditional_edges("check_entity_exists", route_after_entity_check, {
+        "handle_missing_entity": "handle_missing_entity",
+        "kg_agent":              "kg_agent"
+    })
 
-    # KG agent: sparse → web fallback, else → docs
+    # KG agent: sparse → web fallback OR missing entity handler, else → docs
     graph.add_conditional_edges("kg_agent", route_after_kg, {
-        "kg_web_fallback":    "kg_web_fallback",
-        "kg_results_to_docs": "kg_results_to_docs"
+        "handle_missing_entity": "handle_missing_entity",
+        "kg_web_fallback":       "kg_web_fallback",
+        "kg_results_to_docs":    "kg_results_to_docs"
     })
 
-    # KG web fallback: got content → generate directly, else → FAISS
+    # KG web fallback: got content → generate directly, else → strip language
     graph.add_conditional_edges("kg_web_fallback", route_after_kg_web_fallback, {
-        "generate_from_web": "generate_from_web",
-        "similarity_search": "similarity_search"
+        "generate_from_web":     "generate_from_web",
+        "strip_intent_language": "strip_intent_language"
     })
+    
+    # Missing entity handler: web found -> generate, web failed -> END
+    graph.add_conditional_edges("handle_missing_entity", route_after_missing_entity)
 
     # ── Fixed edges ──────────────────────────────────────────────
+    graph.add_edge("extract_kg_entities_node", "check_entity_exists")
+    graph.add_edge("strip_intent_language",    "similarity_search")
+    
     graph.add_edge("get_dataset_plot",   "similarity_search")
     graph.add_edge("similarity_search",  "hybrid_rerank")
     graph.add_edge("kg_results_to_docs", "hybrid_rerank")

@@ -39,6 +39,38 @@ class FAISSService:
         self.embeddings = None
         
         try:
+            # ── Startup validation: verify index files exist before loading ──
+            from pathlib import Path
+            faiss_dir = Path(FAISS_INDEX_PATH)
+            required_files = {
+                "index.faiss": faiss_dir / "index.faiss",
+                "index.pkl":   faiss_dir / "index.pkl",
+            }
+            missing = [
+                f"  • {name}: expected at {path}"
+                for name, path in required_files.items()
+                if not path.exists()
+            ]
+            if missing:
+                msg = (
+                    f"FAISS index files not found in '{FAISS_INDEX_PATH}'.\n"
+                    f"Missing files:\n" + "\n".join(missing) + "\n"
+                    f"If running in Docker, make sure the index was copied into the image.\n"
+                    f"Run: cp -r artifacts/movie_faiss_v3/ backend/faiss_index/ before 'docker build'."
+                )
+                logger.error(msg)
+                raise FileNotFoundError(msg)
+            
+            dataset_path = Path(DATASET_PATH)
+            if not dataset_path.exists():
+                msg = (
+                    f"Dataset file not found: '{DATASET_PATH}'.\n"
+                    f"If running in Docker, make sure dataset.csv was copied into the image.\n"
+                    f"Run: cp dataset.csv backend/dataset.csv before 'docker build'."
+                )
+                logger.error(msg)
+                raise FileNotFoundError(msg)
+            
             # Initialize embeddings
             self.embeddings = HuggingFaceEmbeddings(
                 model_name=EMBEDDING_MODEL
@@ -57,6 +89,9 @@ class FAISSService:
             self.df_cleaned = pd.read_csv(DATASET_PATH)
             logger.info(f"Dataset loaded: {DATASET_PATH} ({len(self.df_cleaned)} records)")
             
+        except FileNotFoundError:
+            # Re-raise file-not-found errors with the clear message above
+            raise
         except Exception as e:
             logger.warning(f"FAISS service initialization failed (non-fatal): {e}")
             logger.warning("FAISS search will return empty results until index is available.")

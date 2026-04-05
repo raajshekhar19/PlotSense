@@ -123,3 +123,10 @@ Query: "{state['query']}"
         logger.error(f"Entity extraction parse failed, raw: {raw}")
         return {"actor": None, "director": None, "genre": None,
                 "year_min": None, "year_max": None, "keywords": None}
+
+def extract_kg_entities_node(state: MovieState) -> dict:
+    """LangGraph node wrapper for extracting KG entities into state."""
+    logger.info("--- Node: Extract KG Entities ---")
+    entities = extract_kg_entities(state)
+    logger.info(f"Extracted KG Entities: {entities}")
+    return {"kg_entities": entities}
