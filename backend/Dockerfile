@@ -30,9 +30,8 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install gdown
-
-RUN gdown --id 13cya6zHklhYAuXX8DDqscU4ftCbKA8cU -O /app/faiss_index.zip && \
+RUN pip install gdown && \
+    gdown --fuzzy "https://drive.google.com/file/d/13cya6zHklhYAuXX8DDqscU4ftCbKA8cU/view?usp=sharing" -O /app/faiss_index.zip && \
     unzip /app/faiss_index.zip -d /app/ && \
     rm /app/faiss_index.zip
 
